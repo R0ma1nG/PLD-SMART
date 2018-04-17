@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Connection.ConnectionActivity"
+    android:background="@color/tertiaryColor"
+    android:orientation="vertical"
+    android:paddingBottom="50dp">
+
+    <TextView
+        android:id="@+id/connection_activity_title_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:gravity="center"
+        android:textColor="@color/secondaryTextColor"
+        android:layout_weight="2"
+        android:textSize="40dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:orientation="vertical"
+        android:layout_weight="1">
+        <LinearLayout
+            android:id="@+id/connection_activity_mail_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/connection_activity_mail_img"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/connection_mail"
+                android:layout_marginEnd="10dp"/>
+
+            <EditText
+                android:id="@+id/connection_activity_mail_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Mail"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/connection_activity_password_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/connection_activity_password_img"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/connection_pwd"
+                android:layout_marginEnd="10dp"/>
+
+            <EditText
+                android:id="@+id/connection_activity_password_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Mot de passe"
+                android:inputType="textPassword"/>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/connection_activity_connection_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/connection"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="25dp"
+            style="@style/ButtonTheme"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/connection_activity_forgotpwd_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/connectionForgotPasswordString"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/connection_activity_inscription_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/connectionInscriptionString"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:gravity="center"/>
+
+
+</LinearLayout>
