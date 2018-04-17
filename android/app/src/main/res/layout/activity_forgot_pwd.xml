@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Connection.ForgotPwdActivity"
+    android:background="@color/primaryColor"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/appName"
+        android:textSize="50dp"
+        android:gravity="center"
+        android:textColor="@color/secondaryTextColor"
+        android:layout_marginTop="60dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/secondaryTextColor"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="40dp"
+        android:textSize="18dp"
+        android:text="@string/forgotPwdHelpString"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/connection_mail"
+            android:layout_marginEnd="10dp"/>
+
+        <EditText
+            android:id="@+id/forgot_pwd_activity_mail_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Mail"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/forgot_pwd_activity_submit_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/ButtonTheme"
+        android:text="@string/forgotPwdSubmit"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"/>
+
+</LinearLayout>
