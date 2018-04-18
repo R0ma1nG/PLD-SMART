@@ -11,6 +11,7 @@ var mongoose   = require('mongoose');
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/database'); // connect to our database
 var Association= require('./app/models/association');
+var path = __dirname + '/views/';
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -33,9 +34,6 @@ router.use(function(req, res, next) {
 router.get('/', function(req, res) {
     res.json({ message: 'Welcome to Recyc\'Lyon api!' });
 });
-
-// more routes for our API will happen here
-
 // GET all the associations
 router.route('/association')
     .get(function(req, res) {
@@ -45,7 +43,6 @@ router.route('/association')
             res.json(associations);
         })
     });
-
 // GET the association with assoc_id
 router.route('/association/:assoc_id')
     .get(function(req, res){
@@ -57,9 +54,25 @@ router.route('/association/:assoc_id')
     }
 );
 
+// ROUTES FOR OUR FRONT
+// =============================================================================
+var routerFront = express.Router();
+routerFront.get('/', function(req, res) {
+    res.sendFile(path + "index.html");
+});
+routerFront.get('/about', function(req, res){
+    res.sendFile(path + "about.html");
+});
+
+routerFront.use("*",function(req,res){
+  res.sendFile(path + "404.html");
+});
+
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
+app.use('/website', routerFront);
 app.use('/api', router);
+app.use('/js', express.static(__dirname + '/views/js'));
 
 // START THE SERVER
 // =============================================================================
