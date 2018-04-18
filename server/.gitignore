@@ -1,6 +1,10 @@
 
 # Created by https://www.gitignore.io/api/node
 
+### MongoDB ###
+data/db/journal
+data/db/diagnostic.data
+
 ### Node ###
 # Logs
 logs

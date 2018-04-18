@@ -12,4 +12,4 @@ var UserSchema   = new Schema({
     idAssoc: Schema.Types.ObjectId
 });
 
-module.exports = mongoose.model('user', UserSchema);
+module.exports = mongoose.model('utilisateur', UserSchema, 'utilisateur');
