@@ -1,3 +1,4 @@
+
 # Serveur
 
 ### Installation
@@ -13,3 +14,4 @@
 2. **Penser à ajouter mongod et les autres commandes au path.**
 3. ```mongod --dbpath <path to data folder>``` pour lancer le processus principal MongoDB. Succès si ```[initandlisten] waiting for connections on port 27017``` est la dernière ligne.
 4. ```mongo --host localhost:27017``` pour lancer un terminal mongo.  Toutes les commandes sont ensuite tapées dans ce terminal (insert, update, find, ...).
+5. ```use database``` pour changer de base de données et se connecter à celle du serveur.
