@@ -10,7 +10,6 @@ var bodyParser = require('body-parser');
 var mongoose   = require('mongoose');
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/database'); // connect to our database
-var User       = require('./app/models/user');
 var Association= require('./app/models/association');
 
 // configure app to use bodyParser()
