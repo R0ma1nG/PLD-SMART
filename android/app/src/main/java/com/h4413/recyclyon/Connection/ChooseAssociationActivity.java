@@ -1,6 +1,8 @@
 package com.h4413.recyclyon.Connection;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,12 +15,14 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.h4413.recyclyon.Model.Association;
 import com.h4413.recyclyon.R;
 
 public class ChooseAssociationActivity extends AppCompatActivity implements AssociationAdapterCallback{
 
     private static final int REQUEST_CODE_CGU = 1;
+    public static final String SP_KEY_ASSOCIATION = "ChosenAssociation";
 
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -54,7 +58,7 @@ public class ChooseAssociationActivity extends AppCompatActivity implements Asso
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ChooseAssociationActivity.this, CGUActivity.class);
-                intent.putExtra("Association", mCurrentAssociation);
+                //intent.putExtra("Association", mCurrentAssociation);
                 startActivityForResult(intent, REQUEST_CODE_CGU);
             }
         });
@@ -72,13 +76,35 @@ public class ChooseAssociationActivity extends AppCompatActivity implements Asso
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.i("Method","onActivityResult()");
         if (requestCode == REQUEST_CODE_CGU && resultCode == RESULT_OK) {
-            Toast.makeText(getApplicationContext(), ((Association)data.getSerializableExtra("Association")).id, Toast.LENGTH_LONG).show();
-            setResult(RESULT_OK);
+            Gson gson = new Gson();
+            SharedPreferences sharedPref = getPreferences(MODE_PRIVATE);
+            String json = sharedPref.getString(SP_KEY_ASSOCIATION, "");
+            mCurrentAssociation = gson.fromJson(json, Association.class);
+            Intent intent = new Intent();
+            intent.putExtra(SP_KEY_ASSOCIATION, mCurrentAssociation);
+            setResult(RESULT_OK, intent);
             finish();
         }
     }
+
+    @Override
+    protected void onStop() {
+        SharedPreferences sharedPref = getPreferences(MODE_PRIVATE);
+        Gson gson = new Gson();
+        sharedPref.edit().putString(SP_KEY_ASSOCIATION, gson.toJson(mCurrentAssociation)).commit();
+        super.onStop();
+    }
+
+    /*@Override
+    protected void onRestart() {
+        Gson gson = new Gson();
+        SharedPreferences sharedPref = getPreferences(MODE_PRIVATE);
+        String json = sharedPref.getString("Association", "");
+        mCurrentAssociation = gson.fromJson(json, Association.class);
+        Toast.makeText(getApplicationContext(), mCurrentAssociation.id, Toast.LENGTH_LONG);
+        super.onRestart();
+    }*/
 
     @Override
     public void onClickCallback(Association itemModel) {

@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.h4413.recyclyon.Model.Association;
 import com.h4413.recyclyon.R;
 
 public class InscriptionActivity extends AppCompatActivity {
@@ -41,9 +42,11 @@ public class InscriptionActivity extends AppCompatActivity {
         Log.i("Return", "Inscription result");
         if(requestCode == REQUEST_CODE_CHOOSE_ASSOC && resultCode == RESULT_OK)
         {
+            Association association = (Association) data.getSerializableExtra(ChooseAssociationActivity.SP_KEY_ASSOCIATION);
+            //Toast.makeText(getApplicationContext(), association.nom, Toast.LENGTH_LONG).show();
             // TODO Inscription dans la BDD
 
-            // TODO avant le finish, mettre l'id du user dans un intent pour l'autocomplétion des champs dans l'accueil.
+            // TODO avant le finish, mettre l'id du user dans un intent pour l'autocomplétion des champs dans l'accueil
             setResult(RESULT_OK);
             finish();
         }

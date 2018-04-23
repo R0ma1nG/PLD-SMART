@@ -16,7 +16,7 @@ public class CGUActivity extends AppCompatActivity {
 
     private Button mAcceptButton;
 
-    private Association mAssociation;
+    //private Association mAssociation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,17 +29,17 @@ public class CGUActivity extends AppCompatActivity {
         mAcceptButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.putExtra("Association", mAssociation);
-                setResult(RESULT_OK, intent);
+                //Intent intent = new Intent();
+                //intent.putExtra("Association", mAssociation);
+                setResult(RESULT_OK);
                 finish();
             }
         });
 
-        Bundle extras = getIntent().getExtras();
+        /*Bundle extras = getIntent().getExtras();
         if (extras != null) {
             mAssociation = (Association)extras.getSerializable("Association");
-        }
+        }*/
     }
 
     private void configureToolbar(){
