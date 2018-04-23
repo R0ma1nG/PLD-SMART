@@ -152,21 +152,20 @@ db.createCollection("depot", {
     "adresse": "Une adresse au hasard dans le monde.",
     "lattitude": Number(44.7),
     "longitude": Number(45.1),
-    "remplissage": Number(0.5)
+    "remplissage": Number(0)
 }
 
 {
     "tokenCapteur": NumberInt(123),
-    "idPoubelle": ObjectId("5ad71a30a15938d3d083353c")
+    "idPoubelle": ObjectId("5add92cae36c0adec0253804")
 }
 
-var mydate = ISODate();
 db.utilisateur.insert({
     "mail": "jd@gmail.com",
     "motDePasse": "mdp",
     "nom": "Jean Dupont",
     "adresse": "Une autre adresse au hasard",
-    "dateNaissance": mydate,
+    "dateNaissance": ISODate(),
     "sexe": NumberInt(0),
     "idAssoc": ObjectId("5ad727a9a15938d3d0833540")
-});
+})

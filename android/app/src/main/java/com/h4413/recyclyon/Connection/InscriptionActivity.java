@@ -7,12 +7,13 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.h4413.recyclyon.R;
 
 public class InscriptionActivity extends AppCompatActivity {
 
-    private static final int REQUEST_CODE_CGU = 1;
+    private static final int REQUEST_CODE_CHOOSE_ASSOC = 1;
 
     private Button mSubmitButton;
 
@@ -27,8 +28,8 @@ public class InscriptionActivity extends AppCompatActivity {
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(InscriptionActivity.this, CGUActivity.class);
-                startActivityForResult(intent, REQUEST_CODE_CGU);
+                Intent intent = new Intent(InscriptionActivity.this, ChooseAssociationActivity.class);
+                startActivityForResult(intent, REQUEST_CODE_CHOOSE_ASSOC);
             }
         });
     }
@@ -36,7 +37,7 @@ public class InscriptionActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == REQUEST_CODE_CGU && resultCode == RESULT_OK)
+        if(requestCode == REQUEST_CODE_CHOOSE_ASSOC && resultCode == RESULT_OK)
         {
             // TODO Inscription dans la BDD
 

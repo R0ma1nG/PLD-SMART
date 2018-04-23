@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:rowCount="2"
+    android:columnCount="2"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/choose_association_view_logo"
+        android:layout_column="0"
+        android:layout_row="0"
+        android:layout_rowSpan="2"
+        android:layout_rowWeight="2"
+        android:src="@drawable/connection_pwd" />
+
+    <TextView
+        android:id="@+id/choose_association_view_title"
+        android:text="Title"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_row="0"
+        android:layout_column="1"/>
+
+    <TextView
+        android:id="@+id/choose_association_view_description"
+        android:text="Title"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_row="1"
+        android:layout_column="1"/>
+
+</GridLayout>
