@@ -3,8 +3,6 @@
 echo "### Install nescessary packages ###"
 apt-get update
 apt-get install git open-ssh 
-sudo apt-get install python-picamera
-sudo apt-get install python-picamera-docs
 
 cd ./ssh_tunnel_service/
 ./ssh_tunnel_service/install.sh
@@ -33,9 +31,6 @@ iface wlan0 inet dhcp
    wpa-psk "$password"
 
 iface default inet dhcp" >> /etc/network/interfaces
-
-echo -e "\n### Install sensor daemon python dependencies ###"
-python setup.py install
 
 echo -e "\n### Setup sensor daemon ###"
 
