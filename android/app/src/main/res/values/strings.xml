@@ -16,4 +16,9 @@
 
     <string name="forgotPwdHelpString">Vous avez oublié votre mot de passe ?\nEntrez votre mail pour recevoir un nouveau mot de passe.</string>
     <string name="forgotPwdSubmit">Envoi</string>
+
+    <string name="chooseAssociationDescription">Choisis l\'association à laquelle tu reverseras les dons collectés.</string>
+    <string name="chooseAssociationChoosen">Association choisie : </string>
+    <string name="chooseAssociationExample">Aucune</string>
+    <string name="chooseAssociationValidate">Valider</string>
 </resources>

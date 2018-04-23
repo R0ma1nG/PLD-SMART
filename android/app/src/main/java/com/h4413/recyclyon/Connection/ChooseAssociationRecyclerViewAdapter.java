@@ -1,11 +1,14 @@
 package com.h4413.recyclyon.Connection;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.h4413.recyclyon.Model.Association;
 import com.h4413.recyclyon.Utility.DownLoadImageTask;
@@ -13,7 +16,9 @@ import com.h4413.recyclyon.Utility.DownLoadImageTask;
 import com.h4413.recyclyon.R;
 
 public class ChooseAssociationRecyclerViewAdapter extends RecyclerView.Adapter<ChooseAssociationRecyclerViewAdapter.ViewHolder> {
+
     private Association[] mDataset;
+    private AssociationAdapterCallback mCallback;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -23,25 +28,27 @@ public class ChooseAssociationRecyclerViewAdapter extends RecyclerView.Adapter<C
         public TextView mTitle;
         public TextView mDescription;
         public ImageView mLogo;
+        public LinearLayout mLayout;
 
         public ViewHolder(final View v) {
             super(v);
             mTitle = (TextView) itemView.findViewById(R.id.choose_association_view_title);
             mDescription = (TextView) itemView.findViewById(R.id.choose_association_view_description);
             mLogo = (ImageView) itemView.findViewById(R.id.choose_association_view_logo);
+            mLayout = (LinearLayout) itemView.findViewById(R.id.choose_association_view_layout);
         }
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public ChooseAssociationRecyclerViewAdapter(Association[] myDataset) {
+    public ChooseAssociationRecyclerViewAdapter(Association[] myDataset, AssociationAdapterCallback callback) {
         mDataset = myDataset;
+        mCallback = callback;
     }
 
     // Create new views (invoked by the layout manager)
     @Override
     public ChooseAssociationRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        // create a new view
+        final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View v = inflater.inflate(R.layout.choose_association_view, parent, false);
         ViewHolder vh = new ViewHolder(v);
         return vh;
@@ -49,15 +56,18 @@ public class ChooseAssociationRecyclerViewAdapter extends RecyclerView.Adapter<C
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.mTitle.setText(mDataset[position].nom);
         holder.mDescription.setText(mDataset[position].description);
         new DownLoadImageTask(holder.mLogo).execute(mDataset[position].url);
+        holder.mLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCallback.onClickCallback(mDataset[position]);
+            }
+        });
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
         return mDataset.length;
