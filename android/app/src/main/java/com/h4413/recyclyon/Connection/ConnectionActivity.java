@@ -19,7 +19,6 @@ public class ConnectionActivity extends AppCompatActivity {
 
     private static final int REQUEST_CODE_INSCRIPTION = 1;
     private static final int REQUEST_CODE_FORGOT_PWD = 2;
-    private static final int REQUEST_CODE_HOME = 3;
 
     private EditText mMailInput;
     private EditText mPwdInput;
@@ -57,7 +56,7 @@ public class ConnectionActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //Toast.makeText(getApplicationContext(), "Connection, need to be implemented.", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(ConnectionActivity.this, HomeActivity.class);
-                startActivityForResult(intent, REQUEST_CODE_HOME);
+                startActivity(intent);
             }
         });
         mInscriptionText.setOnClickListener(new View.OnClickListener() {
