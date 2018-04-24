@@ -12,13 +12,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Connection.ConnectionActivity"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Connection.InscriptionActivity"
             android:label="@string/inscription"
@@ -35,6 +29,16 @@
         <activity
             android:name=".HomeActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".TemplateActivity"
+            android:label="TemplateActivity"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Connection.ChooseAssociationActivity"
             android:screenOrientation="portrait"
