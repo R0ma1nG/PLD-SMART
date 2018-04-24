@@ -1,0 +1,52 @@
+#!/bin/sh -e
+
+### BEGIN INIT INFO
+# Provides:       tunnel
+# Required-Start:    $local_fs $remote_fs $network $syslog $named
+# Required-Stop:     $local_fs $remote_fs $network $syslog $named
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: starts SSH tunnel
+# Description:       starts SSH tunnel service
+### END INIT INFO
+
+PATH=/usr/sbin:/usr/bin:/sbin:/bin
+DAEMON_NAME=tunnel
+DAEMON=/usr/bin/$DAEMON_NAME.py
+DAEMON_PID=/var/run/$DAEMON_NAME.pid
+
+. /lib/lsb/init-functions
+
+d_start () {
+        log_daemon_msg "Starting system $DAEMON_NAME Daemon"
+        start-stop-daemon --start --background --make-pidfile --pidfile "$DAEMON_PID" --startas $DAEMON 
+	log_end_msg $?
+}
+
+d_stop () {
+        log_daemon_msg "Stopping system $DAEMON_NAME Daemon"
+	start-stop-daemon --stop --remove-pidfile --pidfile "$DAEMON_PID"
+	log_end_msg $?
+}
+
+case "$1" in
+        start|stop)
+                d_${1}
+                ;;
+
+        restart|reload|force-reload)
+                d_stop
+                d_start
+                ;;
+
+        status)
+                status_of_proc "$DAEMON_NAME" "$DAEMON" && exit 0 || exit $?
+                ;;
+        *)
+                echo "Usage: /etc/init.d/$DAEMON_NAME {start|stop|restart|reload|status}"
+                exit 1
+                ;;
+        esac
+exit 0
+
+
