@@ -1,4 +1,4 @@
-//app.js 
+//app.js
 
 
 //Packages needed
@@ -15,10 +15,14 @@ app.use(bodyParser.json());
 
 // Controller needeed to control routes
 var UsersController = require('./controller/UsersController');
+var PoubellesController = require('./controller/PoubellesController');
+var DepotsController = require('./controller/DepotsController');
 
 
 // Bind routes to controllers
 app.use('/api/users', UsersController);
+app.use('/api/poubelles', PoubellesController);
+app.use('/api/depots', DepotsController);
 
 //First redirect (non définitif)
 app.get('/', function (req, res) {
