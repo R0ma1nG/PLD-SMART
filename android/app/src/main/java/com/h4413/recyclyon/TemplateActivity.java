@@ -13,12 +13,15 @@ import com.h4413.recyclyon.NavigationView.NavigationItemSelectedListener;
 
 public class TemplateActivity extends AppCompatActivity {
 
-    //A renomer et a creer pour chaque activity avec un hamburger
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_template);
+        initNavigationMenu();
+    }
+
+    // Méthode à ajouter à chaque activité hamburger
+    private void initNavigationMenu() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -42,10 +45,10 @@ public class TemplateActivity extends AppCompatActivity {
         }
     }
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.drawer, menu);
         return true;
-    }
+    }*/
 }
