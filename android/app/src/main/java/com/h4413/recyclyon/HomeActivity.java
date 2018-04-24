@@ -29,7 +29,7 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 AsyncHTTP http = new AsyncHTTP();
                 try {
-                    String str = http.execute("http://validate.jsontest.com/?json={\"key\":\"value\"}").get();
+                    String str = http.execute("/api/users").get();
                     mText.setText(str);
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();

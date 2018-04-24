@@ -1,6 +1,5 @@
 package com.h4413.recyclyon.Utility;
 
-import android.content.Context;
 import android.os.AsyncTask;
 
 import java.io.BufferedInputStream;
@@ -13,6 +12,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class AsyncHTTP extends AsyncTask<String, Integer, String> {
+
+    private final static String SERVER_IP = "10.0.2.2";
+    private final static String SERVER_PORT = "8080";
 
     public AsyncHTTP() {
 
@@ -32,7 +34,7 @@ public class AsyncHTTP extends AsyncTask<String, Integer, String> {
         HttpURLConnection urlConnection = null;
         String result = null;
         try {
-            url = new URL(strings[0]);
+            url = new URL("http://"+SERVER_IP+":"+SERVER_PORT+strings[0]);
             urlConnection = (HttpURLConnection) url.openConnection(); // Open
             InputStream in = new BufferedInputStream(urlConnection.getInputStream()); // Stream
             publishProgress(2);
