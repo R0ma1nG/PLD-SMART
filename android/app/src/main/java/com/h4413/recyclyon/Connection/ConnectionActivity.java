@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.h4413.recyclyon.HomeActivity;
+import com.h4413.recyclyon.Model.User;
 import com.h4413.recyclyon.R;
 
 public class ConnectionActivity extends AppCompatActivity {
@@ -83,7 +84,8 @@ public class ConnectionActivity extends AppCompatActivity {
         if(requestCode == REQUEST_CODE_INSCRIPTION) {
             if(resultCode == RESULT_OK) {
                 Toast.makeText(getApplicationContext(), "Inscription réussie", Toast.LENGTH_SHORT).show();
-                // TODO Récupérer le user créé et compléter le champ mail automatiquement
+                User utilisateur = (User) data.getSerializableExtra(InscriptionActivity.SP_KEY_USER);
+                mMailInput.setText(utilisateur.mail);
             } else {
                 Toast.makeText(getApplicationContext(), "Echec de l'inscription", Toast.LENGTH_SHORT).show();
             }

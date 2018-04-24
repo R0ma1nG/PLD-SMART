@@ -1,16 +1,31 @@
 package com.h4413.recyclyon.Model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class User implements Serializable {
-    public String id;
+    public String idUtilisateur;
     public String nom;
+    public String mail;
+    public String motDePasse;
+    public String adresse;
+    public int sexe;
+    public Date dateNaissance;
 
-    public String associationId;
+    public int idAssoc;
 
-    public User(String id, String nom, String assocId) {
-        this.id = id;
+    public User(String id, String nom, String mail, String mdp, String adresse, int sexe, int assocId, Date date) {
+        this.idUtilisateur = id;
         this.nom = nom;
-        this.associationId = assocId;
+        this.idAssoc = assocId;
+        this.mail = mail;
+        this.motDePasse = mdp;
+        this.adresse = adresse;
+        this.sexe = sexe;
+        this.dateNaissance = date;
+    }
+
+    public User() {
+
     }
 }

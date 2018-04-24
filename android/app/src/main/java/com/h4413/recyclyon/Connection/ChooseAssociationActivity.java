@@ -48,9 +48,9 @@ public class ChooseAssociationActivity extends AppCompatActivity implements Asso
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         // specify an adapter (see also next example)
-        Association[] testDataSet = {new Association("123", "Asso 1", "Ceci est une association", "http://www.gstatic.com/webp/gallery/1.jpg"),
-                new Association("456","Asso 2", "Une autre association", "http://www.gstatic.com/webp/gallery/2.jpg"),
-                new Association("789","Asso 3", "Encore une", "http://www.gstatic.com/webp/gallery/2.jpg")};
+        Association[] testDataSet = {new Association(123, "Asso 1", "Ceci est une association", "http://www.gstatic.com/webp/gallery/1.jpg"),
+                new Association(456,"Asso 2", "Une autre association", "http://www.gstatic.com/webp/gallery/2.jpg"),
+                new Association(789,"Asso 3", "Encore une", "http://www.gstatic.com/webp/gallery/2.jpg")};
         mAdapter = new ChooseAssociationRecyclerViewAdapter(testDataSet, this);
         mRecyclerView.setAdapter(mAdapter);
 
@@ -95,16 +95,6 @@ public class ChooseAssociationActivity extends AppCompatActivity implements Asso
         sharedPref.edit().putString(SP_KEY_ASSOCIATION, gson.toJson(mCurrentAssociation)).commit();
         super.onStop();
     }
-
-    /*@Override
-    protected void onRestart() {
-        Gson gson = new Gson();
-        SharedPreferences sharedPref = getPreferences(MODE_PRIVATE);
-        String json = sharedPref.getString("Association", "");
-        mCurrentAssociation = gson.fromJson(json, Association.class);
-        Toast.makeText(getApplicationContext(), mCurrentAssociation.id, Toast.LENGTH_LONG);
-        super.onRestart();
-    }*/
 
     @Override
     public void onClickCallback(Association itemModel) {

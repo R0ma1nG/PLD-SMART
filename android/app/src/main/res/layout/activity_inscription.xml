@@ -13,16 +13,157 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="10"
+        android:layout_height="wrap_content"
         android:text="@string/welcome"
-        android:layout_gravity="center"
-        android:gravity="center"/>
+        style="@style/TitleFontTheme"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"/>
 
-    <Button
-        android:id="@+id/inscription_activity_submit_btn"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp">
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"/>
+        <EditText
+            android:id="@+id/inscription_activity_mail_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/inscriptionMailEdit"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp">
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"/>
+        <EditText
+            android:id="@+id/inscription_activity_mdp_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/inscriptionMdpEdit"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp">
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"/>
+        <EditText
+            android:id="@+id/inscription_activity_confirmMdp_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/inscriptionConfirmMdpEdit"/>
+    </LinearLayout>
+
+    <View
+        style="@style/HorizontalSeparator"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/inscriptionInfosSupp"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="15dp"
+        android:textSize="20sp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp">
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"/>
+        <EditText
+            android:id="@+id/inscription_activity_name_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/inscriptionNameEdit"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp">
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"/>
+        <EditText
+            android:id="@+id/inscription_activity_adress_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/inscriptionAdresseEdit"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp">
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"/>
+        <EditText
+            android:id="@+id/inscription_activity_date_naissance_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/inscriptionDateEdit"
+            android:inputType="date"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp">
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"/>
+        <Spinner
+            android:id="@+id/inscription_activity_sexe_input"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/inscriptionSexeEdit"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"/>
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/inscription_activity_submit_btn"
         android:text="@string/inscriptionSubmit"
         style="@style/ButtonTheme"
         android:layout_margin="40dp"/>

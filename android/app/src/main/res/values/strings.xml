@@ -9,6 +9,21 @@
     <string name="connectionForgotPasswordString">Mot de passe oublié ?</string>
 
     <string name="inscriptionSubmit">Je m\'inscris</string>
+    <string name="inscriptionMailEdit">Mail</string>
+    <string name="inscriptionMdpEdit">Mot de passe</string>
+    <string name="inscriptionConfirmMdpEdit">Confirmation</string>
+    <string name="inscriptionAdresseEdit">Adresse</string>
+    <string name="inscriptionDateEdit">Date de naissance</string>
+    <string name="inscriptionSexeEdit">Sexe</string>
+    <string name="inscriptionInfosSupp">Informations supplémentaires</string>
+    <string name="inscriptionWrongPasswords">Les mots de passe ne correspondent pas.</string>
+    <string name="inscriptionAllFieldsMustBeCompleted">Tous les champs doivent être complétés.</string>
+    <string name="inscriptionNameEdit">Nom</string>
+    <string-array name="inscriptionSexeChoices">
+        <item>Sexe</item>
+        <item>Homme</item>
+        <item>Femme</item>
+    </string-array>
 
     <string name="cgu">Conditions  générales d\'utilisation</string>
     <string name="cguString">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
