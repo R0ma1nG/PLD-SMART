@@ -1,22 +1,51 @@
-#import api
-import level_listener
+import os
+import time
+import requests
+import threading
+
+#import level_listener
 import bottle_listener
-from sensors import *
+from sensors import mic_sensor
 
-
-def init():
-    # Initializa sensors
-
-    # Setup a periodic job flushing log to backend server if available
-
-    return logger, (camera_sensor, mic_sensor, optical_sensor)
+ID_CAPTEUR = 3485386495
+TOKEN_CAPTEUR = 348534593696437587487920546496919
+MIC_MODEL_DIR = './sensors/models/mic'
+BACKEND_API_URL = "localhost:3455"
+FLUSH_TO_BACKEND_PERIOD = 30
+MIC_DATA_DIR = './sensors/data/mic/raw'
 
 
 def main():
-    logger, sensors = init()
-    level_listener.watch_for_events(logger, sensors)
-    bottle_listener.watch_for_events(logger, sensors)
-    # api.run()
+    bottle_events = []
+    bottle_events_buffer = []
+
+    # Initialize sensors
+    # TODO: with camera_sensor.CameraSensor() as cam:
+    with mic_sensor.MicSensor() as mic:
+        # Start a thread listening to bottle thrown events
+        thread, stop_event, events_buffer_lock = bottle_listener.watch_for_events(mic, MIC_MODEL_DIR, bottle_events_buffer, save_dir=MIC_DATA_DIR)
+
+        # Setup a periodic job flushing bottle events buffer to backend server if available
+        def _flush_events():
+            with events_buffer_lock:
+                canReachServer = True  # TODO:...
+                if canReachServer:
+                    url = os.path.join(BACKEND_API_URL, 'NotifyBottleEvents', ID_CAPTEUR)
+                    resp = requests.post(url, json={'tokenCapteur': TOKEN_CAPTEUR, 'timestamps': bottle_events_buffer})
+                    if resp.status_code == 200:
+                        bottle_events.extend(bottle_events_buffer)
+                        bottle_events_buffer.clear()
+                    else:
+                        print('ERROR: request to backend API failed: status_code=' + resp.status_code)
+            threading.Timer(FLUSH_TO_BACKEND_PERIOD, _flush_events).start()
+        _flush_events()
+
+        # TODO: Setup a periodic job updating trash level
+        # level_listener.read_trash_level(cam, bottle_history)
+
+        # TODO: ... if we should stop
+        # stop_event.set()
+        # thread.join()
 
 
 if __name__ == "__main__":
