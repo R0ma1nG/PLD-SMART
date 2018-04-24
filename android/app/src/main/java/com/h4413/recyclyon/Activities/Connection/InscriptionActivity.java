@@ -1,4 +1,4 @@
-package com.h4413.recyclyon.Connection;
+package com.h4413.recyclyon.Activities.Connection;
 
 import android.content.Intent;
 import android.content.SharedPreferences;

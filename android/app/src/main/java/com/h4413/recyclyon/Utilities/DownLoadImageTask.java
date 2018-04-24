@@ -1,4 +1,4 @@
-package com.h4413.recyclyon.Utility;
+package com.h4413.recyclyon.Utilities;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

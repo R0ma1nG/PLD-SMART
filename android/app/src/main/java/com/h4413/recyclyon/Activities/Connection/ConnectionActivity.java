@@ -1,4 +1,4 @@
-package com.h4413.recyclyon.Connection;
+package com.h4413.recyclyon.Activities.Connection;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.h4413.recyclyon.HomeActivity;
+import com.h4413.recyclyon.Activities.HomeActivity;
 import com.h4413.recyclyon.Model.User;
 import com.h4413.recyclyon.R;
 

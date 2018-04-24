@@ -7,7 +7,7 @@
     android:layout_marginLeft="20dp"
     android:layout_marginRight="20dp"
     android:layout_marginTop="30dp"
-    tools:context="com.h4413.recyclyon.ProfileActivity">
+    tools:context="com.h4413.recyclyon.Activities.ProfileActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

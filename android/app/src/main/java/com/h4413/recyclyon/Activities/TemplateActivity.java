@@ -1,4 +1,4 @@
-package com.h4413.recyclyon;
+package com.h4413.recyclyon.Activities;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -7,9 +7,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 
-import com.h4413.recyclyon.NavigationView.NavigationItemSelectedListener;
+import com.h4413.recyclyon.Listeners.NavigationItemSelectedListener;
+import com.h4413.recyclyon.R;
 
 public class TemplateActivity extends AppCompatActivity {
 
@@ -33,6 +33,7 @@ public class TemplateActivity extends AppCompatActivity {
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new NavigationItemSelectedListener(this));
+        navigationView.setCheckedItem(R.id.nav_homepage);
     }
 
     @Override

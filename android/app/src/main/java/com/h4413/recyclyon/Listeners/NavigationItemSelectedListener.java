@@ -1,4 +1,4 @@
-package com.h4413.recyclyon.NavigationView;
+package com.h4413.recyclyon.Listeners;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,9 +8,8 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 
-import com.h4413.recyclyon.Connection.ConnectionActivity;
-import com.h4413.recyclyon.Connection.ForgotPwdActivity;
-import com.h4413.recyclyon.HomeActivity;
+import com.h4413.recyclyon.Activities.Connection.ConnectionActivity;
+import com.h4413.recyclyon.Activities.HomeActivity;
 import com.h4413.recyclyon.R;
 
 public class NavigationItemSelectedListener implements NavigationView.OnNavigationItemSelectedListener {
@@ -27,8 +26,10 @@ public class NavigationItemSelectedListener implements NavigationView.OnNavigati
         int id = item.getItemId();
 
         if (id == R.id.nav_homepage) {
-            Intent intent = new Intent(mActivity.getApplicationContext(), HomeActivity.class);
-            mActivity.startActivity(intent);
+            if(mActivity.getClass() != HomeActivity.class) {
+                Intent intent = new Intent(mActivity.getApplicationContext(), HomeActivity.class);
+                mActivity.startActivity(intent);
+            }
         } else if (id == R.id.nav_deposit) {
 
         } else if (id == R.id.nav_account) {

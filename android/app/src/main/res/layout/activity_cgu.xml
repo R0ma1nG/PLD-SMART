@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Connection.CGUActivity"
+    tools:context=".Activities.Connection.CGUActivity"
     android:orientation="vertical">
 
     <include layout="@layout/toolbar"
