@@ -6,22 +6,30 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.h4413.recyclyon.Listeners.NavigationItemSelectedListener;
+import com.h4413.recyclyon.Model.User;
 import com.h4413.recyclyon.R;
-import com.h4413.recyclyon.Utilities.AsyncHTTP;
+import com.h4413.recyclyon.Utilities.HttpClient;
 import com.h4413.recyclyon.Utilities.NetworkAccess;
+import com.h4413.recyclyon.Utilities.Routes;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.concurrent.ExecutionException;
 
 public class HomeActivity extends AppCompatActivity {
 
-    public TextView mText;
-    public Button mButton;
+    private TextView mText;
+    private Button mButton;
+
+    private User mUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +42,13 @@ public class HomeActivity extends AppCompatActivity {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AsyncHTTP http = new AsyncHTTP();
-                try {
-                    String str = http.execute("/api/users").get();
-                    mText.setText(str);
-                } catch (InterruptedException | ExecutionException e) {
-                    e.printStackTrace();
-                }
+                HttpClient.GET(Routes.AllUsers, HomeActivity.this, new HttpClient.OnResponseCallback() {
+                    @Override
+                    public void onJSONResponse(int statusCode, JSONObject response) {
+                        mText.setText(response.toString());
+                        Toast.makeText(getApplicationContext(), String.valueOf(statusCode), Toast.LENGTH_LONG).show();
+                    }
+                });
             }
         });
 
