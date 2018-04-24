@@ -16,4 +16,6 @@
 
     <string name="forgotPwdHelpString">Vous avez oublié votre mot de passe ?\nEntrez votre mail pour recevoir un nouveau mot de passe.</string>
     <string name="forgotPwdSubmit">Envoi</string>
+
+    <string name="changeProfile">Modifier mon profil</string>
 </resources>

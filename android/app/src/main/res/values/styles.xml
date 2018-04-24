@@ -8,6 +8,24 @@
         <item name="colorAccent">@color/primaryDarkColor</item>
     </style>
 
+
+    <!--Horizontal line style -->
+    <style name="LineTheme">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/primaryTextColor</item>
+    </style>
+
+    <!--InputText style -->
+    <style name="EditTextTheme">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:backgroundTint">@color/primaryDarkColor</item>
+        <item name="android:textColor">@color/primaryDarkColor</item>
+        <item name="android:textColorHint">@color/secondaryLightColor</item>
+    </style>
+
+
     <!-- Button style -->
     <style name="ButtonTheme" parent="Widget.AppCompat.Button.Colored">
         <item name="android:colorAccent">@color/primaryColor</item>
