@@ -12,7 +12,7 @@ import com.h4413.recyclyon.Utility.NetworkAccess;
 
 import java.util.concurrent.ExecutionException;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends TemplateActivity {
 
     public TextView mText;
     public Button mButton;
