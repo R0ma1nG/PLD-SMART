@@ -26,11 +26,8 @@
             android:parentActivityName=".Connection.ConnectionActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".HomeActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".DrawerActivity"
-            android:label="@string/title_activity_drawer"
+            android:name=".TemplateActivity"
+            android:label="TemplateActivity"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
