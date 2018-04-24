@@ -15,22 +15,20 @@ router.use(function(req, res, next) {
 router.post('/newDepot', function (req, res) {
   console.log("HELLO IM TRYING TO CREATE A DEPOT");
   var date1 = new Date('December 17, 1995 03:24:00');
-  // var yvesMontant = req.body.montant;
-  // var idUser = req.body.idUtilisateur;
-  // var idAss = req.body.idAssoc;
-  // var idCap = req.body.idCapteur;
+  var id = new mongoose.mongo.ObjectId();
+  console.log(id);
   depot.create({
     // date: req.body.date,
     // date: date1,
+    _id: id,
     montant: req.body.montant,
     idUtilisateur: req.body.idUtilisateur,
     idAssoc: req.body.idAssoc,
     idCapteur: req.body.idCapteur
   }, function (err, depot) {
-    if (err) return res.status(500).send("There was a problem creating your depot in db");
-    res.status(200).send(idUtilisateur);
+    if (err) return res.status(500).send("There was a problem creating your depot in db : "+ err);
+    res.status(200).send(depot);
   });
-  // res.status(200).send(date1 +'   '+ yvesMontant +'   '+ idUser +'   '+ idAss +'   '+ idCap);
 });
 
 router.get('/', function (req, res) {
@@ -46,7 +44,7 @@ router.get('/historique/:id', function (req, res) {
   console.log("HELLO IM TRYING TO GET THE DEPOTS OF USER "+userId)
   depot.find({ 'idUtilisateur': userId}, function (err, depots) {
     if (err) return res.status(500).send("There was a problem finding your depots in db");
-    res.status(200).send(userId);
+    res.status(200).send(depots);
   });
 });
 
