@@ -17,15 +17,21 @@ router.use(function(req, res, next) {
 
 // create a new user
 router.post('/', function (req, res) {
-  utilisateur.create({
-    mail: req.body.mail,
-    motDePasse: req.body.motDePasse,
-    nom: req.body.nom,
-    adresse: req.body.adresse,
-    dateNaissance: req.body.dateNaissance,
-    sexe: req.body.sexe
-  },
-  function (err, utilisateur) {
+
+  var newUser = new utilisateur();
+
+  // set the user's local credentials
+  newUser.mail    = req.body.mail;
+  newUser.motDePasse = newUser.generateHash(req.body.motDePasse);
+  newUser.nom = req.body.nom;
+  newUser.adresse = req.body.adresse;
+  newUser.dateNaissance = req.body.dateNaissance;
+  newUser.sexe = req.body.sexe;
+
+  console.log("New User : "+newUser);
+
+  // save the user
+  newUser.save(function (err, utilisateur) {
     if (err){
     return res.status(500).send("There was a problem adding infos to db");
   } 
