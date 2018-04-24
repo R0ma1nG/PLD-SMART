@@ -16,4 +16,28 @@
 
     <string name="forgotPwdHelpString">Vous avez oublié votre mot de passe ?\nEntrez votre mail pour recevoir un nouveau mot de passe.</string>
     <string name="forgotPwdSubmit">Envoi</string>
+
+    <!-- Menu String -->
+    <string name="nav_homepage">Accueil</string>
+    <string name="nav_deposit">Dépôts</string>
+    <string name="nav_map">Carte des bennes</string>
+    <string name="nav_account">Mon Compte</string>
+    <string name="nav_scan">Scanner un emballage</string>
+    <string name="nav_schedule">Planning de collecte</string>
+    <string name="nav_settings">Paramètres</string>
+    <string name="nav_logout">Se déconnecter</string>
+    <string name="title_activity_test">TestActivity</string>
+    <string name="title_activity_drawer">DrawerActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+
+    <!-- Nav Header String -->
+    <string name="nav_header_mail">matthieu.valvin@gmail.com</string>
+    <string name="nav_header_name">Matthieu Valvin</string>
+
 </resources>

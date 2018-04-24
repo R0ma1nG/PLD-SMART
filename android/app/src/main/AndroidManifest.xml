@@ -11,31 +11,34 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Connection.ConnectionActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".Connection.InscriptionActivity"
+            android:label="@string/inscription"
+            android:parentActivityName=".Connection.ConnectionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Connection.CGUActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".Connection.InscriptionActivity" />
+        <activity
+            android:name=".Connection.ForgotPwdActivity"
+            android:parentActivityName=".Connection.ConnectionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".HomeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DrawerActivity"
+            android:label="@string/title_activity_drawer"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
-        <activity
-            android:name=".Connection.InscriptionActivity"
-            android:label="@string/inscription"
-            android:parentActivityName=".Connection.ConnectionActivity"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".Connection.CGUActivity"
-            android:label="@string/app_name"
-            android:parentActivityName=".Connection.InscriptionActivity" />
-
-        <activity
-            android:name=".Connection.ForgotPwdActivity"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".Connection.ConnectionActivity"></activity>
-
-        <activity
-            android:name=".HomeActivity"
-            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
