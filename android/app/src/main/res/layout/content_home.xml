@@ -8,18 +8,6 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/home_activity_button"
-        android:text="test"/>
-
-    <TextView
-        android:id="@+id/home_activity_test"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Test"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/home_activity_depot_btn"
         style="@style/ButtonTheme"
         android:layout_marginStart="30dp"

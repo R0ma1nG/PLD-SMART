@@ -1,5 +1,6 @@
 package com.h4413.recyclyon.Activities;
 
+import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -31,9 +32,6 @@ import java.util.Date;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private TextView mText;
-    private Button mButton;
-
     private Button mDepotButton;
     private TextView mDonationsText;
     private RecyclerView mHstoricRecyclerView;
@@ -48,8 +46,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         initNavigationMenu();
 
-        mText = (TextView) findViewById(R.id.home_activity_test);
-        mButton = (Button) findViewById(R.id.home_activity_button);
+
         mDonationsText = (TextView) findViewById(R.id.home_activity_donations_text);
         mDepotButton = (Button) findViewById(R.id.home_activity_depot_btn);
         mHstoricRecyclerView = (RecyclerView) findViewById(R.id.home_activity_recyclerView);
@@ -68,41 +65,14 @@ public class HomeActivity extends AppCompatActivity {
         mAdapter = new HistoricRecyclerViewAdapter(historic);
         mHstoricRecyclerView.setAdapter(mAdapter);
 
-
-        mButton.setOnClickListener(new View.OnClickListener() {
+        mDepotButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*HttpClient.GET(Routes.AllUsers, HomeActivity.this, new HttpClient.OnResponseCallback() {
-                    @Override
-                    public void onJSONResponse(int statusCode, JSONObject response) {
-                        mText.setText(response.toString());
-                        Toast.makeText(getApplicationContext(), String.valueOf(statusCode), Toast.LENGTH_LONG).show();
-                    }
-                });*/
-                JSONObject obj = new JSONObject();
-                try {
-                    obj.put("mail", "papy@gmail.com");
-                    obj.put("motDePasse", "papypwdd");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                HttpClient.POST(Routes.Login, obj.toString(), HomeActivity.this, new HttpClient.OnResponseCallback() {
-                    @Override
-                    public void onJSONResponse(int statusCode, JSONObject response) {
-                        mText.setText(response.toString());
-                        Toast.makeText(getApplicationContext(), String.valueOf(statusCode), Toast.LENGTH_LONG).show();
-                    }
-                });
+                Intent intent = new Intent(HomeActivity.this, DepositActivity.class);
+                startActivity(intent);
             }
         });
 
-        NetworkAccess network = new NetworkAccess(getApplicationContext());
-        if(network.isNetworkAvailable())
-        {
-            Toast.makeText(getApplicationContext(), "Access to internet", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(getApplicationContext(), "Unable to access to internet", Toast.LENGTH_SHORT).show();
-        }
     }
 
     private void initNavigationMenu() {

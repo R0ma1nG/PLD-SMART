@@ -61,8 +61,8 @@
     <string name="nav_header_name">Matthieu Valvin</string>
 
     <string name="changeProfile">Modifier mon profil</string>
-    
-    
+
+
     <string name="home_infos_donations">Dons générés : </string>
     <string name="home_depot_button">Faire un dépot</string>
     <string name="home_donations">0,00€</string>

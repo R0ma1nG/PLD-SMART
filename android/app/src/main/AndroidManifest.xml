@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.h4413.recyclyon">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,7 +14,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Activities.Connection.ConnectionActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.Connection.InscriptionActivity"
             android:label="@string/inscription"
@@ -38,12 +40,12 @@
         <activity
             android:name=".Activities.TemplateActivity"
             android:label="TemplateActivity"
-            android:theme="@style/AppTheme">
-        </activity>
+            android:theme="@style/AppTheme"></activity>
         <activity
             android:name=".Activities.Connection.ChooseAssociationActivity"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".Activities.Connection.InscriptionActivity"/>
+            android:parentActivityName=".Activities.Connection.InscriptionActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Activities.DepositActivity"></activity>
     </application>
 
 </manifest>

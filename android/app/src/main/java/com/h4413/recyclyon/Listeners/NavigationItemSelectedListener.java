@@ -9,6 +9,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 
 import com.h4413.recyclyon.Activities.Connection.ConnectionActivity;
+import com.h4413.recyclyon.Activities.DepositActivity;
 import com.h4413.recyclyon.Activities.HomeActivity;
 import com.h4413.recyclyon.R;
 
@@ -31,7 +32,10 @@ public class NavigationItemSelectedListener implements NavigationView.OnNavigati
                 mActivity.startActivity(intent);
             }
         } else if (id == R.id.nav_deposit) {
-
+            if(mActivity.getClass() != DepositActivity.class) {
+                Intent intent = new Intent(mActivity.getApplicationContext(), DepositActivity.class);
+                mActivity.startActivity(intent);
+            }
         } else if (id == R.id.nav_account) {
 
         } else if (id == R.id.nav_map) {
