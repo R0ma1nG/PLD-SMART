@@ -25,10 +25,14 @@ public class HttpClient {
         void onJSONResponse(int statusCode, JSONObject response);
     }
 
-    public static void GET(String relativePath, final Activity activity, final OnResponseCallback callback) {
+    public static void GET(String relativePath, String parameter, final Activity activity, final OnResponseCallback callback) {
+        String url = "http://"+SERVER_IP+":"+SERVER_PORT+relativePath;
+        if(parameter != null && !parameter.equals("")) {
+            url += "/"+parameter;
+        }
         OkHttpClient mClient = new OkHttpClient();
         Request myGetRequest = new Request.Builder()
-                .url("http://"+SERVER_IP+":"+SERVER_PORT+relativePath)
+                .url(url)
                 .build();
 
         mClient.newCall(myGetRequest).enqueue(new Callback() {
