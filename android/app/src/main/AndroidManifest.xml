@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.h4413.recyclyon">
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -33,20 +36,25 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".Activities.TemplateActivity"
             android:label="TemplateActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Activities.Connection.ChooseAssociationActivity"
             android:parentActivityName=".Activities.Connection.InscriptionActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".Activities.DepositActivity" />
-        <activity android:name=".Activities.ScanPackagingActivity"></activity>
+        <activity
+            android:name=".Activities.DepositActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Activities.ScanPackagingActivity"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>
