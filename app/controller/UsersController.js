@@ -93,7 +93,7 @@ router.put('/:id', function (req, res) {
       sexe: req.body.sexe
     }, function (err, user) {
       if (err || !user) return res.status(500).send("Unable to modify the whole user");
-      return utilisateur.findById(userId, (err, updatedUser) => res.status(200).send("Updated User (whole) : "+updatedUser));
+      return utilisateur.findById(userId, (err, updatedUser) => res.status(200).send(updatedUser));
     });
   }
   });
