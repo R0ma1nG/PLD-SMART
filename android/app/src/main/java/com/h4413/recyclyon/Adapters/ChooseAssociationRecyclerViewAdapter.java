@@ -1,4 +1,4 @@
-package com.h4413.recyclyon.Activities.Connection;
+package com.h4413.recyclyon.Adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.h4413.recyclyon.Activities.Connection.AssociationAdapterCallback;
 import com.h4413.recyclyon.Model.Association;
 import com.h4413.recyclyon.Utilities.DownLoadImageTask;
 
@@ -47,7 +48,7 @@ public class ChooseAssociationRecyclerViewAdapter extends RecyclerView.Adapter<C
     @Override
     public ChooseAssociationRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View v = inflater.inflate(R.layout.choose_association_view, parent, false);
+        View v = inflater.inflate(R.layout.view_choose_association_item, parent, false);
         ViewHolder vh = new ViewHolder(v);
         return vh;
     }

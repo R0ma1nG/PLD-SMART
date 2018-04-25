@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.h4413.recyclyon.Adapters.ChooseAssociationRecyclerViewAdapter;
 import com.h4413.recyclyon.Model.Association;
 import com.h4413.recyclyon.R;
 
