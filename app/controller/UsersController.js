@@ -80,7 +80,7 @@ router.put('/:id', function (req, res) {
     var newIdAssoc = mongoose.Types.ObjectId(req.body.idAssoc);
     utilisateur.findByIdAndUpdate(userId, { idAssoc: newIdAssoc }, function (err, user) {
       if (err || !user) return res.status(500).send("Unable to modify user's assoc");
-      return utilisateur.findById(userId, (err, updatedUser) => res.status(200).send("Updated User (asso) : "+updatedUser));
+      return utilisateur.findById(userId, (err, updatedUser) => res.status(200).send(updatedUser));
     });
   } else {
     console.log("Change the whole user");
