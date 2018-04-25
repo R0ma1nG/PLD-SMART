@@ -1,6 +1,8 @@
 // load all the things we need
 var LocalStrategy   = require('passport-local').Strategy;
 
+var mongoose = require('mongoose');
+
 // load up the user model
 var User            = require('../models/utilisateur');
 
@@ -66,6 +68,7 @@ module.exports = function(passport) {
                 newUser.adresse = req.body.adresse;
                 newUser.dateNaissance = req.body.dateNaissance;
                 newUser.sexe = req.body.sexe;
+                newUser.idAssoc = mongoose.Types.ObjectId(req.body.idAssoc);
 
                 console.log("New User : "+newUser);
 
