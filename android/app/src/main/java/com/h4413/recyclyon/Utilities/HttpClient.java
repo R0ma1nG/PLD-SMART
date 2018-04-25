@@ -15,6 +15,9 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import java.io.IOException;
+import java.net.CookieHandler;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
 
 public class HttpClient {
 
@@ -74,6 +77,8 @@ public class HttpClient {
 
     public static void POST(String relativePath, String body, final Activity activity, final OnResponseCallback callback) {
         OkHttpClient mClient = new OkHttpClient();
+        CookieHandler cookieHandler = new CookieManager();
+        mClient.setCookieHandler(cookieHandler);
         MediaType JSON_TYPE = MediaType.parse("application/json");
         Request myGetRequest = new Request.Builder()
                 .url("http://"+SERVER_IP+":"+SERVER_PORT+relativePath)

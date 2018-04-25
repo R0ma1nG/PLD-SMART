@@ -46,9 +46,9 @@ public class ChooseAssociationActivity extends AppCompatActivity implements Asso
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         // specify an adapter (see also next example)
-        Association[] testDataSet = {new Association(123, "Asso 1", "Ceci est une association", "http://www.gstatic.com/webp/gallery/1.jpg"),
-                new Association(456,"Asso 2", "Une autre association", "http://www.gstatic.com/webp/gallery/2.jpg"),
-                new Association(789,"Asso 3", "Encore une", "http://www.gstatic.com/webp/gallery/2.jpg")};
+        Association[] testDataSet = {new Association("5ae0740198c0b2710d9df273", "Asso 1", "Ceci est une association", "http://www.gstatic.com/webp/gallery/1.jpg"),
+                new Association("5ae0740198c0b2710d9df274","Asso 2", "Une autre association", "http://www.gstatic.com/webp/gallery/2.jpg"),
+                new Association("5ae0740198c0b2710d9df275","Asso 3", "Encore une", "http://www.gstatic.com/webp/gallery/2.jpg")};
         mAdapter = new ChooseAssociationRecyclerViewAdapter(testDataSet, this);
         mRecyclerView.setAdapter(mAdapter);
 

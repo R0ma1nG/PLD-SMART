@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import com.h4413.recyclyon.Activities.Connection.ConnectionActivity;
 import com.h4413.recyclyon.Activities.DepositActivity;
 import com.h4413.recyclyon.Activities.HomeActivity;
+import com.h4413.recyclyon.Activities.ScanPackagingActivity;
 import com.h4413.recyclyon.R;
 
 public class NavigationItemSelectedListener implements NavigationView.OnNavigationItemSelectedListener {
@@ -41,7 +42,11 @@ public class NavigationItemSelectedListener implements NavigationView.OnNavigati
         } else if (id == R.id.nav_map) {
 
         } else if (id == R.id.nav_scan) {
-
+            if(mActivity.getClass() != ScanPackagingActivity.class)
+            {
+                Intent intent = new Intent(mActivity.getApplicationContext(), ScanPackagingActivity.class);
+                mActivity.startActivity(intent);
+            }
         } else if (id == R.id.nav_schedule) {
 
         } else if (id == R.id.nav_settings) {

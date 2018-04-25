@@ -40,12 +40,13 @@
         <activity
             android:name=".Activities.TemplateActivity"
             android:label="TemplateActivity"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".Activities.Connection.ChooseAssociationActivity"
             android:parentActivityName=".Activities.Connection.InscriptionActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".Activities.DepositActivity"></activity>
+        <activity android:name=".Activities.DepositActivity" />
+        <activity android:name=".Activities.ScanPackagingActivity"></activity>
     </application>
 
 </manifest>

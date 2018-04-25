@@ -52,7 +52,8 @@
             android:id="@+id/inscription_activity_mdp_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/inscriptionMdpEdit"/>
+            android:hint="@string/inscriptionMdpEdit"
+            android:inputType="textPassword"/>
     </LinearLayout>
 
     <LinearLayout
@@ -70,7 +71,8 @@
             android:id="@+id/inscription_activity_confirmMdp_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/inscriptionConfirmMdpEdit"/>
+            android:hint="@string/inscriptionConfirmMdpEdit"
+            android:inputType="textPassword"/>
     </LinearLayout>
 
     <View

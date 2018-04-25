@@ -57,8 +57,8 @@
 
 
     <!-- Nav Header String -->
-    <string name="nav_header_mail">matthieu.valvin@gmail.com</string>
-    <string name="nav_header_name">Matthieu Valvin</string>
+    <string name="nav_header_mail">user@mail.com</string>
+    <string name="nav_header_name">User</string>
 
     <string name="changeProfile">Modifier mon profil</string>
 

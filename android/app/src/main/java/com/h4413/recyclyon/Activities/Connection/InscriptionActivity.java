@@ -15,9 +15,15 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.h4413.recyclyon.Activities.HomeActivity;
 import com.h4413.recyclyon.Model.Association;
 import com.h4413.recyclyon.Model.User;
 import com.h4413.recyclyon.R;
+import com.h4413.recyclyon.Utilities.HttpClient;
+import com.h4413.recyclyon.Utilities.Routes;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Date;
 import java.text.ParseException;
@@ -63,17 +69,19 @@ public class InscriptionActivity extends AppCompatActivity {
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!isEmpty(mMailInput) && !isEmpty(mMdpInput) && !isEmpty(mConfirmMdpInput)
-                        && !mSexeInput.getSelectedItem().equals("Sexe") && !isEmpty(mAdressInput) && !isEmpty(mDateNaissanceInput)
-                        && !isEmpty(mNomInput)) {
+                if(!isEmpty(mMailInput) && !isEmpty(mMdpInput) && !isEmpty(mConfirmMdpInput)) {
                     if(mMdpInput.getText().toString().equals(mConfirmMdpInput.getText().toString())) {
-                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                        Date date = new Date();
-                        try {
-                            date = sdf.parse(mDateNaissanceInput.getText().toString());
-                        } catch (ParseException e) {
-                            Toast.makeText(getApplicationContext(), "Format de date incorrect : dd/mm/yyyy", Toast.LENGTH_LONG).show();
+                        Date date = null;
+                        if(!mDateNaissanceInput.getText().toString().equals("")) {
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                            date = new Date();
+                            try {
+                                date = sdf.parse(mDateNaissanceInput.getText().toString());
+                            } catch (ParseException e) {
+                                Toast.makeText(getApplicationContext(), "Format de date incorrect : dd/mm/yyyy", Toast.LENGTH_LONG).show();
+                            }
                         }
+
                         mUtilisateur = new User();
                         mUtilisateur.dateNaissance = date;
                         mUtilisateur.nom = mNomInput.getText().toString();
@@ -81,6 +89,7 @@ public class InscriptionActivity extends AppCompatActivity {
                         mUtilisateur.motDePasse = mMdpInput.getText().toString();
                         mUtilisateur.adresse = mAdressInput.getText().toString();
                         mUtilisateur.sexe = mSexeInput.getSelectedItemPosition()-1;
+
                         Intent intent = new Intent(InscriptionActivity.this, ChooseAssociationActivity.class);
                         startActivityForResult(intent, REQUEST_CODE_CHOOSE_ASSOC);
                     } else {
@@ -105,12 +114,31 @@ public class InscriptionActivity extends AppCompatActivity {
             String json = sharedPref.getString(SP_KEY_USER, "");
             mUtilisateur = gson.fromJson(json, User.class);
             mUtilisateur.idAssoc = association.id;
-            // TODO Requete HTTP GET vers le serveur
 
-            Intent intent = new Intent();
-            intent.putExtra(SP_KEY_USER, mUtilisateur);
-            setResult(RESULT_OK, intent);
-            finish();
+            HttpClient.POST(Routes.Signup, mUtilisateur.toString(), InscriptionActivity.this, new HttpClient.OnResponseCallback() {
+                @Override
+                public void onJSONResponse(int statusCode, JSONObject response) {
+                    if(statusCode == 200) {
+                        try {
+                            mUtilisateur.idUtilisateur = response.get("idUtilisateur").toString();
+                        } catch (JSONException e) {
+                            Toast.makeText(getApplicationContext(), "Erreur dans l'analyse des données du serveur.", Toast.LENGTH_LONG).show();
+                            setResult(RESULT_CANCELED);
+                            finish();
+                        }
+                        Intent intent = new Intent();
+                        intent.putExtra(SP_KEY_USER, mUtilisateur);
+                        setResult(RESULT_OK, intent);
+                        finish();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Erreur dans l'envoi au serveur.", Toast.LENGTH_LONG).show();
+                        setResult(RESULT_CANCELED);
+                        finish();
+                    }
+                }
+            });
+
+
         }
     }
 
