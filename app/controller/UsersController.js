@@ -11,7 +11,7 @@ router.use(function(req, res, next) {
     next(); // make sure we go to the next routes and don't stop here
 });
 
- 
+
 // ROUTES FOR USERS
 // =============================================================================
 
@@ -27,6 +27,7 @@ router.post('/', function (req, res) {
   newUser.adresse = req.body.adresse;
   newUser.dateNaissance = req.body.dateNaissance;
   newUser.sexe = req.body.sexe;
+  newUser.idAssoc = req.body.idAssoc;
 
   console.log("New User : "+newUser);
 
@@ -34,7 +35,7 @@ router.post('/', function (req, res) {
   newUser.save(function (err, utilisateur) {
     if (err){
     return res.status(500).send("There was a problem adding infos to db");
-  } 
+  }
     console.log("User created ", utilisateur);
     res.status(200).send(utilisateur.nom+" has been created");
   });

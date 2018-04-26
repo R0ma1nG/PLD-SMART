@@ -30,12 +30,15 @@ require('./config/passport.js')(passport);
 var UsersController = require('./controller/UsersController');
 var PoubellesController = require('./controller/PoubellesController');
 var DepotsController = require('./controller/DepotsController');
+var AssociationsController = require('./controller/AssociationsController');
 var AuthController = require('./controller/AuthController')(app, passport);
+
 
 // Bind routes to controllers
 app.use('/api/users', UsersController);
 app.use('/api/poubelles', PoubellesController);
 app.use('/api/depots', DepotsController);
+app.use('/api/associations', AssociationsController);
 
 //First redirect (non définitif)
 app.get('/', function (req, res) {
