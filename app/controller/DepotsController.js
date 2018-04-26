@@ -74,7 +74,6 @@ router.get('/historique/:id', function (req, res) {
         res.status(200).send(depots);
       });
   });
-});
 
 
 module.exports = router;
