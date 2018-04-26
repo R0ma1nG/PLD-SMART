@@ -1,5 +1,6 @@
 package com.h4413.recyclyon.MapUtility;
 
+import android.app.AlertDialog;
 import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
 
@@ -31,7 +32,7 @@ public class MapTrashCameraListener implements GoogleMap.OnCameraMoveListener, G
     @Override
     public void onCameraIdle() {
         if(mMap.getCameraPosition().zoom < 15){
-            mMap.clear();
+            activity.populator.hideMarkers();
         } else {
             activity.populator.displayMarkers();
         }

@@ -94,7 +94,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //populator.fillMapPrototype(bins);
 
         populator.createMarkers(bins);
-
+        populator.displayMarkers();
 
         LatLng position = new LatLng(45.7580539, 4.7650808);
         //mMap.addMarker(new MarkerOptions().position(position).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_bin_full)));

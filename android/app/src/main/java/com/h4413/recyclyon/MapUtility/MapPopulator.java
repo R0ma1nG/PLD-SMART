@@ -20,12 +20,11 @@ public class MapPopulator implements GoogleMap.OnMarkerClickListener {
 
     private GoogleMap mMap;
     private MapsActivity activity;
-    private List<Marker> markers;
+    private List<Marker> markers = new ArrayList<>();
 
     public MapPopulator(GoogleMap m, MapsActivity mActivity){
         mMap = m;
         activity = mActivity;
-        markers = new ArrayList<>();
     }
 
     public void createMarkers(List<Bin> bins){
@@ -46,7 +45,12 @@ public class MapPopulator implements GoogleMap.OnMarkerClickListener {
             markers.add(marker);
         }
         mMap.setOnMarkerClickListener(this);
-        displayMarkers();
+    }
+
+    public void hideMarkers(){
+        for(Marker marker : markers){
+            marker.setVisible(false);
+        }
     }
 
     public void displayMarkers(){
