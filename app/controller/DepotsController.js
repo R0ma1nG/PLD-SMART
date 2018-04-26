@@ -59,18 +59,20 @@ router.get('/historique/:id', function (req, res) {
   console.log("HELLO IM TRYING TO GET THE DEPOTS OF USER "+userId)
   depot.find({ 'idUtilisateur': userId}, "date montant idAssoc", function (err, depots) {
     if (err) return res.status(500).send("There was a problem finding your depots in db : "+ err);
-    for(var key in depots){
-      if (depots.hasOwnProperty(key)) {
-        association.findById(depots[key]['idAssoc'], "nom", function(err, assocs) {
-          depots[key].nomAssoc = assocs.nom;
-          // console.log(depots[key].nomAssoc);
-          // console.log(depots[key]["nomAssoc"]);
-          console.log(depots[key].montant);
-          console.log(depots[key]);
-        });
-      }
-    }
-    res.status(200).send(depots);
+        for(var key in depots) {
+          if (depots.hasOwnProperty(key)) {
+            association.findById(depots[key]['idAssoc'], "nom", function(err, assocs) {
+              depots[key].nomAssoc = assocs.nom;
+              delete depots[key].idAssoc;
+              // console.log(depots[key].nomAssoc);
+              // console.log(depots[key]["nomAssoc"]);
+              // console.log(depots[key].nomAssoc);
+              console.log(depots[key]);
+            });
+          }
+        }
+        res.status(200).send(depots);
+      });
   });
 });
 

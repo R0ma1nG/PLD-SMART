@@ -12,13 +12,39 @@ router.use(function(req, res, next) {
 
 
 // get the list of all the poubelles
-router.get('/', function (req, res) {
+router.get('/infos', function (req, res) {
   console.log("HELLO IM TRYING TO GET THE POUBELLES")
-  poubelle.find({}, function (err, poubelles) {
+  poubelle.find({}, "lattitude longitude remplissage" ,function (err, poubelles) {
     if (err) return res.status(500).send("There was a problem finding the poubelles in db");
     res.status(200).send(poubelles);
   });
 });
 
+
+// get the adresse of one poubelle
+router.get('/adresse/:idPoubelle', function (req, res) {
+  console.log("HELLO IM TRYING TO GET A POUBELLE")
+  poubelle.findById(req.params.idPoubelle, "adresse", function (err, poubelle) {
+    if (err) return res.status(500).send("There was a problem finding your poubelle in db");
+    res.status(200).send(poubelle);
+  });
+});
+
+
+// Créer une poubelle
+router.post('/newPoubelle', function (req, res) {
+  console.log("HELLO IM TRYING TO CREATE A POUBELLE");
+  var id = new mongoose.mongo.ObjectId();
+  poubelle.create({
+    _id: id,
+    adresse: req.body.adresse,
+    lattitude: req.body.latitude,
+    longitude: req.body.longitude,
+    remplissage: req.body.statut
+  }, function (err, bin) {
+        if (err) return res.status(500).send("There was a problem creating your poubelle in db : "+ err);
+        res.status(200).send(bin);
+  });
+});
 
 module.exports = router;
