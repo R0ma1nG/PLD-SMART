@@ -1,7 +1,7 @@
 var mongoose     = require('mongoose');
 var Schema       = mongoose.Schema;
 
-/*var UtilisateurSchema   = new Schema({
+var DepotSchema   = new Schema({
     _id: Schema.Types.ObjectId,
     date: Date,
     montant: Number,
@@ -10,5 +10,4 @@ var Schema       = mongoose.Schema;
     idCapteur: Schema.Types.ObjectId
 });
 
-module.exports = mongoose.model('utilisateur', UtilisateurSchema, 'utilisateur');
-*/
+module.exports = mongoose.model('depot', DepotSchema, 'depot');
