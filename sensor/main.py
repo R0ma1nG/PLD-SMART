@@ -5,7 +5,7 @@ import threading
 
 #import level_listener
 import bottle_listener
-from sensors import mic_sensor
+from sensors import mic_sensor, optical_sensor
 
 ID_CAPTEUR = 3485386495
 TOKEN_CAPTEUR = 348534593696437587487920546496919
@@ -20,10 +20,9 @@ def main():
     bottle_events_buffer = []
 
     # Initialize sensors
-    # TODO: with camera_sensor.CameraSensor() as cam:
-    with mic_sensor.MicSensor() as mic:
+    with mic_sensor.MicSensor() as mic, optical_sensor.IRSensor as ir:
         # Start a thread listening to bottle thrown events
-        thread, stop_event, events_buffer_lock = bottle_listener.watch_for_events(mic, MIC_MODEL_DIR, bottle_events_buffer, save_dir=MIC_DATA_DIR)
+        thread, stop_event, events_buffer_lock = bottle_listener.watch_for_events(mic, ir, MIC_MODEL_DIR, bottle_events_buffer, save_dir=MIC_DATA_DIR)
 
         # Setup a periodic job flushing bottle events buffer to backend server if available
         def _flush_events():

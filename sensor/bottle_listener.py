@@ -9,7 +9,7 @@ from sensors import mic_sensor
 __all__ = ['watch_for_events']
 
 
-def watch_for_events(mic, mic_model_dir, bottle_events_buffer, save_dir=None):
+def watch_for_events(mic, ir, mic_model_dir, bottle_events_buffer, save_dir=None):
     stop_event = threading.Event()
     events_buffer_lock = threading.Lock()
 
@@ -22,13 +22,13 @@ def watch_for_events(mic, mic_model_dir, bottle_events_buffer, save_dir=None):
             frames = mic.record_window()
             if frames is None:
                 print("Can't read frames from mic (did you called .init() method?)")
-                return
+                continue
             if save_dir is not None:
                 os.makedirs(save_dir, exist_ok=True)
                 with open(os.path.join(save_dir, 'timespan_' + str(record_time).replace(':', '_') + '___' + str(uuid.uuid4()) + '.npz'), mode='wb') as file:
                     np.save(file, frames)
             is_bottle = classifier.predict(np.asarray([frames]))[0]
-            if is_bottle:
+            if is_bottle and ir.detects():
                 with events_buffer_lock:
                     bottle_events_buffer.append(record_time)
 
