@@ -51,10 +51,16 @@ router.post('/', function (req, res) {
 
 // get the list of all users
 router.get('/', function (req, res) {
-  utilisateur.find({}, function (err, utilisateurs) {
+  new Promise((resolve, reject) => {
+    utilisateur.find({}, (err, users) => {
+      if (err) reject(res.status(500).send("Unable to find users in database"));
+      resolve(res.status(200).send(users));
+    });
+  });
+  /*utilisateur.find({}, function (err, utilisateurs) {
     if (err) return res.status(500).send("There was a problem finding users in db");
     res.status(200).send(utilisateurs);
-  });
+  });*/
 });
 
 // get the user by Id
@@ -77,26 +83,31 @@ router.get('/mail/:mail', function (req, res) {
 router.put('/:id', function (req, res) {
   var userId = req.params.id;
   if (req.body.idAssoc) {
-    var newIdAssoc = mongoose.Types.ObjectId(req.body.idAssoc);
-    utilisateur.findByIdAndUpdate(userId, { idAssoc: newIdAssoc }, function (err, user) {
-      if (err || !user) return res.status(500).send("Unable to modify user's assoc");
-      return utilisateur.findById(userId, (err, updatedUser) => res.status(200).send(updatedUser));
-    });
+    new Promise((resolve, reject) => {
+      var newIdAssoc = mongoose.Types.ObjectId(req.body.idAssoc);
+       utilisateur.findByIdAndUpdate(userId, { idAssoc: newIdAssoc }, function (err, user) {
+      if (err || !user) reject(res.status(500).send("Unable to modify user's assoc"));
+      else resolve(user);
+      });
+    })
+    .then((user) => utilisateur.findById(userId, (err, updatedUser) => res.status(200).send(updatedUser)));
   } else {
-    console.log("Change the whole user");
-    utilisateur.findByIdAndUpdate(userId,
-    {
-      nom : req.body.nom,
-      adresse: req.body.adresse,
-      mail: req.body.mail,
-      dateNaissance: req.body.dateNaissance,
-      sexe: req.body.sexe
-    }, function (err, user) {
-      if (err || !user) return res.status(500).send("Unable to modify the whole user");
-      return utilisateur.findById(userId, (err, updatedUser) => res.status(200).send(updatedUser));
-    });
+    new Promise ( (resolve, reject) => {
+      utilisateur.findByIdAndUpdate(userId,
+      {
+        nom : req.body.nom,
+        adresse: req.body.adresse,
+        mail: req.body.mail,
+        dateNaissance: req.body.dateNaissance,
+        sexe: req.body.sexe
+      }, function (err, user) {
+      if (err || !user) reject(res.status(500).send("Unable to modify the whole user"));
+      else resolve(user);
+      });
+    })
+    .then((user) => utilisateur.findById(userId, (err, updatedUser) => res.status(200).send(updatedUser)))
   }
-  });
+});
 
 router.delete('/:id', function (req, res) {
   var userId = req.params.id;
