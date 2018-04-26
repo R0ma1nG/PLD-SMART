@@ -113,7 +113,7 @@ public class DepositQRActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             //mBarCodeDetector.release();
-                            if(barcodes.valueAt(0).displayValue.matches("[0-9a-zA-Z]")) {
+                            if(barcodes.valueAt(0).displayValue.matches("^[a-zA-Z0-9_]*$")) {
                                 mCameraSource.stop();
                                 Intent intent = new Intent(DepositQRActivity.this, DepositInProgressActivity.class);
                                 intent.putExtra("QRCode", barcodes.valueAt(0));
