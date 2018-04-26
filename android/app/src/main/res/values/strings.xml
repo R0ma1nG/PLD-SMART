@@ -66,4 +66,9 @@
     <string name="home_infos_donations">Dons générés : </string>
     <string name="home_depot_button">Faire un dépot</string>
     <string name="home_donations">0,00€</string>
+
+    <!-- Map String -->
+    <string name="mapKey">AIzaSyBqi9F2i_pJB4SPuXOEJOMLqzLYnyMzN7w</string>
+    <string name="title_activity_maps">Map</string>
+
 </resources>
