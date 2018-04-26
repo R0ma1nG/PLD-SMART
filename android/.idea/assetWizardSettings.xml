@@ -34,10 +34,10 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="C:\Users\Matthieu\Downloads\logout.png" />
-                                      <entry key="outputName" value="ic_nav_logout" />
+                                      <entry key="imageAsset" value="C:\Users\Matthieu\Downloads\garbage.png" />
+                                      <entry key="outputName" value="ic_bin_full" />
                                       <entry key="theme" value="CUSTOM" />
-                                      <entry key="themeColor" value="000000" />
+                                      <entry key="themeColor" value="7f0200" />
                                     </map>
                                   </option>
                                 </PersistentState>

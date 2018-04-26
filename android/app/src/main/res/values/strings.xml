@@ -77,4 +77,8 @@
 
     <string name="deposit_qr_info">Scannez le code QR de la benne</string>
     <string name="deposit_qr_button">Taper le code</string>
+
+    <!-- Map String -->
+    <string name="mapKey">AIzaSyBqi9F2i_pJB4SPuXOEJOMLqzLYnyMzN7w</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
