@@ -12,6 +12,7 @@ import com.h4413.recyclyon.Activities.Connection.ConnectionActivity;
 import com.h4413.recyclyon.Activities.Deposit.DepositQRActivity;
 import com.h4413.recyclyon.Activities.HomeActivity;
 import com.h4413.recyclyon.Activities.ScanPackaging.ScanPackagingActivity;
+import com.h4413.recyclyon.Activities.MapsActivity;
 import com.h4413.recyclyon.R;
 
 public class NavigationItemSelectedListener implements NavigationView.OnNavigationItemSelectedListener {
@@ -40,7 +41,10 @@ public class NavigationItemSelectedListener implements NavigationView.OnNavigati
         } else if (id == R.id.nav_account) {
 
         } else if (id == R.id.nav_map) {
-
+            if(mActivity.getClass() != MapsActivity.class) {
+                Intent intent = new Intent(mActivity.getApplicationContext(), MapsActivity.class);
+                mActivity.startActivity(intent);
+            }
         } else if (id == R.id.nav_scan) {
             if(mActivity.getClass() != ScanPackagingActivity.class)
             {

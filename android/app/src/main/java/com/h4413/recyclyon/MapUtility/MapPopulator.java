@@ -3,13 +3,12 @@ package com.h4413.recyclyon.MapUtility;
 import android.app.AlertDialog;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.h4413.recyclyon.MapsActivity;
+import com.h4413.recyclyon.Activities.MapsActivity;
 import com.h4413.recyclyon.R;
 import com.h4413.recyclyon.Model.Bin;
 

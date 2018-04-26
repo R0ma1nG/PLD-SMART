@@ -1,4 +1,4 @@
-package com.h4413.recyclyon;
+package com.h4413.recyclyon.Activities;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -12,9 +12,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -23,15 +22,16 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.h4413.recyclyon.Activities.Connection.ConnectionActivity;
+import com.h4413.recyclyon.Listeners.NavigationItemSelectedListener;
 import com.h4413.recyclyon.MapUtility.MapPopulator;
 import com.h4413.recyclyon.MapUtility.MapTrashCameraListener;
 import com.h4413.recyclyon.Model.Bin;
+import com.h4413.recyclyon.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
-        NavigationView.OnNavigationItemSelectedListener{
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private final int ACCESS_FINE_LOCATION_REQUEST_CODE = 15;
     private GoogleMap mMap;
@@ -42,24 +42,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        initNavigationMenu();
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.map_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
     }
 
 
@@ -101,8 +89,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @SuppressLint("MissingPermission")
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        System.out.println(permissions[0]);
-        System.out.println(Manifest.permission.ACCESS_FINE_LOCATION);
         if (requestCode == ACCESS_FINE_LOCATION_REQUEST_CODE) {
             if (permissions.length == 1 &&
                     permissions[0].compareTo(Manifest.permission.ACCESS_FINE_LOCATION) == 0 &&
@@ -116,50 +102,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.map_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
+    private void initNavigationMenu() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.title_deposit);
+        setSupportActionBar(toolbar);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.template_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(new NavigationItemSelectedListener(this));
+        navigationView.setCheckedItem(R.id.nav_map);
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.drawer, menu);
-        return true;
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_homepage) {
-
-        } else if (id == R.id.nav_deposit) {
-
-        } else if (id == R.id.nav_account) {
-
-        } else if (id == R.id.nav_map) {
-
-        } else if (id == R.id.nav_scan) {
-
-        } else if (id == R.id.nav_schedule) {
-
-        } else if (id == R.id.nav_settings) {
-
-        } else if (id == R.id.nav_logout) {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.map_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
 }

@@ -16,6 +16,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
@@ -111,11 +112,15 @@ public class DepositQRActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            mCameraSource.stop();
                             //mBarCodeDetector.release();
-                            Intent intent = new Intent(DepositQRActivity.this, DepositInProgressActivity.class);
-                            intent.putExtra("QRCode", barcodes.valueAt(0));
-                            startActivity(intent);
+                            if(barcodes.valueAt(0).displayValue.matches("[0-9a-zA-Z]")) {
+                                mCameraSource.stop();
+                                Intent intent = new Intent(DepositQRActivity.this, DepositInProgressActivity.class);
+                                intent.putExtra("QRCode", barcodes.valueAt(0));
+                                startActivity(intent);
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Ce n'est pas un QRCode valide", Toast.LENGTH_LONG).show();
+                            }
                         }
                     });
                 }
