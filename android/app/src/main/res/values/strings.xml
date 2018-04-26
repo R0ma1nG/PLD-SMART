@@ -60,4 +60,8 @@
     <string name="nav_header_mail">matthieu.valvin@gmail.com</string>
     <string name="nav_header_name">Matthieu Valvin</string>
 
+    <!-- Map String -->
+    <string name="mapKey">AIzaSyBqi9F2i_pJB4SPuXOEJOMLqzLYnyMzN7w</string>
+    <string name="title_activity_maps">Map</string>
+
 </resources>

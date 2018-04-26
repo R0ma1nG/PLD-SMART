@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.h4413.recyclyon">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality. 
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,7 +22,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Connection.ConnectionActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Connection.InscriptionActivity"
             android:label="@string/inscription"
@@ -30,19 +40,26 @@
             android:name=".HomeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".TemplateActivity"
-            android:label="TemplateActivity"
-            android:theme="@style/AppTheme">
+            android:name=".Connection.ChooseAssociationActivity"
+            android:parentActivityName=".Connection.InscriptionActivity"
+            android:screenOrientation="portrait" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity android:name=".TemplateActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
-            android:name=".Connection.ChooseAssociationActivity"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".Connection.InscriptionActivity"/>
+            android:name=".MapsActivity"
+            android:label="@string/title_activity_maps">
+        </activity>
     </application>
 
 </manifest>

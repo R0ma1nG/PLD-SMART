@@ -1,9 +1,14 @@
 package com.h4413.recyclyon;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -65,14 +70,14 @@ public class TemplateActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_homepage) {
-            Intent intent = new Intent(TemplateActivity.this, ForgotPwdActivity.class);
-            startActivityForResult(intent, 1);
         } else if (id == R.id.nav_deposit) {
 
         } else if (id == R.id.nav_account) {
 
         } else if (id == R.id.nav_map) {
 
+            Intent intent = new Intent(TemplateActivity.this, MapsActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_scan) {
 
         } else if (id == R.id.nav_schedule) {
