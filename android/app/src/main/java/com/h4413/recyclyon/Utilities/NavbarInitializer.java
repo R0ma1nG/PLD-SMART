@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.annotation.IdRes;
+import android.support.annotation.StringRes;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -20,9 +21,9 @@ import com.h4413.recyclyon.R;
 import org.json.JSONObject;
 
 public class NavbarInitializer {
-    public static void initNavigationMenu(final AppCompatActivity activity, @IdRes int checkedItem) {
+    public static void initNavigationMenu(final AppCompatActivity activity, @IdRes int checkedItem, @StringRes int title) {
         Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
-        toolbar.setTitle(R.string.title_deposit);
+        toolbar.setTitle(title);
         activity.setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) activity.findViewById(R.id.template_layout);

@@ -25,7 +25,7 @@ public class PackagingInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_packaging_info);
 
-        NavbarInitializer.initNavigationMenu(this, R.id.nav_scan);
+        NavbarInitializer.initNavigationMenu(this, R.id.nav_scan, R.string.title_scan_packaging);
 
         Intent intent = getIntent();
         mBarcode = intent.getParcelableExtra("Barcode");

@@ -36,7 +36,7 @@ public class ScanPackagingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_packaging);
-        NavbarInitializer.initNavigationMenu(this, R.id.nav_scan);
+        NavbarInitializer.initNavigationMenu(this, R.id.nav_scan, R.string.title_scan_packaging);
 
         mCameraView = (SurfaceView) findViewById(R.id.scan_packaging_surface_view);
 

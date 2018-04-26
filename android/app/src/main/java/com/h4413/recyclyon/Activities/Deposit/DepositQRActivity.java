@@ -55,7 +55,7 @@ public class DepositQRActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deposit_qr);
 
-        NavbarInitializer.initNavigationMenu(this, R.id.nav_deposit);
+        NavbarInitializer.initNavigationMenu(this, R.id.nav_deposit, R.string.title_deposit);
 
         mCameraView = (SurfaceView) findViewById(R.id.deposit_qr_surface_view);
         mManualInputButton = (Button) findViewById(R.id.deposit_qr_manual_button);

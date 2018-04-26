@@ -17,6 +17,6 @@ public class DepositManualActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deposit_manual);
-        NavbarInitializer.initNavigationMenu(this, R.id.nav_deposit);
+        NavbarInitializer.initNavigationMenu(this, R.id.nav_deposit, R.string.title_deposit);
     }
 }

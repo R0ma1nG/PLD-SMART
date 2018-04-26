@@ -45,7 +45,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         super.onCreate(savedInstanceState);
 
-        NavbarInitializer.initNavigationMenu(this, R.id.nav_homepage);
+        NavbarInitializer.initNavigationMenu(this, R.id.nav_homepage, R.string.nav_homepage);
 
         mDonationsText = (TextView) findViewById(R.id.home_activity_donations_text);
         mDepotButton = (Button) findViewById(R.id.home_activity_depot_btn);

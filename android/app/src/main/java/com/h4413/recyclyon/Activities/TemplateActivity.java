@@ -18,7 +18,7 @@ public class TemplateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_template);
-        NavbarInitializer.initNavigationMenu(this, R.id.nav_homepage);
+        NavbarInitializer.initNavigationMenu(this, R.id.nav_homepage, R.string.nav_homepage);
     }
 
     @Override

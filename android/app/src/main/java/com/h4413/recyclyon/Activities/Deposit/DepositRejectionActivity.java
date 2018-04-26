@@ -17,6 +17,6 @@ public class DepositRejectionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deposit_rejection);
-        NavbarInitializer.initNavigationMenu(this, R.id.nav_deposit);
+        NavbarInitializer.initNavigationMenu(this, R.id.nav_deposit, R.string.title_deposit);
     }
 }
