@@ -1,9 +1,8 @@
-package com.h4413.recyclyon.Activities;
+package com.h4413.recyclyon.Activities.Deposit;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -15,23 +14,24 @@ import android.support.v7.widget.Toolbar;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
-import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
+import com.h4413.recyclyon.Activities.ScanPackaging.PackagingInfoActivity;
+import com.h4413.recyclyon.Activities.ScanPackaging.ScanPackagingActivity;
 import com.h4413.recyclyon.Listeners.NavigationItemSelectedListener;
 import com.h4413.recyclyon.R;
-import com.h4413.recyclyon.Utilities.DrawView;
 
 import java.io.IOException;
 
-public class ScanPackagingActivity extends AppCompatActivity {
+public class DepositQRActivity extends AppCompatActivity {
 
     private SurfaceView mCameraView;
-    private TextView mBarCodeText;
+    private Button mManualInputButton;
 
     private CameraSource mCameraSource;
     private BarcodeDetector mBarCodeDetector;
@@ -39,24 +39,50 @@ public class ScanPackagingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scan_packaging);
+        setContentView(R.layout.activity_deposit_qr);
         initNavigationMenu();
 
-        mCameraView = (SurfaceView) findViewById(R.id.scan_packaging_surface_view);
-        mBarCodeText = (TextView) findViewById(R.id.scan_packaging_barcode_info);
+        mCameraView = (SurfaceView) findViewById(R.id.deposit_qr_surface_view);
+        mManualInputButton = (Button) findViewById(R.id.deposit_qr_manual_button);
 
-        mBarCodeDetector = new BarcodeDetector.Builder(this).setBarcodeFormats(Barcode.EAN_13).build();
+        mBarCodeDetector = new BarcodeDetector.Builder(this).setBarcodeFormats(Barcode.QR_CODE).build();
         mCameraSource = new CameraSource.Builder(this, mBarCodeDetector).setAutoFocusEnabled(true).build();
 
+        initCamera();
+
+        mManualInputButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DepositQRActivity.this, DepositManualActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == 50) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            try {
+                mCameraSource.start(mCameraView.getHolder());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void initCamera() {
         mCameraView.getHolder().addCallback(new SurfaceHolder.Callback() {
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
                 try {
-                    if (ContextCompat.checkSelfPermission(ScanPackagingActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
+                    if (ContextCompat.checkSelfPermission(DepositQRActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                         //ask for authorisation
-                        ActivityCompat.requestPermissions(ScanPackagingActivity.this, new String[]{Manifest.permission.CAMERA}, 50);
-                    else
+                        ActivityCompat.requestPermissions(DepositQRActivity.this, new String[]{Manifest.permission.CAMERA}, 50);
+                    } else {
                         mCameraSource.start(mCameraView.getHolder());
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -81,17 +107,15 @@ public class ScanPackagingActivity extends AppCompatActivity {
             @Override
             public void receiveDetections(Detector.Detections<Barcode> detections) {
                 final SparseArray<Barcode> barcodes = detections.getDetectedItems();
-                Frame.Metadata meta = detections.getFrameMetadata();
                 if (barcodes.size() != 0) {
-                    mBarCodeText.post(new Runnable() {
+                    runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            mBarCodeText.setText(barcodes.valueAt(0).displayValue);
                             mCameraSource.stop();
-                            mBarCodeDetector.release();
-                            /*DrawView drawView = new DrawView(ScanPackagingActivity.this, barcodes.valueAt(0).getBoundingBox());
-                            drawView.setBackgroundColor(Color.TRANSPARENT);
-                            setContentView(drawView);*/
+                            //mBarCodeDetector.release();
+                            Intent intent = new Intent(DepositQRActivity.this, DepositInProgressActivity.class);
+                            intent.putExtra("QRCode", barcodes.valueAt(0));
+                            startActivity(intent);
                         }
                     });
                 }
@@ -101,6 +125,7 @@ public class ScanPackagingActivity extends AppCompatActivity {
 
     private void initNavigationMenu() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.title_deposit);
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.template_layout);
@@ -111,6 +136,6 @@ public class ScanPackagingActivity extends AppCompatActivity {
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new NavigationItemSelectedListener(this));
-        navigationView.setCheckedItem(R.id.nav_scan);
+        navigationView.setCheckedItem(R.id.nav_deposit);
     }
 }

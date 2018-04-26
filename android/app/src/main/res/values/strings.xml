@@ -5,6 +5,12 @@
     <string name="inscription">Inscription</string>
     <string name="welcome">Bienvenue !</string>
 
+    <string name="title_packaging_info">Infos Emballage</string>
+    <string name="title_scan_packaging">Scanner un emballage</string>
+    <string name="title_deposit">Réaliser un dépôt</string>
+    <string name="title_deposit_in_progress">Dépôt en cours</string>
+    <string name="title_deposit_end">Merci</string>
+
     <string name="connectionInscriptionString">Pas encore de compte ? Inscrivez-vous ici.</string>
     <string name="connectionForgotPasswordString">Mot de passe oublié ?</string>
 
@@ -66,4 +72,9 @@
     <string name="home_infos_donations">Dons générés : </string>
     <string name="home_depot_button">Faire un dépot</string>
     <string name="home_donations">0,00€</string>
+
+    <string name="scan_packaging_info">Scannez un code barre pour savoir dans quelle poubelle le déposer !</string>
+
+    <string name="deposit_qr_info">Scannez le code QR de la benne</string>
+    <string name="deposit_qr_button">Taper le code</string>
 </resources>

@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.h4413.recyclyon.Activities.Deposit.DepositQRActivity;
 import com.h4413.recyclyon.Adapters.ChooseAssociationRecyclerViewAdapter;
 import com.h4413.recyclyon.Adapters.HistoricRecyclerViewAdapter;
 import com.h4413.recyclyon.Listeners.NavigationItemSelectedListener;
@@ -68,7 +69,7 @@ public class HomeActivity extends AppCompatActivity {
         mDepotButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, DepositActivity.class);
+                Intent intent = new Intent(HomeActivity.this, DepositQRActivity.class);
                 startActivity(intent);
             }
         });
