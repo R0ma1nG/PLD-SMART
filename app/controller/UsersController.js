@@ -3,6 +3,8 @@ var router = express.Router();
 var mongoose = require('mongoose');
 
 var utilisateur = require("../models/utilisateur");
+const nodemailer = require('nodemailer');
+
 
 
 // middleware to use for all requests
@@ -66,6 +68,39 @@ router.get('/:id', function (req, res) {
   });
 });
 
+// Send reset email
+router.post('/forgotPassword', function (req, res) {
+  utilisateur.findOne({ 'mail': req.body.email }, function (err, user) {
+    if (err || user === null) return res.status(500).send("Ce mail ne correspond à aucun compte");
+    var transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'recyclyon.app@gmail.com',
+        pass: 'pldsmartrpz'
+      }
+    });
+    // setup email data with unicode symbols
+    let mailOptions = {
+      from: '"Recyclyon" <recyclyon.app@gmail.com>', // sender address
+      to: req.body.email, // list of receivers
+      subject: 'Reinitialisation de mot de passe', // Subject line
+      html: "<b>Bonjour "+ user.nom +",<br/><br/>"+
+      "Nous avons reçu une demande de réinitialisation de votre mot de passe Recyclyon.<br/> Si vous n'avez pas fait cette demande, veuillez ignorer cet email.<br/>"+
+      "<a href=\"https://www.youtube.com\"> Pour changer votre mot de passe, cliquez ici <a/>" +
+      "<br/><br/> Si l'URL ci-dessus ne fonctionne pas, essayez de la copier puis la coller dans la barre d'adresse de votre navigateur." // plain text body
+      // html: '<b>Hello world?</b>' // html body
+    };
+    // send mail with defined transport object
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        return console.log(error);
+      }
+    });
+    res.status(200).send(mailOptions.html);
+  });
+});
+
+
 // Get user by mail
 router.get('/mail/:mail', function (req, res) {
   utilisateur.findOne({ 'mail': req.params.mail }, function (err, user) {
@@ -74,6 +109,8 @@ router.get('/mail/:mail', function (req, res) {
   });
 });
 
+
+// Modifier les informations d'un utilisateur
 router.put('/:id', function (req, res) {
   var userId = req.params.id;
   if (req.body.idAssoc) {
@@ -98,6 +135,7 @@ router.put('/:id', function (req, res) {
   }
   });
 
+// Supprimer un utilisateur
 router.delete('/:id', function (req, res) {
   var userId = req.params.id;
   return utilisateur.findByIdAndRemove(userId, (err) => err ? res.status(500).send("Unable to delete the user") : res.status(200).send("User deleted"));
