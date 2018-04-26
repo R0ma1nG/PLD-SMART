@@ -1,6 +1,7 @@
 package com.h4413.recyclyon.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.h4413.recyclyon.Activities.Deposit.DepositQRActivity;
 import com.h4413.recyclyon.Adapters.ChooseAssociationRecyclerViewAdapter;
 import com.h4413.recyclyon.Adapters.HistoricRecyclerViewAdapter;
@@ -25,6 +27,7 @@ import com.h4413.recyclyon.R;
 import com.h4413.recyclyon.Utilities.HttpClient;
 import com.h4413.recyclyon.Utilities.NetworkAccess;
 import com.h4413.recyclyon.Utilities.Routes;
+import com.h4413.recyclyon.Utilities.SharedPreferencesKeys;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,12 +44,38 @@ public class HomeActivity extends AppCompatActivity {
 
     private User mUser;
 
+    private View headerLayout;
+
+    private final static String ID_USER_KEY = "idUtilisateur";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        initNavigationMenu();
+        super.onCreate(savedInstanceState);
 
+
+        Intent intent = getIntent();
+        String idUtilisateur = intent.getStringExtra(ID_USER_KEY);
+        if(idUtilisateur == null){
+            Gson gson = new Gson();
+            SharedPreferences sharedPref = getPreferences(MODE_PRIVATE);
+            String str = sharedPref.getString(SharedPreferencesKeys.USER_KEY, "");
+            User usr = gson.fromJson(str, User.class);
+            idUtilisateur = usr._id;
+        }
+        HttpClient.GET(Routes.Users, idUtilisateur, HomeActivity.this, new HttpClient.OnResponseCallback() {
+            @Override
+            public void onJSONResponse(int statusCode, JSONObject response) {
+                Gson gson = new Gson();
+                mUser = gson.fromJson(response.toString(), User.class);
+                SharedPreferences sharedPref = getPreferences(MODE_PRIVATE);
+                sharedPref.edit().putString(SharedPreferencesKeys.USER_KEY, response.toString()).commit();
+                ((TextView)headerLayout.findViewById(R.id.nav_header_username)).setText(mUser.nom);
+                ((TextView)headerLayout.findViewById(R.id.nav_header_usermail)).setText(mUser.mail);
+            }
+        });
+
+        initNavigationMenu();
 
         mDonationsText = (TextView) findViewById(R.id.home_activity_donations_text);
         mDepotButton = (Button) findViewById(R.id.home_activity_depot_btn);
@@ -73,7 +102,6 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 
     private void initNavigationMenu() {
@@ -89,5 +117,6 @@ public class HomeActivity extends AppCompatActivity {
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new NavigationItemSelectedListener(this));
         navigationView.setCheckedItem(R.id.nav_homepage);
+        headerLayout = navigationView.getHeaderView(0);
     }
 }

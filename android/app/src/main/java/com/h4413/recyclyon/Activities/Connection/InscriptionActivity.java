@@ -120,7 +120,7 @@ public class InscriptionActivity extends AppCompatActivity {
                 public void onJSONResponse(int statusCode, JSONObject response) {
                     if(statusCode == 200) {
                         try {
-                            mUtilisateur.idUtilisateur = response.get("idUtilisateur").toString();
+                            mUtilisateur._id = response.get("idUtilisateur").toString();
                         } catch (JSONException e) {
                             Toast.makeText(getApplicationContext(), "Erreur dans l'analyse des données du serveur.", Toast.LENGTH_LONG).show();
                             setResult(RESULT_CANCELED);
@@ -148,7 +148,7 @@ public class InscriptionActivity extends AppCompatActivity {
         {
             SharedPreferences sharedPref = getPreferences(MODE_PRIVATE);
             Gson gson = new Gson();
-            sharedPref.edit().putString(SP_KEY_USER, gson.toJson(mUtilisateur)).commit();
+            sharedPref.edit().putString(SP_KEY_USER, gson.toJson(mUtilisateur)).apply();
         }
         super.onStop();
     }

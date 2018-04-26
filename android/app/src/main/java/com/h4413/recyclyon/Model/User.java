@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class User implements Serializable {
-    public String idUtilisateur;
+    public String _id;
     public String nom;
     public String mail;
     public String motDePasse;
@@ -17,7 +17,7 @@ public class User implements Serializable {
     public String idAssoc;
 
     public User(String id, String nom, String mail, String mdp, String adresse, int sexe, String assocId, Date date) {
-        this.idUtilisateur = id;
+        this._id = id;
         this.nom = nom;
         this.idAssoc = assocId;
         this.mail = mail;

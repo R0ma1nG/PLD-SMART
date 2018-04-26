@@ -1,6 +1,7 @@
 package com.h4413.recyclyon.Activities.Connection;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,7 +12,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.h4413.recyclyon.Activities.HomeActivity;
+import com.h4413.recyclyon.Model.ConnectionOk;
 import com.h4413.recyclyon.Model.User;
 import com.h4413.recyclyon.R;
 import com.h4413.recyclyon.Utilities.HttpClient;
@@ -24,6 +27,8 @@ public class ConnectionActivity extends AppCompatActivity {
 
     private static final int REQUEST_CODE_INSCRIPTION = 1;
     private static final int REQUEST_CODE_FORGOT_PWD = 2;
+
+    private static final String SP_MAIL_LAST_USER = "mailDernierUtilisateur";
 
     private EditText mMailInput;
     private EditText mPwdInput;
@@ -73,12 +78,16 @@ public class ConnectionActivity extends AppCompatActivity {
                         if(statusCode == 401) {
                             Toast.makeText(getApplicationContext(), "Mail / Mot de passe incorrect", Toast.LENGTH_LONG).show();
                         } else if(statusCode == 200) {
+                            SharedPreferences sharedPref = getPreferences(MODE_PRIVATE);
+                            sharedPref.edit().putString(SP_MAIL_LAST_USER, mMailInput.getText().toString()).apply();
                             Intent intent = new Intent(ConnectionActivity.this, HomeActivity.class);
+                            Gson gson = new Gson();
+                            ConnectionOk userid = gson.fromJson(response.toString(), ConnectionOk.class);
+                            intent.putExtra("idUtilisateur", userid.idUtilisateur);
                             startActivity(intent);
                         } else {
                             Toast.makeText(getApplicationContext(), "Erreur interne", Toast.LENGTH_LONG).show();
                         }
-
                     }
                 });
             }
@@ -99,6 +108,10 @@ public class ConnectionActivity extends AppCompatActivity {
         });
         mMailInput.addTextChangedListener(mInputListener);
         mPwdInput.addTextChangedListener(mInputListener);
+
+        SharedPreferences sharedPref = getPreferences(MODE_PRIVATE);
+        String mailDernierUtilisateur = sharedPref.getString(SP_MAIL_LAST_USER, "");
+        mMailInput.setText(mailDernierUtilisateur);
     }
 
     @Override
