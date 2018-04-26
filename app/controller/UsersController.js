@@ -18,35 +18,37 @@ router.use(function (req, res, next) {
 // create a new user
 router.post('/', function (req, res) {
 
-  utilisateur.findOne({ 'mail': req.body.mail }, function (err, user) {
-    if (err) return res.status(500).send("There was a problem finding users in db");
-    else if (user) return res.status(500).send("This email adress is already used");
-    else {
-      var newUser = new utilisateur();
-      var idAssoc = mongoose.Types.ObjectId(req.body.idAssoc);
-      // set the user's local credentials
-      newUser.mail = req.body.mail;
-      newUser.motDePasse = newUser.generateHash(req.body.motDePasse);
-      newUser.nom = req.body.nom;
-      newUser.adresse = req.body.adresse;
-      newUser.dateNaissance = req.body.dateNaissance;
-      newUser.sexe = req.body.sexe;
-      newUser.idAssoc = idAssoc;
+  new Promise( (resolve, reject) => {
+    utilisateur.findOne({ 'mail': req.body.mail }, function (err, user) {
+      if (err) reject(res.status(500).send("There was a problem finding users in db"));
+      else if (user) reject(res.status(500).send("This email adress is already used"));
+      else {
+        var newUser = new utilisateur();
+        var idAssoc = mongoose.Types.ObjectId(req.body.idAssoc);
+        // set the user's local credentials
+        newUser.mail = req.body.mail;
+        newUser.motDePasse = newUser.generateHash(req.body.motDePasse);
+        newUser.nom = req.body.nom;
+        newUser.adresse = req.body.adresse;
+        newUser.dateNaissance = req.body.dateNaissance;
+        newUser.sexe = req.body.sexe;
+        newUser.idAssoc = idAssoc;
 
-      // save the user
+        resolve(newUser);
+      }
+    });
+  })
+  .then( (newUser) => {
+    // save the user
       newUser.save(function (err, utilisateur) {
         if (err) {
-          return res.status(500).send("There was a problem adding infos to db");
+          res.status(500).send("There was a problem adding infos to db");
         }
-        console.log("User created ", utilisateur);
         var username = utilisateur.nom || "No name";
         var resMsg = `${username} has been created ans his id is : ${utilisateur.id}`;
         res.status(200).send(resMsg);
       });
-    }
   });
-
-
 });
 
 // get the list of all users
@@ -66,17 +68,21 @@ router.get('/', function (req, res) {
 // get the user by Id
 router.get('/:id', function (req, res) {
   var userId = req.params.id;
-  utilisateur.findById(userId, function (err, user) {
-    if (err) return res.status(500).send("Wrong ID, no user found");
-    res.status(200).send(user);
+  new Promise( (resolve, reject) => {
+    utilisateur.findById(userId, function (err, user) {
+    if (err) reject(res.status(500).send("Wrong ID, no user found"));
+    resolve(res.status(200).send(user));
+    });
   });
 });
 
 // Get user by mail
 router.get('/mail/:mail', function (req, res) {
-  utilisateur.findOne({ 'mail': req.params.mail }, function (err, user) {
-    if (err) return res.status(500).send("There was a problem finding users in db");
-    res.status(200).send(user);
+  new Promise( (resolve, reject) => {
+    utilisateur.findOne({ 'mail': req.params.mail }, function (err, user) {
+    if (err) reject(res.status(500).send("There was a problem finding users in db"));
+    resolve(res.status(200).send(user));
+    });
   });
 });
 
@@ -111,7 +117,9 @@ router.put('/:id', function (req, res) {
 
 router.delete('/:id', function (req, res) {
   var userId = req.params.id;
-  return utilisateur.findByIdAndRemove(userId, (err) => err ? res.status(500).send("Unable to delete the user") : res.status(200).send("User deleted"));
+  new Promise( (resolve, reject) => {
+    utilisateur.findByIdAndRemove(userId, (err) => err ? reject(res.status(500).send("Unable to delete the user")) : resolve(res.status(200).send("User deleted")));
+  });
 });
 
 module.exports = router;

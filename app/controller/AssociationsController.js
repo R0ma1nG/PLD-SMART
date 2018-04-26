@@ -15,34 +15,37 @@ router.use(function(req, res, next) {
 
 // Récupération de toutes les associations
 router.get('/', function (req, res) {
-  console.log("HELLO IM TRYING TO GET ALL THE ASSOCIATIONS")
-  association.find({}, "nom description", function (err, associations) {
-    if (err) return res.status(500).send("There was a problem finding charities in db : "+ err);
-    res.status(200).send(associations);
+  new Promise( (resolve, reject) => {
+    association.find({}, "nom description", function (err, associations) {
+      if (err) reject(res.status(500).send("There was a problem finding charities in db : "+ err));
+      resolve(res.status(200).send(associations));
+    });
   });
 });
 
 // Créer une assoc'
 router.post('/', function (req, res) {
-  console.log("HELLO IM TRYING TO CREATE AN ASSOC");
   var id = new mongoose.mongo.ObjectId();
-  association.create({
+  new Promise( (resolve, reject) => {
+    association.create({
     _id: id,
     nom: req.body.nom,
     rib: req.body.rib,
     description: req.body.description
-  }, function (err, assoc) {
-        if (err) return res.status(500).send("There was a problem creating your association in db : "+ err);
-        res.status(200).send(assoc);
+    }, function (err, assoc) {
+          if (err) reject(res.status(500).send("There was a problem creating your association in db : "+ err));
+          resolve(res.status(200).send(assoc));
+    });
   });
 });
 
 // get the information about a charity
 router.get('/:idAssoc', function (req, res) {
-  console.log("HELLO IM TRYING TO GET AN ASSOC")
-  association.findById(req.params.idAssoc, "nom description", function (err, assoc) {
-    if (err) return res.status(500).send("There was a problem finding your charity in db");
-    res.status(200).send(assoc);
+  new Promise( (resolve, reject) => {
+    association.findById(req.params.idAssoc, "nom description", function (err, assoc) {
+    if (err) reject(res.status(500).send("There was a problem finding your charity in db"));
+    resolve(res.status(200).send(assoc));
+    });
   });
 });
 
