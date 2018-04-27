@@ -2,22 +2,22 @@ package com.h4413.recyclyon.Model;
 
 public class Bin {
 
-    private int id;
+    private String _id;
     private String adress;
-    private double Lat;
-    private double Long;
+    private double lattitude;
+    private double longitude;
     private boolean full;
 
-    public Bin(int id, String adress, double lat, double aLong, boolean full) {
-        this.id = id;
+    public Bin(String id, String adress, double lat, double aLong, boolean full) {
+        this._id = id;
         this.adress = adress;
-        Lat = lat;
-        Long = aLong;
+        lattitude = lat;
+        longitude = aLong;
         this.full = full;
     }
 
-    public int getId() {
-        return id;
+    public String getId() {
+        return _id;
     }
 
     public String getAdress() {
@@ -25,11 +25,11 @@ public class Bin {
     }
 
     public double getLat() {
-        return Lat;
+        return lattitude;
     }
 
     public double getLong() {
-        return Long;
+        return longitude;
     }
 
     public boolean isFull() {

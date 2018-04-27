@@ -14,6 +14,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -21,13 +22,19 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.Gson;
 import com.h4413.recyclyon.Activities.Connection.ConnectionActivity;
 import com.h4413.recyclyon.Listeners.NavigationItemSelectedListener;
 import com.h4413.recyclyon.MapUtility.MapPopulator;
 import com.h4413.recyclyon.MapUtility.MapTrashCameraListener;
 import com.h4413.recyclyon.Model.Bin;
+import com.h4413.recyclyon.Model.BinList;
 import com.h4413.recyclyon.R;
+import com.h4413.recyclyon.Utilities.HttpClient;
 import com.h4413.recyclyon.Utilities.NavbarInitializer;
+import com.h4413.recyclyon.Utilities.Routes;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,15 +78,25 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.setOnCameraIdleListener(cameraListener);
 
 
+        HttpClient.GET(Routes.Bins, "", MapsActivity.this, new HttpClient.OnResponseCallback() {
+            @Override
+            public void onJSONResponse(int statusCode, JSONObject response) {
+                Toast.makeText(getApplicationContext(), "Poubelles : "+String.valueOf(statusCode), Toast.LENGTH_LONG).show();
+                Gson gson = new Gson();
+                BinList binList = gson.fromJson(response.toString(), BinList.class);
+                populator.createMarkers(binList.data);
+                populator.displayMarkers();
+            }
+        });
 
-        List<Bin> bins = new ArrayList<>();
-        bins.add(new Bin(1, "1 rue des teinturiers", 45.7580549, 4.7650808, true));
-        bins.add(new Bin(1, "1 rue des teinturiers not ", 45.7582549, 4.7670808, false));
+
+        /*List<Bin> bins = new ArrayList<>();
+        bins.add(new Bin("1", "1 rue des teinturiers", 45.7580549, 4.7650808, true));
+        bins.add(new Bin("1", "1 rue des teinturiers not ", 45.7582549, 4.7670808, false));*/
 
         //populator.fillMapPrototype(bins);
 
-        populator.createMarkers(bins);
-        populator.displayMarkers();
+
 
         LatLng position = new LatLng(45.7580539, 4.7650808);
         //mMap.addMarker(new MarkerOptions().position(position).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_bin_full)));

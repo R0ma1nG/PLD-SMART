@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.widget.Button;
 
 import com.h4413.recyclyon.Listeners.NavigationItemSelectedListener;
 import com.h4413.recyclyon.R;
@@ -13,10 +14,14 @@ import com.h4413.recyclyon.Utilities.NavbarInitializer;
 
 public class DepositRejectionActivity extends AppCompatActivity {
 
+    private Button mReturnButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deposit_rejection);
         NavbarInitializer.initNavigationMenu(this, R.id.nav_deposit, R.string.title_deposit);
+
+        mReturnButton = (Button) findViewById(R.id.deposit_rejection_button);
     }
 }

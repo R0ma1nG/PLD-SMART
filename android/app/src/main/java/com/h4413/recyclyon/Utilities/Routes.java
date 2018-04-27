@@ -5,4 +5,6 @@ public class Routes {
     public static String Login = "/login";
     public static String Signup ="/signup";
     public static String Associations = "/api/associations";
+    public static String Bins = "/api/poubelles/infos";
+    public static String BeginDeposit = "/api/depots/demarrerScan";
 }

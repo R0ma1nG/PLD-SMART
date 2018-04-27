@@ -1,8 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <include layout="@layout/app_bar_drawer" />
 
-</RelativeLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/primaryTextColor"
+        android:gravity="center"
+        android:textSize="25sp"
+        android:text="@string/deposit_rejection_title"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+
+    <Button
+        android:id="@+id/deposit_rejection_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/ButtonTheme"
+        android:text="@string/deposit_rejection_return"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"/>
+
+</LinearLayout>

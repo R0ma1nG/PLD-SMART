@@ -20,7 +20,7 @@ import java.net.CookieManager;
 
 public class HttpClient {
 
-    private final static String SERVER_IP = "10.188.209.252";
+    private final static String SERVER_IP = "192.168.43.108";
     private final static String SERVER_PORT = "8080";
 
     public interface OnResponseCallback {

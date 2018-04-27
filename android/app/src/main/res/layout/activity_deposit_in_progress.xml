@@ -11,10 +11,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/deposit_in_progress_infos"
-        android:gravity="center"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/deposit_progress_title"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:textSize="20sp"/>
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:src="@drawable/Recycling"
+            android:layout_marginStart="100dp"
+            android:layout_marginEnd="100dp"
+            android:layout_weight="2"/>
+
+        <Button
+            android:id="@+id/deposit_progress_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/ButtonTheme"
+            android:text="@string/deposit_progress_button"
+            android:layout_margin="40dp"/>
+
+    </LinearLayout>
 </LinearLayout>
