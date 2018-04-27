@@ -16,7 +16,7 @@ router.use(function(req, res, next) {
 // Récupération de toutes les associations
 router.get('/', function (req, res) {
   new Promise( (resolve, reject) => {
-    association.find({}, "nom description", function (err, associations) {
+    association.find({}, "nom description logoUrl", function (err, associations) {
       if (err) reject(res.status(500).send("There was a problem finding charities in db : "+ err));
       resolve(res.status(200).send(associations));
     });
@@ -42,7 +42,7 @@ router.post('/', function (req, res) {
 // get the information about a charity
 router.get('/:idAssoc', function (req, res) {
   new Promise( (resolve, reject) => {
-    association.findById(req.params.idAssoc, "nom description", function (err, assoc) {
+    association.findById(req.params.idAssoc, "nom description logoUrl", function (err, assoc) {
     if (err) reject(res.status(500).send("There was a problem finding your charity in db"));
     resolve(res.status(200).send(assoc));
     });
