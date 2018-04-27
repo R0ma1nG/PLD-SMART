@@ -89,7 +89,8 @@
             android:name=".Activities.Deposit.DepositRejectionActivity"
             android:parentActivityName=".Activities.Deposit.DepositQRActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".Activities.Deposit.DepositEndActivity"></activity>
+        <activity android:name=".Activities.Deposit.DepositEndActivity" />
+        <activity android:name=".Activities.SettingsActivity"></activity>
     </application>
 
 </manifest>

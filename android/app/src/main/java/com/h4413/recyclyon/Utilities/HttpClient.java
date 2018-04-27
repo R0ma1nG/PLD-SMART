@@ -121,4 +121,106 @@ public class HttpClient {
             }
         });
     }
+
+    public static void PUT(String relativePath, String parameter, String body, final Activity activity, final OnResponseCallback callback) {
+        String url = "http://"+SERVER_IP+":"+SERVER_PORT+relativePath;
+        if(parameter != null && !parameter.equals("")) {
+            url += "/"+parameter;
+        }
+        OkHttpClient mClient = new OkHttpClient();
+        CookieHandler cookieHandler = new CookieManager();
+        mClient.setCookieHandler(cookieHandler);
+        MediaType JSON_TYPE = MediaType.parse("application/json");
+        Request myGetRequest = new Request.Builder()
+                .url(url)
+                .addHeader("Content-Type", "application/json")
+                .put(RequestBody.create(JSON_TYPE, body))
+                .build();
+
+        mClient.newCall(myGetRequest).enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Response response) throws IOException {
+                final String text = response.body().string();
+                final int statusCode = response.code();
+
+                Object json = null;
+                try {
+                    json = new JSONTokener(text).nextValue();
+                    JSONObject obj = new JSONObject();
+                    if (json instanceof JSONObject) {
+                        obj = new JSONObject(text);
+                    }
+                    else if (json instanceof JSONArray) {
+                        obj.putOpt("data", new JSONArray(text));
+                    }
+                    final JSONObject finalObj = obj;
+                    activity.runOnUiThread(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            callback.onJSONResponse(statusCode, finalObj);
+                        }
+                    });
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    public static void DELETE(String relativePath, String parameter, final Activity activity, final OnResponseCallback callback) {
+        String url = "http://"+SERVER_IP+":"+SERVER_PORT+relativePath;
+        if(parameter != null && !parameter.equals("")) {
+            url += "/"+parameter;
+        }
+        OkHttpClient mClient = new OkHttpClient();
+        CookieHandler cookieHandler = new CookieManager();
+        mClient.setCookieHandler(cookieHandler);
+        Request myGetRequest = new Request.Builder()
+                .url(url)
+                .delete()
+                .build();
+
+        mClient.newCall(myGetRequest).enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Response response) throws IOException {
+                final String text = response.body().string();
+                final int statusCode = response.code();
+
+                Object json = null;
+                try {
+                    json = new JSONTokener(text).nextValue();
+                    JSONObject obj = new JSONObject();
+                    if (json instanceof JSONObject) {
+                        obj = new JSONObject(text);
+                    }
+                    else if (json instanceof JSONArray) {
+                        obj.putOpt("data", new JSONArray(text));
+                    }
+                    final JSONObject finalObj = obj;
+                    activity.runOnUiThread(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            callback.onJSONResponse(statusCode, finalObj);
+                        }
+                    });
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
 }

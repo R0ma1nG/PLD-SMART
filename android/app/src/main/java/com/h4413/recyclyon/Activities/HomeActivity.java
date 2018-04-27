@@ -19,6 +19,8 @@ import com.google.gson.Gson;
 import com.h4413.recyclyon.Activities.Deposit.DepositQRActivity;
 import com.h4413.recyclyon.Adapters.HistoricRecyclerViewAdapter;
 import com.h4413.recyclyon.Listeners.NavigationItemSelectedListener;
+import com.h4413.recyclyon.Model.Depot;
+import com.h4413.recyclyon.Model.DepotList;
 import com.h4413.recyclyon.Model.Historic;
 import com.h4413.recyclyon.Model.HistoricEntry;
 import com.h4413.recyclyon.Model.User;
@@ -57,13 +59,25 @@ public class HomeActivity extends AppCompatActivity {
         mHstoricRecyclerView.setLayoutManager(mLayoutManager);
         // specify an adapter (see also next example)
 
-        Historic historic = new Historic();
+        /*Historic historic = new Historic();
         historic.depots.add(new HistoricEntry(new Date(), 1.2f, "hfezigflbeuogfuiozb"));
         historic.depots.add(new HistoricEntry(new Date(), 2.4f, "lgkzmenogubz^^ihzizrg"));
         historic.depots.add(new HistoricEntry(new Date(), 3.3f, "foianeoifhiheaà!fg"));
-        historic.depots.add(new HistoricEntry(new Date(), 4.1f, "ioazfhgfyigazipfgaiu"));
-        mAdapter = new HistoricRecyclerViewAdapter(historic);
-        mHstoricRecyclerView.setAdapter(mAdapter);
+        historic.depots.add(new HistoricEntry(new Date(), 4.1f, "ioazfhgfyigazipfgaiu"));*/
+        Gson gson = new Gson();
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String str = sharedPref.getString(SharedPreferencesKeys.USER_KEY, "");
+        User usr = gson.fromJson(str, User.class);
+        HttpClient.GET(Routes.Historic, usr._id, this, new HttpClient.OnResponseCallback() {
+            @Override
+            public void onJSONResponse(int statusCode, JSONObject response) {
+                Gson gson = new Gson();
+                Depot[] depots = gson.fromJson(response.toString(), DepotList.class).data;
+                mAdapter = new HistoricRecyclerViewAdapter(depots);
+                mHstoricRecyclerView.setAdapter(mAdapter);
+            }
+        });
+
 
         mDepotButton.setOnClickListener(new View.OnClickListener() {
             @Override

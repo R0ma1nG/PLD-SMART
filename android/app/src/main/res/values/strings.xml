@@ -81,8 +81,15 @@
     <string name="deposit_progress_title">Déposez les déchets dans la benne</string>
     <string name="deposit_rejection_title">Une erreur est survenue durant le dépôt</string>
     <string name="deposit_rejection_return">Retour</string>
+    <string name="deposit_end_donation_generated">Dons générés grâce à votre dépôt : </string>
+    <string name="deposit_end_donation_assoc">Ces dons sont reversés à : </string>
+    <string name="deposit_end_finish">Terminer</string>
 
     <!-- Map String -->
     <string name="mapKey">AIzaSyBqi9F2i_pJB4SPuXOEJOMLqzLYnyMzN7w</string>
     <string name="title_activity_maps">Map</string>
+
+    <string name="settings_delete_account">Supprimer mon compte</string>
+    <string name="settings_delete_dialog_title">Confirmation</string>
+    <string name="settings_delete_dialog_text">Etes-vous sûr de vouloir supprimer votre compte ?</string>
 </resources>

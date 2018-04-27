@@ -1,9 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.Deposit.DepositEndActivity">
+    tools:context=".Activities.Deposit.DepositEndActivity"
+    android:orientation="vertical">
 
-</android.support.constraint.ConstraintLayout>
+    <include layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/deposit_end_donation_generated"
+        android:gravity="center"
+        android:layout_marginTop="30dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/deposit_end_montant"
+        android:gravity="center"
+        android:text="0.00€"
+        android:textSize="70sp"
+        android:textColor="@color/secondaryColor"/>
+
+    <View
+        style="@style/HorizontalSeparator"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/deposit_end_donation_assoc"
+        android:layout_gravity="center"
+        android:textSize="18sp"
+        android:layout_marginStart="15dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="15dp">
+        <ImageView
+            android:id="@+id/deposit_end_assoc_img"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/deposit_end_assoc"
+            android:text="Association"
+            android:layout_gravity="center"
+            android:gravity="center_vertical"
+            android:textSize="30sp"
+            android:textColor="@color/primaryTextColor"
+            android:paddingStart="10dp"/>
+    </LinearLayout>
+
+    <View
+        style="@style/HorizontalSeparator"
+        android:layout_marginTop="20dp"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="40dp"
+        style="@style/ButtonTheme"
+        android:text="@string/deposit_end_finish"
+        android:textSize="20sp"
+        android:id="@+id/deposit_end_button"/>
+
+</LinearLayout>

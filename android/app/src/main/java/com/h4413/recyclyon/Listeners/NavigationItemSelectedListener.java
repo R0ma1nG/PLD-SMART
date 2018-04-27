@@ -13,6 +13,7 @@ import com.h4413.recyclyon.Activities.Deposit.DepositQRActivity;
 import com.h4413.recyclyon.Activities.HomeActivity;
 import com.h4413.recyclyon.Activities.ScanPackaging.ScanPackagingActivity;
 import com.h4413.recyclyon.Activities.MapsActivity;
+import com.h4413.recyclyon.Activities.SettingsActivity;
 import com.h4413.recyclyon.R;
 
 public class NavigationItemSelectedListener implements NavigationView.OnNavigationItemSelectedListener {
@@ -54,9 +55,14 @@ public class NavigationItemSelectedListener implements NavigationView.OnNavigati
         } else if (id == R.id.nav_schedule) {
 
         } else if (id == R.id.nav_settings) {
-
+            if(mActivity.getClass() != SettingsActivity.class)
+            {
+                Intent intent = new Intent(mActivity.getApplicationContext(), SettingsActivity.class);
+                mActivity.startActivity(intent);
+            }
         } else if (id == R.id.nav_logout) {
             Intent intent = new Intent(mActivity.getApplicationContext(), ConnectionActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             mActivity.startActivity(intent);
         }
 

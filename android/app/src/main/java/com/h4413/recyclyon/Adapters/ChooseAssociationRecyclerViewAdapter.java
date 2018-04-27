@@ -58,9 +58,9 @@ public class ChooseAssociationRecyclerViewAdapter extends RecyclerView.Adapter<C
     public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.mTitle.setText(mDataset[position].nom);
         holder.mDescription.setText(mDataset[position].description);
-        if(mDataset[position].url == null || mDataset[position].url.equals(""))
-            mDataset[position].url = "http://www.gstatic.com/webp/gallery/1.jpg";
-        new DownLoadImageTask(holder.mLogo).execute(mDataset[position].url);
+        if(mDataset[position].logoUrl == null || mDataset[position].logoUrl.equals(""))
+            mDataset[position].logoUrl = "http://www.gstatic.com/webp/gallery/1.jpg";
+        new DownLoadImageTask(holder.mLogo).execute(mDataset[position].logoUrl);
         holder.mLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
