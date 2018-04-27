@@ -6,7 +6,7 @@
             <title>Dashboard</title>
             
             <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-                <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
                 <script src="script.js"></script>
                 <script src="js/index.js"></script>
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -29,10 +29,10 @@
         
        <!-- En-tête -->
        <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-           <a class="navbar-brand col-sm-3 col-md-11 mr-0" href="#">Recyc'Lyon</a>
+           <a class="navbar-brand col-sm-3 col-md-11 mr-0" href="#">Recyc'Lyon - Interface Grand Lyon</a>
            <ul class="navbar-nav px-5">
-               <li class="nav-item text-nowrap">
-                   <span class="oi oi-account-logout"></span>
+               <li class="nav-item text-nowrap text-white">
+                   <span data-feather="log-out"></span>
                </li>
            </ul>
        </nav>
@@ -46,8 +46,8 @@
                             <ul class="nav flex-column">
                                 <li class="nav-item">
                                     <a class="nav-link active" href="#">
-                                        <span data-feather="home"></span>
-                                        Dash <span class="sr-only">(current)</span>
+                                        <span data-feather="trash-2"></span>
+                                        <span class="sr-only">(current)</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -132,6 +132,13 @@
                             <input type="checkbox" class="form-check-input " value=""> Remplissage critique
                         </label>
                     </div>
+                    <select class="form-control w-5" id="sel1">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                    </select>
+                    <ul class="navbar-nav">
                     <!-- Dropdown -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Secteur</a>
@@ -141,7 +148,8 @@
                             <a class="dropdown-item" href="#">chez Papy</a>
                         </div>
                     </li>
-                    <input class="form-control form-control-dark w-50" type="text" placeholder="Recherche" aria-label="Recherche">
+                    </ul>
+                    <input class="form-control form-control-dark w-25" type="text" placeholder="Recherche" aria-label="Recherche">
                         </nav>
                 
             </div>
@@ -172,7 +180,7 @@
                     </script>
                 </div>
         
-        
+        </br></br>
         <h2>Tableau Recapitulatif</h2>
         <div class="table-responsive">
             <table class="table table-striped table-sm">
@@ -205,7 +213,18 @@
         </div>
         
         
+       
+        
+        
         </div>
+        
+        <!-- Bootstrap core JavaScript
+         ================================================== -->
+        <!-- Icons -->
+        <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+        <script>
+            feather.replace()
+            </script>
         
         
     </body>
