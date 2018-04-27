@@ -13,6 +13,7 @@ router.use(function(req, res, next) {
 });
 
 // Créer un dépot
+// TODO : vérifier que la benne n'est pas pleine
 router.post('/demarrerScan', function (req, res) {
   console.log("HELLO IM TRYING TO START A DEPOT");
   user.findById(req.body.idUtilisateur, "idAssoc",function (err, utilisateur) {

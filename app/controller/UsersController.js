@@ -87,8 +87,7 @@ router.post('/forgotPassword', function (req, res) {
       html: "<b>Bonjour "+ user.nom +",<br/><br/>"+
       "Nous avons reçu une demande de réinitialisation de votre mot de passe Recyclyon.<br/> Si vous n'avez pas fait cette demande, veuillez ignorer cet email.<br/>"+
       "<a href=\"https://www.youtube.com\"> Pour changer votre mot de passe, cliquez ici <a/>" +
-      "<br/><br/> Si l'URL ci-dessus ne fonctionne pas, essayez de la copier puis la coller dans la barre d'adresse de votre navigateur." // plain text body
-      // html: '<b>Hello world?</b>' // html body
+      "<br/><br/> Si le lien ci-dessus ne fonctionne pas, c'est dommage ..." // plain text body
     };
     // send mail with defined transport object
     transporter.sendMail(mailOptions, (error, info) => {
