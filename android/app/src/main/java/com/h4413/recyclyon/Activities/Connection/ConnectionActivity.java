@@ -64,19 +64,21 @@ public class ConnectionActivity extends AppCompatActivity {
         mConnectionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(getApplicationContext(), "Connection, need to be implemented.", Toast.LENGTH_LONG).show();
+                mConnectionButton.setEnabled(false);
                 JSONObject obj = new JSONObject();
                 try {
                     obj.put("mail", mMailInput.getText().toString());
                     obj.put("motDePasse", mPwdInput.getText().toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    mConnectionButton.setEnabled(true);
                 }
                 HttpClient.POST(Routes.Login, obj.toString(), ConnectionActivity.this, new HttpClient.OnResponseCallback() {
                     @Override
                     public void onJSONResponse(int statusCode, JSONObject response) {
                         if(statusCode == 401) {
                             Toast.makeText(getApplicationContext(), "Mail / Mot de passe incorrect", Toast.LENGTH_LONG).show();
+                            mConnectionButton.setEnabled(true);
                         } else if(statusCode == 200) {
                             SharedPreferences sharedPref = getPreferences(MODE_PRIVATE);
                             sharedPref.edit().putString(SP_MAIL_LAST_USER, mMailInput.getText().toString()).apply();
@@ -87,6 +89,7 @@ public class ConnectionActivity extends AppCompatActivity {
                             startActivity(intent);
                         } else {
                             Toast.makeText(getApplicationContext(), "Erreur interne", Toast.LENGTH_LONG).show();
+                            mConnectionButton.setEnabled(true);
                         }
                     }
                 });

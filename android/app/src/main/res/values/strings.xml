@@ -84,6 +84,10 @@
     <string name="deposit_end_donation_generated">Dons générés grâce à votre dépôt : </string>
     <string name="deposit_end_donation_assoc">Ces dons sont reversés à : </string>
     <string name="deposit_end_finish">Terminer</string>
+    <string name="deposit_manual_validate">Valider</string>
+    <string name="deposit_manual_cancel">Annuler</string>
+    <string name="deposit_manual_text">Rentrez manuellement le code de la benne</string>
+    <string name="deposit_manual_scan_qr">Scanner le QR code</string>
 
     <!-- Map String -->
     <string name="mapKey">AIzaSyBqi9F2i_pJB4SPuXOEJOMLqzLYnyMzN7w</string>

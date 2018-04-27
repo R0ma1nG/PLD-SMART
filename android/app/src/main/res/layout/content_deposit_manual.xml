@@ -8,4 +8,51 @@
     <include
         layout="@layout/app_bar_drawer"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/deposit_manual_text"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="40dp"
+        android:id="@+id/deposit_manual_edittext"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/deposit_manual_cancel"
+            style="@style/ButtonTheme"
+            android:text="@string/deposit_manual_cancel"
+            android:layout_margin="20dp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/deposit_manual_validate"
+            style="@style/ButtonTheme"
+            android:text="@string/deposit_manual_validate"
+            android:layout_margin="20dp"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/deposit_manual_scan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/secondaryColor"
+        android:text="@string/deposit_manual_scan_qr"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:layout_marginTop="30dp"/>
 </LinearLayout>

@@ -26,6 +26,9 @@ import org.json.JSONObject;
 
 public class DepositInProgressActivity extends AppCompatActivity {
 
+    private final static int REQUEST_CODE_END_DEPOSIT = 1;
+    private final static int REQUEST_CODE_ERROR = 2;
+
     private Barcode mQRCode;
 
     private Button mFinishButton;
@@ -63,7 +66,7 @@ public class DepositInProgressActivity extends AppCompatActivity {
                     } catch (JSONException e) {e.printStackTrace();}
                 } else {
                     Intent intent = new Intent(DepositInProgressActivity.this, DepositRejectionActivity.class);
-                    startActivity(intent);
+                    startActivityForResult(intent, REQUEST_CODE_ERROR);
                 }
             }
         });
@@ -87,7 +90,7 @@ public class DepositInProgressActivity extends AppCompatActivity {
                         Intent intent = new Intent(DepositInProgressActivity.this, DepositEndActivity.class);
                         intent.putExtra(IntentExtraKeys.DEPOT_MONTANT_KEY, montant);
                         intent.putExtra(IntentExtraKeys.ID_ASSOC_KEY, idAssoc);
-                        startActivity(intent);
+                        startActivityForResult(intent, REQUEST_CODE_END_DEPOSIT);
                     }
                 });
             }
@@ -99,4 +102,14 @@ public class DepositInProgressActivity extends AppCompatActivity {
         toolbar.setTitle(R.string.title_deposit_in_progress);
         setSupportActionBar(toolbar);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        setResult(resultCode);
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {return;}
 }

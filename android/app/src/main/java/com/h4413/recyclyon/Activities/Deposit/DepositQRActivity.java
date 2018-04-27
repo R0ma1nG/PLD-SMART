@@ -14,6 +14,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -27,10 +28,13 @@ import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.google.gson.Gson;
+import com.h4413.recyclyon.Activities.Connection.ChooseAssociationActivity;
+import com.h4413.recyclyon.Activities.Connection.InscriptionActivity;
 import com.h4413.recyclyon.Activities.HomeActivity;
 import com.h4413.recyclyon.Activities.ScanPackaging.PackagingInfoActivity;
 import com.h4413.recyclyon.Activities.ScanPackaging.ScanPackagingActivity;
 import com.h4413.recyclyon.Listeners.NavigationItemSelectedListener;
+import com.h4413.recyclyon.Model.Association;
 import com.h4413.recyclyon.Model.User;
 import com.h4413.recyclyon.R;
 import com.h4413.recyclyon.Utilities.HttpClient;
@@ -38,11 +42,15 @@ import com.h4413.recyclyon.Utilities.NavbarInitializer;
 import com.h4413.recyclyon.Utilities.Routes;
 import com.h4413.recyclyon.Utilities.SharedPreferencesKeys;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 
 public class DepositQRActivity extends AppCompatActivity {
+
+    private final static int REQUEST_CODE_QR = 1;
+    private final static int REQUEST_CODE_MANUAL = 2;
 
     private SurfaceView mCameraView;
     private Button mManualInputButton;
@@ -69,7 +77,7 @@ public class DepositQRActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DepositQRActivity.this, DepositManualActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, REQUEST_CODE_MANUAL);
             }
         });
     }
@@ -131,7 +139,7 @@ public class DepositQRActivity extends AppCompatActivity {
                                 mCameraSource.stop();
                                 Intent intent = new Intent(DepositQRActivity.this, DepositInProgressActivity.class);
                                 intent.putExtra("QRCode", barcodes.valueAt(0));
-                                startActivity(intent);
+                                startActivityForResult(intent, REQUEST_CODE_QR);
                             } else {
                                 Toast.makeText(getApplicationContext(), "Ce n'est pas un QRCode valide", Toast.LENGTH_LONG).show();
                             }
@@ -140,5 +148,14 @@ public class DepositQRActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode != REQUEST_CODE_MANUAL){
+            setResult(resultCode);
+            finish();
+        }
     }
 }

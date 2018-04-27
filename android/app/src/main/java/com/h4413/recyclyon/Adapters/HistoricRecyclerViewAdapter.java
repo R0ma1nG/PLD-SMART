@@ -54,6 +54,7 @@ public class HistoricRecyclerViewAdapter extends RecyclerView.Adapter<HistoricRe
 
     @Override
     public int getItemCount() {
+        if(mDataset == null) return 0;
         return mDataset.length;
     }
 }

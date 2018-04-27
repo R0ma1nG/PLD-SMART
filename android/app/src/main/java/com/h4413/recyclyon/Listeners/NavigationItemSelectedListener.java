@@ -18,6 +18,13 @@ import com.h4413.recyclyon.R;
 
 public class NavigationItemSelectedListener implements NavigationView.OnNavigationItemSelectedListener {
 
+    public final static int REQUEST_CODE_DEPOT = 1;
+    public final static int REQUEST_CODE_ACCOUNT = 2;
+    public final static int REQUEST_CODE_MAP = 3;
+    public final static int REQUEST_CODE_SCAN = 4;
+    public final static int REQUEST_CODE_SCHEDULE = 5;
+    public final static int REQUEST_CODE_SETTINGS = 6;
+
     Activity mActivity;
 
     public NavigationItemSelectedListener(Activity activity) {
@@ -31,26 +38,28 @@ public class NavigationItemSelectedListener implements NavigationView.OnNavigati
 
         if (id == R.id.nav_homepage) {
             if(mActivity.getClass() != HomeActivity.class) {
-                Intent intent = new Intent(mActivity.getApplicationContext(), HomeActivity.class);
-                mActivity.startActivity(intent);
+                /*Intent intent = new Intent(mActivity.getApplicationContext(), HomeActivity.class);
+                mActivity.startActivity(intent);*/
+                mActivity.setResult(Activity.RESULT_CANCELED);
+                mActivity.finish();
             }
         } else if (id == R.id.nav_deposit) {
             if(mActivity.getClass() != DepositQRActivity.class) {
                 Intent intent = new Intent(mActivity.getApplicationContext(), DepositQRActivity.class);
-                mActivity.startActivity(intent);
+                mActivity.startActivityForResult(intent, REQUEST_CODE_DEPOT);
             }
         } else if (id == R.id.nav_account) {
 
         } else if (id == R.id.nav_map) {
             if(mActivity.getClass() != MapsActivity.class) {
                 Intent intent = new Intent(mActivity.getApplicationContext(), MapsActivity.class);
-                mActivity.startActivity(intent);
+                mActivity.startActivityForResult(intent, REQUEST_CODE_MAP);
             }
         } else if (id == R.id.nav_scan) {
             if(mActivity.getClass() != ScanPackagingActivity.class)
             {
                 Intent intent = new Intent(mActivity.getApplicationContext(), ScanPackagingActivity.class);
-                mActivity.startActivity(intent);
+                mActivity.startActivityForResult(intent, REQUEST_CODE_SCAN);
             }
         } else if (id == R.id.nav_schedule) {
 
@@ -58,7 +67,7 @@ public class NavigationItemSelectedListener implements NavigationView.OnNavigati
             if(mActivity.getClass() != SettingsActivity.class)
             {
                 Intent intent = new Intent(mActivity.getApplicationContext(), SettingsActivity.class);
-                mActivity.startActivity(intent);
+                mActivity.startActivityForResult(intent, REQUEST_CODE_SETTINGS);
             }
         } else if (id == R.id.nav_logout) {
             Intent intent = new Intent(mActivity.getApplicationContext(), ConnectionActivity.class);

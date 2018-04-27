@@ -83,8 +83,29 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this, DepositQRActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, NavigationItemSelectedListener.REQUEST_CODE_DEPOT);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setCheckedItem(R.id.nav_homepage);
+        switch(requestCode) {
+            case NavigationItemSelectedListener.REQUEST_CODE_DEPOT:
+                break;
+            case NavigationItemSelectedListener.REQUEST_CODE_ACCOUNT:
+                break;
+            case NavigationItemSelectedListener.REQUEST_CODE_MAP:
+                break;
+            case NavigationItemSelectedListener.REQUEST_CODE_SCAN:
+                break;
+            case NavigationItemSelectedListener.REQUEST_CODE_SCHEDULE:
+                break;
+            case NavigationItemSelectedListener.REQUEST_CODE_SETTINGS:
+                break;
+        }
     }
 }

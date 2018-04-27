@@ -7,22 +7,23 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_margin="10dp">
         <TextView
             android:id="@+id/historic_view_infos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Title"
-            android:gravity="left"
-            android:textSize="18sp"
-            android:textColor="@color/primaryTextColor"/>
+            android:gravity="start"
+            android:textSize="20sp"
+            android:textColor="@color/primaryTextColor" />
 
         <TextView
             android:id="@+id/historic_view_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Description"
-            android:gravity="left"
+            android:gravity="start"
             android:layout_marginStart="25dp"/>
     </LinearLayout>
 

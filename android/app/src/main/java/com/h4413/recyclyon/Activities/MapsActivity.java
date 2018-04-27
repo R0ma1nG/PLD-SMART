@@ -81,7 +81,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         HttpClient.GET(Routes.Bins, "", MapsActivity.this, new HttpClient.OnResponseCallback() {
             @Override
             public void onJSONResponse(int statusCode, JSONObject response) {
-                Toast.makeText(getApplicationContext(), "Poubelles : "+String.valueOf(statusCode), Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "Poubelles : "+String.valueOf(statusCode), Toast.LENGTH_LONG).show();
                 Gson gson = new Gson();
                 BinList binList = gson.fromJson(response.toString(), BinList.class);
                 populator.createMarkers(binList.data);

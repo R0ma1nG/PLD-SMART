@@ -61,8 +61,8 @@ public class DepositEndActivity extends AppCompatActivity {
         mFinishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DepositEndActivity.this, HomeActivity.class);
-                startActivity(intent);
+                setResult(RESULT_OK);
+                finish();
             }
         });
     }
