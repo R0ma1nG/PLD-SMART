@@ -149,8 +149,11 @@ router.post('/forgotPassword/:idUser/:idToken', function (req, res) {
       if (err || !user) return res.status(500).send("Cannot find user corresponding to the token");
       else {
         var newPassword = user.generateHash(req.body.password);
-        user.changePassword(newPassword);
-        res.status(200).send({redirect: `http://localhost:8080/`});
+        user.motDePasse = newPassword;
+        user.save(function (err, user) {
+          if (err) res.status(500).send("Password cant be modifed");
+          res.status(200).send({redirect: `http://localhost:8080/`});
+        })
       }
     });
   });
