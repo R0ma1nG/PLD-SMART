@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 
 var utilisateur = require("../models/utilisateur");
 const nodemailer = require('nodemailer');
+var pwdToken = require("../models/pwdToken");
 
 
 
@@ -83,50 +84,81 @@ router.get('/:id', function (req, res) {
 
 // Send reset email
 router.post('/forgotPassword', function (req, res) {
-  utilisateur.findOne({ 'mail': req.body.email }, function (err, user) {
-    if (err || user === null) return res.status(500).send("Ce mail ne correspond à aucun compte");
-    var transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: 'recyclyon.app@gmail.com',
-        pass: 'pldsmartrpz'
+  new Promise( (resolve, reject) => {
+    return utilisateur.findOne({ 'mail': req.body.mail }, function (err, user) {
+      if (err || !user) reject(res.status(500).send("Ce mail ne correspond à aucun compte"));
+      else resolve(user);
+    });
+  })
+  .then( (user) => {
+    console.log("USer found, token creation incoming");
+    var createdToken = user.id.toString().substring(4,9);
+    createdToken += Math.floor(Math.random()*50);
+    console.log("createdToken: "+createdToken);
+    return pwdToken.create({
+      idUser: user.id,
+      idToken: createdToken
+    }, function (err, token) {
+      console.log("ERROR: "+err);
+      console.log("TOKEN: "+token);
+      if (err) return res.status(500).send("Unable to save the token");
+      else {
+       console.log("I DONT UNDERSTAND");
+        return token;
       }
     });
-    var link = `http://localhost:8080/api/users/forgotPassword/${user.id}`;
-    // setup email data with unicode symbols
-    let mailOptions = {
-      from: '"Recyclyon" <recyclyon.app@gmail.com>', // sender address
-      to: req.body.email, // list of receivers
-      subject: 'Reinitialisation de mot de passe', // Subject line
-      html: "<b>Bonjour "+ user.nom +",<br/><br/>"+
-      "Nous avons reçu une demande de réinitialisation de votre mot de passe Recyclyon.<br/> Si vous n'avez pas fait cette demande, veuillez ignorer cet email.<br/>"+
-      "<a href="+link+"> Pour changer votre mot de passe, cliquez ici <a/>" +
-      "<br/><br/> Si le lien ci-dessus ne fonctionne pas, c'est dommage ..." // plain text body
-    };
-    // send mail with defined transport object
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        return console.log(error);
-      }
+  })
+  .then( (token) => {
+    console.log("token created : "+token);
+    var link = `http://localhost:8080/api/users/forgotPassword/${token.idUser}/${token.idToken}`;
+      // setup email data with unicode symbols
+      let mailOptions = {
+        from: '"Recyclyon" <recyclyon.app@gmail.com>', // sender address
+        to: req.body.mail, // list of receivers
+        subject: 'Reinitialisation de mot de passe', // Subject line
+        html: "<b>Bonjour "+ user.nom +",<br/><br/>"+
+        "Nous avons reçu une demande de réinitialisation de votre mot de passe Recyclyon.<br/> Si vous n'avez pas fait cette demande, veuillez ignorer cet email.<br/>"+
+        "<a href="+link+"> Pour changer votre mot de passe, cliquez ici <a/>" +
+        "<br/><br/> Si le lien ci-dessus ne fonctionne pas, c'est dommage ..." // plain text body
+      };
+      // send mail with defined transport object
+      var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'recyclyon.app@gmail.com',
+          pass: 'pldsmartrpz'
+        }
+      });
+      return transporter.sendMail(mailOptions, (error, info) => {
+        if (error) return res.status(500).send("Mail cannot be send");
+        else return res.status(200).send(mailOptions.html);
     });
-    res.status(200).send(mailOptions.html);
   });
 });
 
-router.get('/forgotPassword/:idUser', function (req, res) {
+router.get('/forgotPassword/:idUser/:token', function (req, res) {
   res.render('forgotpwd');
 });
 
-router.post('/forgotPassword/:idUser', function (req, res) {
+router.post('/forgotPassword/:idUser/:idToken', function (req, res) {
   var userId = req.params.idUser;
-  var user = utilisateur.findById(userId, function(err, user) {
-    if (err || !user) res.status(500).send("Error finding the user");
-    else {
-      var newPassword = user.generateHash(req.body.password);
-      user.changePassword(newPassword);
-      console.log("mdp changed");
-      res.redirect('/');
-    }
+  var tokenId = req.params.idToken;
+  new Promise( (resolve, reject) => {
+    pwdToken.findOne({idToken: tokenId}, function(err, token) {
+      if (err || !token) res.status(500).send("Error finding the token");
+      else resolve(token);
+    });
+  })
+  .then( (token) => {
+    return utilisateur.findById(token.idUser, function (err, user) {
+      if (err || !user) return res.status(500).send("Cannot find user corresponding to the token");
+      else {
+        var newPassword = user.generateHash(req.body.password);
+        user.changePassword(newPassword);
+        console.log("mdp changed");
+        res.redirect('/');
+      }
+    });
   });
 });
 
