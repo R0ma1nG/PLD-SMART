@@ -13,6 +13,7 @@ router.use(function(req, res, next) {
 
 
 // Scan d'un code barre
+//TODO : product not found
 router.get('/codeBarre/:codeBarre', function (req, res) {
   let url = 'https://world.openfoodfacts.org/api/v0/product/'+req.params.codeBarre+'.json';
   new Promise( (resolve, reject) => {
@@ -20,19 +21,17 @@ router.get('/codeBarre/:codeBarre', function (req, res) {
       xmlHttp.open("GET", url, false);
       xmlHttp.send(null);
       var json = JSON.parse(xmlHttp.responseText);
-      var textResult = "{ \"product\" : []}";
+      var textResult = "{ \"product\": { \"image\":\"\", \"nom\":\"\", \"emballage\":\"\"}}";
       var jsonResult = JSON.parse(textResult);
       // Ajout de l'image
-      jsonResult.product.image = json.product.selected_images.front.display.en;
+      jsonResult.product.image = json.product.selected_images.front.display;
       // Ajout du nom du produit
-      jsonResult.product.nom = json.product.product_name_en;
+      jsonResult.product.nom = json.product.product_name;
       //ajout de l'emballage
       jsonResult.product.emballage = json.product.packaging;
       resolve(jsonResult);
   })
   .then( ( resultat ) => {
-    console.log(resultat);
-    // Return "{ product: []}"
     res.status(200).send(resultat);
   })
 });
