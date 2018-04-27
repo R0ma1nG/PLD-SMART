@@ -5,10 +5,31 @@
     <string name="inscription">Inscription</string>
     <string name="welcome">Bienvenue !</string>
 
+    <string name="title_packaging_info">Infos Emballage</string>
+    <string name="title_scan_packaging">Scanner un emballage</string>
+    <string name="title_deposit">Réaliser un dépôt</string>
+    <string name="title_deposit_in_progress">Dépôt en cours</string>
+    <string name="title_deposit_end">Merci</string>
+
     <string name="connectionInscriptionString">Pas encore de compte ? Inscrivez-vous ici.</string>
     <string name="connectionForgotPasswordString">Mot de passe oublié ?</string>
 
     <string name="inscriptionSubmit">Je m\'inscris</string>
+    <string name="inscriptionMailEdit">Mail</string>
+    <string name="inscriptionMdpEdit">Mot de passe</string>
+    <string name="inscriptionConfirmMdpEdit">Confirmation</string>
+    <string name="inscriptionAdresseEdit">Adresse</string>
+    <string name="inscriptionDateEdit">Date de naissance</string>
+    <string name="inscriptionSexeEdit">Sexe</string>
+    <string name="inscriptionInfosSupp">Informations supplémentaires</string>
+    <string name="inscriptionWrongPasswords">Les mots de passe ne correspondent pas.</string>
+    <string name="inscriptionAllFieldsMustBeCompleted">Tous les champs doivent être complétés.</string>
+    <string name="inscriptionNameEdit">Nom</string>
+    <string-array name="inscriptionSexeChoices">
+        <item>Sexe</item>
+        <item>Homme</item>
+        <item>Femme</item>
+    </string-array>
 
     <string name="cgu">Conditions  générales d\'utilisation</string>
     <string name="cguString">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
@@ -16,4 +37,59 @@
 
     <string name="forgotPwdHelpString">Vous avez oublié votre mot de passe ?\nEntrez votre mail pour recevoir un nouveau mot de passe.</string>
     <string name="forgotPwdSubmit">Envoi</string>
+
+    <string name="chooseAssociationDescription">Choisis l\'association à laquelle tu reverseras les dons collectés.</string>
+    <string name="chooseAssociationChoosen">Association choisie : </string>
+    <string name="chooseAssociationExample">Aucune</string>
+    <string name="chooseAssociationValidate">Valider</string>
+
+    <!-- Menu String -->
+    <string name="nav_homepage">Accueil</string>
+    <string name="nav_deposit">Dépôts</string>
+    <string name="nav_map">Carte des bennes</string>
+    <string name="nav_account">Mon Compte</string>
+    <string name="nav_scan">Scanner un emballage</string>
+    <string name="nav_schedule">Planning de collecte</string>
+    <string name="nav_settings">Paramètres</string>
+    <string name="nav_logout">Se déconnecter</string>
+    <string name="title_activity_test">TestActivity</string>
+    <string name="title_activity_drawer">DrawerActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+
+    <!-- Nav Header String -->
+    <string name="nav_header_mail">user@mail.com</string>
+    <string name="nav_header_name">User</string>
+
+    <string name="changeProfile">Modifier mon profil</string>
+
+
+    <string name="home_infos_donations">Dons générés : </string>
+    <string name="home_depot_button">Faire un dépot</string>
+    <string name="home_donations">0,00€</string>
+
+    <string name="scan_packaging_info">Scannez un code barre pour savoir dans quelle poubelle le déposer !</string>
+
+    <string name="deposit_qr_info">Scannez le code QR de la benne</string>
+    <string name="deposit_qr_button">Taper le code</string>
+    <string name="deposit_progress_button">Terminer le dépôt</string>
+    <string name="deposit_progress_title">Déposez les déchets dans la benne</string>
+    <string name="deposit_rejection_title">Une erreur est survenue durant le dépôt</string>
+    <string name="deposit_rejection_return">Retour</string>
+    <string name="deposit_end_donation_generated">Dons générés grâce à votre dépôt : </string>
+    <string name="deposit_end_donation_assoc">Ces dons sont reversés à : </string>
+    <string name="deposit_end_finish">Terminer</string>
+
+    <!-- Map String -->
+    <string name="mapKey">AIzaSyBqi9F2i_pJB4SPuXOEJOMLqzLYnyMzN7w</string>
+    <string name="title_activity_maps">Map</string>
+
+    <string name="settings_delete_account">Supprimer mon compte</string>
+    <string name="settings_delete_dialog_title">Confirmation</string>
+    <string name="settings_delete_dialog_text">Etes-vous sûr de vouloir supprimer votre compte ?</string>
 </resources>

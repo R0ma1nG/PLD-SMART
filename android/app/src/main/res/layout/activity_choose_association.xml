@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.Connection.ChooseAssociationActivity"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="@string/chooseAssociationDescription"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="16sp"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="@string/chooseAssociationChoosen"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/choose_association_activity_association_text"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="@string/chooseAssociationExample"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="40sp"
+        android:layout_weight="2"
+        android:textColor="@color/secondaryColor"/>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@color/secondaryColor"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="5dp"/>
+
+    <android.support.v7.widget.RecyclerView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/choose_association_activity_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8"/>
+
+    <Button
+        android:id="@+id/choose_association_activity_validate_btn"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="@string/chooseAssociationValidate"
+        android:layout_weight="1"
+        style="@style/ButtonTheme"
+        android:layout_marginEnd="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="10dp"/>
+
+</LinearLayout>

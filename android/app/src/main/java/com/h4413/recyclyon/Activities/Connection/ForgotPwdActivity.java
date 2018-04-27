@@ -1,4 +1,4 @@
-package com.h4413.recyclyon.Connection;
+package com.h4413.recyclyon.Activities.Connection;
 
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
