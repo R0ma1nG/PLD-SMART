@@ -19,29 +19,30 @@ router.post('/demarrerScan', function (req, res) {
   new Promise( (resolve, reject) => {
     capteur.findById(req.body.idCapteur, "idPoubelle", function (err, bin) {
       if (err) reject(res.status(500).send("Ce code QR n'est pas reconnu ou n'est associé à aucune benne."));
-      console.log(bin);
+      resolve(bin);
     });
   })
   .then( (bin) => {
-    poubelle.findOneById(bin.idPoubelle, "remplissage", function (err, benne) {
-      console.log(benne);
-      if (err) return(res.status(500).send("Impossible de vérifier l'état de la benne"));
-      if (benne === null) return(res.status(500).send("Impossible de trouver la benne recherchée"));
-      if (benne.remplissage == 0) return(res.status(200).send("Cette benne est pleine. Veuillez réessayer plus tard."));
-      console.log("c'est la panique");
-      return;
-    });
+    return new Promise( (resolve, reject) => {
+      poubelle.findById(bin.idPoubelle, "remplissage", function (err, benne) {
+        if (err) return(res.status(500).send("Impossible de vérifier l'état de la benne"));
+        if (benne === null) reject(res.status(500).send("Impossible de trouver la benne recherchée"));
+        if (benne.remplissage == 1) reject(res.status(200).send("Cette benne est pleine. Veuillez réessayer plus tard."));
+        resolve(bin);
+      });
+    })
   })
   .then( () => {
-    user.findById(req.body.idUtilisateur, "idAssoc",function (err, utilisateur) {
-      if (err) return(res.status(500).send("There was a problem finding your association in db"));
-      return utilisateur;
-    });
+    return new Promise ( (resolve, reject) => {
+      user.findById(req.body.idUtilisateur, "idAssoc",function (err, utilisateur) {
+        if (err) reject(res.status(500).send("There was a problem finding your association in db"));
+        resolve(utilisateur);
+      });
+    })
   })
   .then( (utilisateur) => {
     var dateNow = new Date();
     var id = new mongoose.mongo.ObjectId();
-
     depot.create({
       _id: id,
       date: dateNow,
