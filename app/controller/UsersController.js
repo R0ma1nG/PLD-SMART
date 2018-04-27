@@ -9,8 +9,11 @@ const nodemailer = require('nodemailer');
 
 // middleware to use for all requests
 router.use(function (req, res, next) {
-  console.log('Router middleware log, request : ', req.url); // do logging
-  next(); // make sure we go to the next routes and don't stop here
+  if (req.url.match('forgotPassword')) next();
+  else if (!req.isAuthenticated()) res.status(401).send("You're not authenticated !");
+  else {console.log('Authenticated request : ', req.url); // do logging
+    next(); // make sure we go to the next routes and don't stop here
+  }
 });
 
 
@@ -89,6 +92,7 @@ router.post('/forgotPassword', function (req, res) {
         pass: 'pldsmartrpz'
       }
     });
+    var link = `http://localhost:8080/api/users/forgotPassword/${user.id}`;
     // setup email data with unicode symbols
     let mailOptions = {
       from: '"Recyclyon" <recyclyon.app@gmail.com>', // sender address
@@ -96,7 +100,7 @@ router.post('/forgotPassword', function (req, res) {
       subject: 'Reinitialisation de mot de passe', // Subject line
       html: "<b>Bonjour "+ user.nom +",<br/><br/>"+
       "Nous avons reçu une demande de réinitialisation de votre mot de passe Recyclyon.<br/> Si vous n'avez pas fait cette demande, veuillez ignorer cet email.<br/>"+
-      "<a href=\"https://www.youtube.com\"> Pour changer votre mot de passe, cliquez ici <a/>" +
+      "<a href="+link+"> Pour changer votre mot de passe, cliquez ici <a/>" +
       "<br/><br/> Si le lien ci-dessus ne fonctionne pas, c'est dommage ..." // plain text body
     };
     // send mail with defined transport object
@@ -109,6 +113,22 @@ router.post('/forgotPassword', function (req, res) {
   });
 });
 
+router.get('/forgotPassword/:idUser', function (req, res) {
+  res.render('forgotpwd');
+});
+
+router.post('/forgotPassword/:idUser', function (req, res) {
+  var userId = req.params.idUser;
+  var user = utilisateur.findById(userId, function(err, user) {
+    if (err || !user) res.status(500).send("Error finding the user");
+    else {
+      var newPassword = user.generateHash(req.body.password);
+      user.changePassword(newPassword);
+      console.log("mdp changed");
+      res.status(200).send("Password has been changed");
+    }
+  });
+});
 
 // Get user by mail
 router.get('/mail/:mail', function (req, res) {
