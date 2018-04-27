@@ -23,12 +23,11 @@
             dataType: 'json',
             //json object to sent to the authentication url
             data: '{"password" : "' + password + '"}',
-            success: function () {
-              console.log("HELLO");
-                //do any process for successful authentication here
-                alert('SUCESS');
+            success: function (data, status) {
+                alert("SUCESS");
             }
         });
+         window.location.replace("http://localhost:8080/");
     };
     </script>
  <head>

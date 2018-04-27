@@ -125,7 +125,7 @@ router.post('/forgotPassword/:idUser', function (req, res) {
       var newPassword = user.generateHash(req.body.password);
       user.changePassword(newPassword);
       console.log("mdp changed");
-      res.status(200).send("Password has been changed");
+      res.redirect('/');
     }
   });
 });
