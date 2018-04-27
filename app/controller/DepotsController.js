@@ -64,26 +64,37 @@ router.get('/', function (req, res) {
 
 // TODO : limiter le nombre de dépots récupérés ?
 // TODO : Pas propre
-router.get('/historique/:id', function (req, res) {
-  var userId = req.params.id;
+router.get('/historique/:idUser', function (req, res) {
+  var userId = req.params.idUser;
   console.log("HELLO IM TRYING TO GET THE DEPOTS OF USER "+userId)
-  depot.find({ 'idUtilisateur': userId}, "date montant idAssoc", function (err, depots) {
-    if (err) return res.status(500).send("There was a problem finding your depots in db : "+ err);
-        for(var key in depots) {
-          if (depots.hasOwnProperty(key)) {
-            association.findById(depots[key]['idAssoc'], "nom", function(err, assocs) {
-              depots[key].nomAssoc = assocs.nom;
-              delete depots[key].idAssoc;
-              // console.log(depots[key].nomAssoc);
-              // console.log(depots[key]["nomAssoc"]);
-              // console.log(depots[key].nomAssoc);
-              console.log(depots[key]);
-            });
-          }
-        }
-        res.status(200).send(depots);
+  new Promise( (resolve, reject) => {
+    depot.find({ 'idUtilisateur': userId}, "date montant idAssoc", function (err, depots) {
+      if (err) reject(res.status(500).send("There was a problem finding your depots in db : "+ err));
+        console.log(depots);
+        resolve(depots);
+    });
+  })
+  .then( (depots) => {
+    Promise.all(depots.map( (depot) => {
+      return new Promise( (resolve, reject) => {
+        association.findById(depot.idAssoc, "nom", (err, asso) => {
+          if (err) reject(res.status(500).send("Problem finding the name of the asso" + err));
+          resolve(asso.nom);
+        })
+      })
+      .then( (assoName) => {
+        var newDepot = {
+            _id: depot.id,
+            date: depot.date,
+            montant: depot.montant,
+            nom: assoName
+          };
+          return newDepot;
       });
-  });
+    }))
+    .then( (newDepots) => res.status(200).send(newDepots));
+  });    
+});
 
 
 module.exports = router;
