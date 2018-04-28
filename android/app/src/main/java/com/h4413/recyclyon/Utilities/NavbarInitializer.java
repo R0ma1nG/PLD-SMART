@@ -23,7 +23,9 @@ import org.json.JSONObject;
 public class NavbarInitializer {
     public static void initNavigationMenu(final AppCompatActivity activity, @IdRes int checkedItem, @StringRes int title) {
         Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
-        toolbar.setTitle(title);
+        TextView titleTextView = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        titleTextView.setText(title);
+        toolbar.setTitle("");
         activity.setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) activity.findViewById(R.id.template_layout);

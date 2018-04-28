@@ -8,7 +8,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_margin="10dp">
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp">
         <TextView
             android:id="@+id/historic_view_infos"
             android:layout_width="match_parent"
@@ -25,6 +27,9 @@
             android:text="Description"
             android:gravity="start"
             android:layout_marginStart="25dp"/>
+
+        <View
+            style="@style/HorizontalListSeparator" />
     </LinearLayout>
 
 </LinearLayout>
