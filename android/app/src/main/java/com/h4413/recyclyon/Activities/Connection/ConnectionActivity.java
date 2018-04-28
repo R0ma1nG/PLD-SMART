@@ -2,6 +2,7 @@ package com.h4413.recyclyon.Activities.Connection;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -19,6 +20,7 @@ import com.h4413.recyclyon.Model.User;
 import com.h4413.recyclyon.R;
 import com.h4413.recyclyon.Utilities.HttpClient;
 import com.h4413.recyclyon.Utilities.Routes;
+import com.h4413.recyclyon.Utilities.SharedPreferencesKeys;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -80,13 +82,21 @@ public class ConnectionActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Mail / Mot de passe incorrect", Toast.LENGTH_LONG).show();
                             mConnectionButton.setEnabled(true);
                         } else if(statusCode == 200) {
-                            SharedPreferences sharedPref = getPreferences(MODE_PRIVATE);
+                            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                             sharedPref.edit().putString(SP_MAIL_LAST_USER, mMailInput.getText().toString()).apply();
-                            Intent intent = new Intent(ConnectionActivity.this, HomeActivity.class);
-                            Gson gson = new Gson();
-                            ConnectionOk userid = gson.fromJson(response.toString(), ConnectionOk.class);
-                            intent.putExtra("idUtilisateur", userid.idUtilisateur);
-                            startActivity(intent);
+
+                            final Gson gson = new Gson();
+                            final ConnectionOk userid = gson.fromJson(response.toString(), ConnectionOk.class);
+                            HttpClient.GET(Routes.Users, userid.idUtilisateur, ConnectionActivity.this, new HttpClient.OnResponseCallback() {
+                                @Override
+                                public void onJSONResponse(int statusCode, JSONObject response) {
+                                    SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                                    sharedPref.edit().putString(SharedPreferencesKeys.USER_KEY, response.toString()).apply();
+                                    Intent intent = new Intent(ConnectionActivity.this, HomeActivity.class);
+                                    intent.putExtra("idUtilisateur", userid.idUtilisateur);
+                                    startActivity(intent);
+                                }
+                            });
                         } else {
                             Toast.makeText(getApplicationContext(), "Erreur interne", Toast.LENGTH_LONG).show();
                             mConnectionButton.setEnabled(true);
@@ -112,7 +122,7 @@ public class ConnectionActivity extends AppCompatActivity {
         mMailInput.addTextChangedListener(mInputListener);
         mPwdInput.addTextChangedListener(mInputListener);
 
-        SharedPreferences sharedPref = getPreferences(MODE_PRIVATE);
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         String mailDernierUtilisateur = sharedPref.getString(SP_MAIL_LAST_USER, "");
         mMailInput.setText(mailDernierUtilisateur);
     }

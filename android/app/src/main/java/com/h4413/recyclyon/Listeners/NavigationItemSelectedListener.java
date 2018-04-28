@@ -38,10 +38,9 @@ public class NavigationItemSelectedListener implements NavigationView.OnNavigati
 
         if (id == R.id.nav_homepage) {
             if(mActivity.getClass() != HomeActivity.class) {
-                /*Intent intent = new Intent(mActivity.getApplicationContext(), HomeActivity.class);
-                mActivity.startActivity(intent);*/
-                mActivity.setResult(Activity.RESULT_CANCELED);
-                mActivity.finish();
+                Intent intent = new Intent(mActivity.getApplicationContext(), HomeActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                mActivity.startActivity(intent);
             }
         } else if (id == R.id.nav_deposit) {
             if(mActivity.getClass() != DepositQRActivity.class) {

@@ -26,7 +26,10 @@ public class HttpClient {
         void onJSONResponse(int statusCode, JSONObject response);
     }
 
-    public static void GET(String relativePath, String parameter, final Activity activity, final OnResponseCallback callback) {
+    public static boolean GET(String relativePath, String parameter, final Activity activity, final OnResponseCallback callback) {
+        NetworkAccess access = new NetworkAccess(activity.getApplicationContext());
+        if(!access.isNetworkAvailable())
+            return false;
         String url = "https://"+SERVER_IP+relativePath;
         if(parameter != null && !parameter.equals("")) {
             url += "/"+parameter;
@@ -71,9 +74,13 @@ public class HttpClient {
                 }
             }
         });
+        return true;
     }
 
-    public static void POST(String relativePath, String body, final Activity activity, final OnResponseCallback callback) {
+    public static boolean POST(String relativePath, String body, final Activity activity, final OnResponseCallback callback) {
+        NetworkAccess access = new NetworkAccess(activity.getApplicationContext());
+        if(!access.isNetworkAvailable())
+            return false;
         OkHttpClient mClient = new OkHttpClient();
         CookieHandler cookieHandler = new CookieManager();
         mClient.setCookieHandler(cookieHandler);
@@ -119,9 +126,13 @@ public class HttpClient {
                 }
             }
         });
+        return true;
     }
 
-    public static void PUT(String relativePath, String parameter, String body, final Activity activity, final OnResponseCallback callback) {
+    public static boolean PUT(String relativePath, String parameter, String body, final Activity activity, final OnResponseCallback callback) {
+        NetworkAccess access = new NetworkAccess(activity.getApplicationContext());
+        if(!access.isNetworkAvailable())
+            return false;
         String url = "https://"+SERVER_IP+relativePath;
         if(parameter != null && !parameter.equals("")) {
             url += "/"+parameter;
@@ -171,9 +182,11 @@ public class HttpClient {
                 }
             }
         });
+        return true;
     }
 
     public static void DELETE(String relativePath, String parameter, final Activity activity, final OnResponseCallback callback) {
+
         String url = "https://"+SERVER_IP+relativePath;
         if(parameter != null && !parameter.equals("")) {
             url += "/"+parameter;

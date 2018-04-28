@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.h4413.recyclyon.Activities.Deposit.DepositQRActivity;
@@ -64,11 +65,13 @@ public class HomeActivity extends AppCompatActivity {
         historic.depots.add(new HistoricEntry(new Date(), 2.4f, "lgkzmenogubz^^ihzizrg"));
         historic.depots.add(new HistoricEntry(new Date(), 3.3f, "foianeoifhiheaà!fg"));
         historic.depots.add(new HistoricEntry(new Date(), 4.1f, "ioazfhgfyigazipfgaiu"));*/
+
+
         Gson gson = new Gson();
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         String str = sharedPref.getString(SharedPreferencesKeys.USER_KEY, "");
         User usr = gson.fromJson(str, User.class);
-        HttpClient.GET(Routes.Historic, usr._id, this, new HttpClient.OnResponseCallback() {
+        boolean result = HttpClient.GET(Routes.Historic, usr._id, this, new HttpClient.OnResponseCallback() {
             @Override
             public void onJSONResponse(int statusCode, JSONObject response) {
                 Gson gson = new Gson();
@@ -77,6 +80,10 @@ public class HomeActivity extends AppCompatActivity {
                 mHstoricRecyclerView.setAdapter(mAdapter);
             }
         });
+        if(!result)
+        {
+            Toast.makeText(getApplicationContext(), "Pas de connexion internet", Toast.LENGTH_LONG).show();
+        }
 
 
         mDepotButton.setOnClickListener(new View.OnClickListener() {
