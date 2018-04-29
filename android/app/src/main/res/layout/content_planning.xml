@@ -32,29 +32,25 @@
                         android:layout_weight="1"
                         android:background="@android:color/holo_green_dark"/>
 
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/textView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_weight="1"
+                        android:text="@string/planning_select_zone"
+                        android:textSize="18sp"
+                        android:gravity="center"/>
 
-                        <TextView
-                            android:id="@+id/textView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="15dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:layout_weight="1"
-                            android:text="@string/planning_select_zone"
-                            android:textSize="18sp" />
+                    <Spinner
+                        android:id="@+id/planning_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:padding="15dp"
+                        android:gravity="center"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginEnd="25dp"/>
 
-                        <Spinner
-                            android:id="@+id/planning_spinner"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"/>
-
-                    </LinearLayout>
                     <View
                         android:id="@+id/view2"
                         android:layout_width="match_parent"

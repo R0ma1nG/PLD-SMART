@@ -27,6 +27,8 @@ import java.io.IOException;
 
 public class ScanPackagingActivity extends AppCompatActivity {
 
+    private final static int REQUEST_CODE_INFO = 1;
+
     private SurfaceView mCameraView;
 
     private CameraSource mCameraSource;
@@ -87,7 +89,7 @@ public class ScanPackagingActivity extends AppCompatActivity {
                             //mBarCodeDetector.release();
                             Intent intent = new Intent(ScanPackagingActivity.this, PackagingInfoActivity.class);
                             intent.putExtra("Barcode", barcodes.valueAt(0));
-                            startActivity(intent);
+                            startActivityForResult(intent, REQUEST_CODE_INFO);
                         }
                     });
                 }
@@ -95,6 +97,7 @@ public class ScanPackagingActivity extends AppCompatActivity {
         });
     }
 
+    @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == 50) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
