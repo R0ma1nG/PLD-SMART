@@ -20,15 +20,14 @@ import java.net.CookieManager;
 
 public class HttpClient {
 
-    private final static String SERVER_IP = "192.168.1.80";
-    private final static String SERVER_PORT = "8080";
+    private final static String SERVER_IP = "pld-smart.azurewebsites.net";
 
     public interface OnResponseCallback {
         void onJSONResponse(int statusCode, JSONObject response);
     }
 
     public static void GET(String relativePath, String parameter, final Activity activity, final OnResponseCallback callback) {
-        String url = "http://"+SERVER_IP+":"+SERVER_PORT+relativePath;
+        String url = "https://"+SERVER_IP+relativePath;
         if(parameter != null && !parameter.equals("")) {
             url += "/"+parameter;
         }
@@ -80,7 +79,7 @@ public class HttpClient {
         mClient.setCookieHandler(cookieHandler);
         MediaType JSON_TYPE = MediaType.parse("application/json");
         Request myGetRequest = new Request.Builder()
-                .url("http://"+SERVER_IP+":"+SERVER_PORT+relativePath)
+                .url("https://"+SERVER_IP+relativePath)
                 .addHeader("Content-Type", "application/json")
                 .post(RequestBody.create(JSON_TYPE, body))
                 .build();
@@ -123,7 +122,7 @@ public class HttpClient {
     }
 
     public static void PUT(String relativePath, String parameter, String body, final Activity activity, final OnResponseCallback callback) {
-        String url = "http://"+SERVER_IP+":"+SERVER_PORT+relativePath;
+        String url = "https://"+SERVER_IP+relativePath;
         if(parameter != null && !parameter.equals("")) {
             url += "/"+parameter;
         }
@@ -175,7 +174,7 @@ public class HttpClient {
     }
 
     public static void DELETE(String relativePath, String parameter, final Activity activity, final OnResponseCallback callback) {
-        String url = "http://"+SERVER_IP+":"+SERVER_PORT+relativePath;
+        String url = "https://"+SERVER_IP+relativePath;
         if(parameter != null && !parameter.equals("")) {
             url += "/"+parameter;
         }
