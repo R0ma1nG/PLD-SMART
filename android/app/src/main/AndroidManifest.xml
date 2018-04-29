@@ -97,6 +97,10 @@
             android:name=".Activities.SettingsActivity"
             android:parentActivityName=".Activities.HomeActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.PlanningActivity"
+            android:parentActivityName=".Activities.HomeActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

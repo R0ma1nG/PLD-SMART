@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import com.h4413.recyclyon.Activities.Connection.ConnectionActivity;
 import com.h4413.recyclyon.Activities.Deposit.DepositQRActivity;
 import com.h4413.recyclyon.Activities.HomeActivity;
+import com.h4413.recyclyon.Activities.PlanningActivity;
 import com.h4413.recyclyon.Activities.ScanPackaging.ScanPackagingActivity;
 import com.h4413.recyclyon.Activities.MapsActivity;
 import com.h4413.recyclyon.Activities.SettingsActivity;
@@ -60,8 +61,12 @@ public class NavigationItemSelectedListener implements NavigationView.OnNavigati
                 Intent intent = new Intent(mActivity.getApplicationContext(), ScanPackagingActivity.class);
                 mActivity.startActivityForResult(intent, REQUEST_CODE_SCAN);
             }
-        } else if (id == R.id.nav_schedule) {
-
+        } else if (id == R.id.nav_planning) {
+            if(mActivity.getClass() !=PlanningActivity.class)
+            {
+                Intent intent = new Intent(mActivity.getApplicationContext(), PlanningActivity.class);
+                mActivity.startActivity(intent);
+            }
         } else if (id == R.id.nav_settings) {
             if(mActivity.getClass() != SettingsActivity.class)
             {
