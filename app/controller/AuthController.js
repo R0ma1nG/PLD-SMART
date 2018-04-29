@@ -1,7 +1,7 @@
 module.exports = function (app, passport) {
 
 app.get('/profile', isLoggedIn, function (req, res) {
-  res.status(200).send("Hello "+ req.user.nom + ", you're connected");
+  res.status(200).send({ idUtilisateur : req.user.id});
 });
 
 app.get('/error', function (req, res) {

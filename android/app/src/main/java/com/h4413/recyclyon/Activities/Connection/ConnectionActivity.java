@@ -1,6 +1,8 @@
 package com.h4413.recyclyon.Activities.Connection;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,14 +13,24 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.h4413.recyclyon.Activities.HomeActivity;
+import com.h4413.recyclyon.Model.ConnectionOk;
 import com.h4413.recyclyon.Model.User;
 import com.h4413.recyclyon.R;
+import com.h4413.recyclyon.Utilities.HttpClient;
+import com.h4413.recyclyon.Utilities.Routes;
+import com.h4413.recyclyon.Utilities.SharedPreferencesKeys;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class ConnectionActivity extends AppCompatActivity {
 
     private static final int REQUEST_CODE_INSCRIPTION = 1;
     private static final int REQUEST_CODE_FORGOT_PWD = 2;
+
+    private static final String SP_MAIL_LAST_USER = "mailDernierUtilisateur";
 
     private EditText mMailInput;
     private EditText mPwdInput;
@@ -54,9 +66,44 @@ public class ConnectionActivity extends AppCompatActivity {
         mConnectionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(getApplicationContext(), "Connection, need to be implemented.", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(ConnectionActivity.this, HomeActivity.class);
-                startActivity(intent);
+                mConnectionButton.setEnabled(false);
+                JSONObject obj = new JSONObject();
+                try {
+                    obj.put("mail", mMailInput.getText().toString());
+                    obj.put("motDePasse", mPwdInput.getText().toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    mConnectionButton.setEnabled(true);
+                }
+                HttpClient.POST(Routes.Login, obj.toString(), ConnectionActivity.this, new HttpClient.OnResponseCallback() {
+                    @Override
+                    public void onJSONResponse(int statusCode, JSONObject response) {
+                        if(statusCode == 401) {
+                            Toast.makeText(getApplicationContext(), "Mail / Mot de passe incorrect", Toast.LENGTH_LONG).show();
+                            mConnectionButton.setEnabled(true);
+                        } else if(statusCode == 200) {
+                            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                            sharedPref.edit().putString(SP_MAIL_LAST_USER, mMailInput.getText().toString()).apply();
+
+                            final Gson gson = new Gson();
+                            final ConnectionOk userid = gson.fromJson(response.toString(), ConnectionOk.class);
+                            HttpClient.GET(Routes.Users, userid.idUtilisateur, ConnectionActivity.this, new HttpClient.OnResponseCallback() {
+                                @Override
+                                public void onJSONResponse(int statusCode, JSONObject response) {
+                                    SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                                    sharedPref.edit().putString(SharedPreferencesKeys.USER_KEY, response.toString()).apply();
+                                    Intent intent = new Intent(ConnectionActivity.this, HomeActivity.class);
+                                    intent.putExtra("idUtilisateur", userid.idUtilisateur);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(intent);
+                                }
+                            });
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Erreur interne", Toast.LENGTH_LONG).show();
+                            mConnectionButton.setEnabled(true);
+                        }
+                    }
+                });
             }
         });
         mInscriptionText.setOnClickListener(new View.OnClickListener() {
@@ -75,6 +122,10 @@ public class ConnectionActivity extends AppCompatActivity {
         });
         mMailInput.addTextChangedListener(mInputListener);
         mPwdInput.addTextChangedListener(mInputListener);
+
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String mailDernierUtilisateur = sharedPref.getString(SP_MAIL_LAST_USER, "");
+        mMailInput.setText(mailDernierUtilisateur);
     }
 
     @Override

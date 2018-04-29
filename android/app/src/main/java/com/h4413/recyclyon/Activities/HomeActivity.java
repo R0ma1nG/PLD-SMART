@@ -1,78 +1,112 @@
 package com.h4413.recyclyon.Activities;
 
-import android.support.design.widget.NavigationView;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.preference.PreferenceManager;
+import android.support.design.widget.NavigationView;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.h4413.recyclyon.Activities.Deposit.DepositQRActivity;
+import com.h4413.recyclyon.Adapters.HistoricRecyclerViewAdapter;
+
 import com.h4413.recyclyon.Listeners.NavigationItemSelectedListener;
+import com.h4413.recyclyon.Model.Depot;
+import com.h4413.recyclyon.Model.DepotList;
 import com.h4413.recyclyon.Model.User;
 import com.h4413.recyclyon.R;
 import com.h4413.recyclyon.Utilities.HttpClient;
-import com.h4413.recyclyon.Utilities.NetworkAccess;
+import com.h4413.recyclyon.Utilities.NavbarInitializer;
 import com.h4413.recyclyon.Utilities.Routes;
+import com.h4413.recyclyon.Utilities.SharedPreferencesKeys;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.util.concurrent.ExecutionException;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private TextView mText;
-    private Button mButton;
-
-    private User mUser;
+    private Button mDepotButton;
+    private TextView mDonationsText;
+    private RecyclerView mHstoricRecyclerView;
+    private RecyclerView.LayoutManager mLayoutManager;
+    private RecyclerView.Adapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        initNavigationMenu();
+        super.onCreate(savedInstanceState);
 
-        mText = (TextView) findViewById(R.id.home_activity_test);
-        mButton = (Button) findViewById(R.id.home_activity_button);
-        mButton.setOnClickListener(new View.OnClickListener() {
+        NavbarInitializer.initNavigationMenu(this, R.id.nav_homepage, R.string.nav_homepage);
+
+        mDonationsText = (TextView) findViewById(R.id.home_activity_donations_text);
+        mDepotButton = (Button) findViewById(R.id.home_activity_depot_btn);
+        mHstoricRecyclerView = (RecyclerView) findViewById(R.id.home_activity_recyclerView);
+
+        mHstoricRecyclerView.setHasFixedSize(true);
+        // use a linear layout manager
+        mLayoutManager = new LinearLayoutManager(this);
+        mHstoricRecyclerView.setLayoutManager(mLayoutManager);
+        // specify an adapter (see also next example)
+
+        /*Historic historic = new Historic();
+        historic.depots.add(new HistoricEntry(new Date(), 1.2f, "hfezigflbeuogfuiozb"));
+        historic.depots.add(new HistoricEntry(new Date(), 2.4f, "lgkzmenogubz^^ihzizrg"));
+        historic.depots.add(new HistoricEntry(new Date(), 3.3f, "foianeoifhiheaà!fg"));
+        historic.depots.add(new HistoricEntry(new Date(), 4.1f, "ioazfhgfyigazipfgaiu"));*/
+
+
+        Gson gson = new Gson();
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String str = sharedPref.getString(SharedPreferencesKeys.USER_KEY, "");
+        User usr = gson.fromJson(str, User.class);
+        boolean result = HttpClient.GET(Routes.Historic, usr._id, this, new HttpClient.OnResponseCallback() {
             @Override
-            public void onClick(View v) {
-                HttpClient.GET(Routes.AllUsers, HomeActivity.this, new HttpClient.OnResponseCallback() {
-                    @Override
-                    public void onJSONResponse(int statusCode, JSONObject response) {
-                        mText.setText(response.toString());
-                        Toast.makeText(getApplicationContext(), String.valueOf(statusCode), Toast.LENGTH_LONG).show();
-                    }
-                });
+            public void onJSONResponse(int statusCode, JSONObject response) {
+                Gson gson = new Gson();
+                Depot[] depots = gson.fromJson(response.toString(), DepotList.class).data;
+                mAdapter = new HistoricRecyclerViewAdapter(depots);
+                mHstoricRecyclerView.setAdapter(mAdapter);
             }
         });
-
-        NetworkAccess network = new NetworkAccess(getApplicationContext());
-        if(network.isNetworkAvailable())
+        if(!result)
         {
-            Toast.makeText(getApplicationContext(), "Access to internet", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(getApplicationContext(), "Unable to access to internet", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Pas de connexion internet", Toast.LENGTH_LONG).show();
         }
+
+
+        mDepotButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, DepositQRActivity.class);
+                startActivityForResult(intent, NavigationItemSelectedListener.REQUEST_CODE_DEPOT);
+            }
+        });
     }
 
-    public void initNavigationMenu() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.template_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(new NavigationItemSelectedListener(this));
         navigationView.setCheckedItem(R.id.nav_homepage);
+        switch(requestCode) {
+            case NavigationItemSelectedListener.REQUEST_CODE_DEPOT:
+                break;
+            case NavigationItemSelectedListener.REQUEST_CODE_ACCOUNT:
+                break;
+            case NavigationItemSelectedListener.REQUEST_CODE_MAP:
+                break;
+            case NavigationItemSelectedListener.REQUEST_CODE_SCAN:
+                break;
+            case NavigationItemSelectedListener.REQUEST_CODE_SCHEDULE:
+                break;
+            case NavigationItemSelectedListener.REQUEST_CODE_SETTINGS:
+                break;
+        }
     }
 }

@@ -2,9 +2,9 @@ package com.h4413.recyclyon.Activities.Connection;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -13,8 +13,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.h4413.recyclyon.Adapters.ChooseAssociationRecyclerViewAdapter;
 import com.h4413.recyclyon.Model.Association;
+import com.h4413.recyclyon.Model.AssociationList;
 import com.h4413.recyclyon.R;
+import com.h4413.recyclyon.Utilities.HttpClient;
+import com.h4413.recyclyon.Utilities.Routes;
+
+import org.json.JSONObject;
 
 public class ChooseAssociationActivity extends AppCompatActivity implements AssociationAdapterCallback{
 
@@ -45,11 +51,19 @@ public class ChooseAssociationActivity extends AppCompatActivity implements Asso
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         // specify an adapter (see also next example)
-        Association[] testDataSet = {new Association(123, "Asso 1", "Ceci est une association", "http://www.gstatic.com/webp/gallery/1.jpg"),
-                new Association(456,"Asso 2", "Une autre association", "http://www.gstatic.com/webp/gallery/2.jpg"),
-                new Association(789,"Asso 3", "Encore une", "http://www.gstatic.com/webp/gallery/2.jpg")};
-        mAdapter = new ChooseAssociationRecyclerViewAdapter(testDataSet, this);
-        mRecyclerView.setAdapter(mAdapter);
+        /*Association[] testDataSet = {new Association("5ae0740198c0b2710d9df273", "Asso 1", "Ceci est une association", "http://www.gstatic.com/webp/gallery/1.jpg"),
+                new Association("5ae0740198c0b2710d9df274","Asso 2", "Une autre association", "http://www.gstatic.com/webp/gallery/2.jpg"),
+                new Association("5ae0740198c0b2710d9df275","Asso 3", "Encore une", "http://www.gstatic.com/webp/gallery/2.jpg")};*/
+        HttpClient.GET(Routes.Associations, "", ChooseAssociationActivity.this, new HttpClient.OnResponseCallback() {
+            @Override
+            public void onJSONResponse(int statusCode, JSONObject response) {
+                Gson gson = new Gson();
+                AssociationList associations = gson.fromJson(String.valueOf(response), AssociationList.class);
+                mAdapter = new ChooseAssociationRecyclerViewAdapter(associations.data, ChooseAssociationActivity.this);
+                mRecyclerView.setAdapter(mAdapter);
+            }
+        });
+
 
         mValidateButton.setOnClickListener(new View.OnClickListener() {
             @Override

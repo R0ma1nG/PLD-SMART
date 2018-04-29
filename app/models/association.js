@@ -5,7 +5,8 @@ var AssociationSchema   = new Schema({
     _id: Schema.Types.ObjectId,
     nom: String,
     rib: Number,
-    description: String
+    description: String,
+    logoUrl: String
 });
 
 module.exports = mongoose.model('association', AssociationSchema, 'association');
