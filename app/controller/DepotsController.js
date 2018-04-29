@@ -11,8 +11,10 @@ var capteur = require("../models/capteur");
 
 // middleware to use for all requests
 router.use(function(req, res, next) {
-    console.log('Router middleware log, request : ', req.url); // do logging
+  if (!req.isAuthenticated()) res.status(401).send("You're not authenticated !");
+  else {console.log('Authenticated request : ', req.url); // do logging
     next(); // make sure we go to the next routes and don't stop here
+  }
 });
 
 // TEST : récupération de tous les dépots
