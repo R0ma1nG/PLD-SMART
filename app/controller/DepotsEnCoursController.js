@@ -16,6 +16,7 @@ router.use(function(req, res, next) {
 
 // Créer un dépot en cours
 // TODO : crash server si la benne est pleine
+// TODO Vérifier que le capteur n'est pas déjà utilisé.
 router.post('/demarrerScan', function (req, res) {
   new Promise( (resolve, reject) => {
     // On récupère l'id de la poubelle à partir de l'idCapteur
@@ -81,7 +82,6 @@ router.put('/ajoutDechet/:idCapteur',function (req, res) {
 });
 
 // Supprimer un dépot en cours et créer le dépot terminé associé
-// TODO Vérifier que le capteur n'est pas déjà utilisé.
 router.post('/terminerScan/:idCapteur', function (req, res) {
   var idDepotTermine = new mongoose.mongo.ObjectId();
   new Promise( (resolve, reject) => {
