@@ -21,5 +21,9 @@ UtilisateurSchema.methods.validPassword = function(password) {
     return bcrypt.compareSync(password, this.motDePasse);
 };
 
+UtilisateurSchema.methods.changePassword = function(newPassword) {
+    this.motDePasse = newPassword;
+};
+
 
 module.exports = mongoose.model('utilisateur', UtilisateurSchema, 'utilisateur');
