@@ -3,54 +3,18 @@ var router = express.Router();
 var mongoose = require('mongoose');
 
 var depot = require("../models/depot");
+var depotEnCours = require("../models/depotEnCours");
 var user = require("../models/utilisateur");
 var association = require("../models/association");
+var poubelle = require("../models/poubelle");
+var capteur = require("../models/capteur");
 
 // middleware to use for all requests
 router.use(function(req, res, next) {
-    console.log('Router middleware log, request : ', req.url); // do logging
+  if (!req.isAuthenticated()) res.status(401).send("You're not authenticated !");
+  else {console.log('Authenticated request : ', req.url); // do logging
     next(); // make sure we go to the next routes and don't stop here
-});
-
-// Créer un dépot
-// TODO : vérifier que la benne n'est pas pleine
-router.post('/demarrerScan', function (req, res) {
-  new Promise( (resolve, reject) => {
-    user.findById(req.body.idUtilisateur, "idAssoc",function (err, utilisateur) {
-      if (err) reject(res.status(500).send("There was a problem finding your association in db"));
-      resolve(utilisateur);
-    });
-  })
-  .then( (utilisateur) => {
-    var dateNow = new Date();
-    var id = new mongoose.mongo.ObjectId();
-    depot.create({
-      _id: id,
-      date: dateNow,
-      idUtilisateur: req.body.idUtilisateur,
-      idAssoc: utilisateur.idAssoc,
-      idCapteur: req.body.idCapteur
-    }, function (err, depot) {
-      if (err) res.status(500).send("There was a problem creating your depot in db : "+ err);
-      res.status(200).send(depot);
-    });
-  });
-});
-
-// Terminer un dépot en ajoutant le montant
-router.put('/terminerScan/:idDepot', function (req, res) {
-  new Promise( (resolve, reject) => {
-    depot.update({ _id: req.params.idDepot }, { montant: req.body.montant }, function (err, raw) {
-      if (err) reject(res.status(500).send("There was a problem validating your depot in db : "+ err));
-      resolve();
-    });
-  })
-  .then( () => {
-    depot.findById(req.params.idDepot, "date montant idAssoc",function (err, infos) {
-      if (err) res.status(500).send("There was a problem validating your depot in db : "+ err);
-      res.status(200).send(infos);
-    });
-  });
+  }
 });
 
 // TEST : récupération de tous les dépots
@@ -64,7 +28,6 @@ router.get('/', function (req, res) {
 });
 
 // TODO : limiter le nombre de dépots récupérés ?
-// TODO : Pas propre
 router.get('/historique/:idUser', function (req, res) {
   var userId = req.params.idUser;
   console.log("HELLO IM TRYING TO GET THE DEPOTS OF USER "+userId)
@@ -94,7 +57,7 @@ router.get('/historique/:idUser', function (req, res) {
       });
     }))
     .then( (newDepots) => res.status(200).send(newDepots));
-  });    
+  });
 });
 
 
