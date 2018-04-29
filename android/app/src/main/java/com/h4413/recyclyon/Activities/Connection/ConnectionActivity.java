@@ -94,6 +94,7 @@ public class ConnectionActivity extends AppCompatActivity {
                                     sharedPref.edit().putString(SharedPreferencesKeys.USER_KEY, response.toString()).apply();
                                     Intent intent = new Intent(ConnectionActivity.this, HomeActivity.class);
                                     intent.putExtra("idUtilisateur", userid.idUtilisateur);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(intent);
                                 }
                             });
