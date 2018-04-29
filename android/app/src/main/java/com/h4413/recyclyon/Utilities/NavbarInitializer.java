@@ -7,6 +7,7 @@ import android.support.annotation.IdRes;
 import android.support.annotation.StringRes;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -58,5 +59,16 @@ public class NavbarInitializer {
                 ((TextView)headerLayout.findViewById(R.id.nav_header_usermail)).setText(mUser.mail);
             }
         });
+    }
+
+    public static void configureToolbar(AppCompatActivity activity, @StringRes int title){
+        Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
+        TextView titleTextView = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        titleTextView.setText(title);
+        toolbar.setTitle("");
+        activity.setSupportActionBar(toolbar);
+
+        ActionBar ab = activity.getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
     }
 }

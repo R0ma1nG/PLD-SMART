@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.h4413.recyclyon.R;
+import com.h4413.recyclyon.Utilities.NavbarInitializer;
 
 public class ForgotPwdActivity extends AppCompatActivity {
 
@@ -22,7 +23,7 @@ public class ForgotPwdActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_pwd);
 
-        configureToolbar();
+        NavbarInitializer.configureToolbar(this, R.string.appName);
 
         mSubmitButton = (Button) findViewById(R.id.forgot_pwd_activity_submit_button);
         mMailInput = (EditText) findViewById(R.id.forgot_pwd_activity_mail_input);
@@ -48,13 +49,5 @@ public class ForgotPwdActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {}
         });
-    }
-
-    private void configureToolbar(){
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        ActionBar ab = getSupportActionBar();
-        ab.setDisplayHomeAsUpEnabled(true);
     }
 }

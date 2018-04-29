@@ -18,6 +18,7 @@ import com.h4413.recyclyon.Model.Association;
 import com.h4413.recyclyon.Model.AssociationList;
 import com.h4413.recyclyon.R;
 import com.h4413.recyclyon.Utilities.HttpClient;
+import com.h4413.recyclyon.Utilities.NavbarInitializer;
 import com.h4413.recyclyon.Utilities.Routes;
 
 import org.json.JSONObject;
@@ -40,7 +41,7 @@ public class ChooseAssociationActivity extends AppCompatActivity implements Asso
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_association);
-        configureToolbar();
+        NavbarInitializer.configureToolbar(this, R.string.appName);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.choose_association_activity_recyclerView);
         mCurrentApplicationText = (TextView) findViewById(R.id.choose_association_activity_association_text);
@@ -74,14 +75,6 @@ public class ChooseAssociationActivity extends AppCompatActivity implements Asso
             }
         });
         mValidateButton.setEnabled(false);
-    }
-
-    private void configureToolbar(){
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        ActionBar ab = getSupportActionBar();
-        ab.setDisplayHomeAsUpEnabled(true);
     }
 
     @Override

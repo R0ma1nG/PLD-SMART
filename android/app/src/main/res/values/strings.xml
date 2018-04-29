@@ -10,6 +10,7 @@
     <string name="title_deposit">Réaliser un dépôt</string>
     <string name="title_deposit_in_progress">Dépôt en cours</string>
     <string name="title_deposit_end">Merci</string>
+    <string name="title_activity_account">Profil</string>
 
     <string name="connectionInscriptionString">Pas encore de compte ? Inscrivez-vous ici.</string>
     <string name="connectionForgotPasswordString">Mot de passe oublié ?</string>

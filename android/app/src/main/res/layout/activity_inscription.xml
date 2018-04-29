@@ -11,162 +11,181 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp">
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:src="@drawable/profile_mail"/>
-        <EditText
-            android:id="@+id/inscription_activity_mail_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/EditTextTheme"
-            android:hint="@string/inscriptionMailEdit"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp">
-
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="10dp"
-            android:src="@drawable/profile_pwd" />
-
-
+        android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="0dp"
-            android:layout_marginStart="10dp"
             android:orientation="vertical">
-
-            <EditText
-                android:id="@+id/inscription_activity_confirmMdp_input"
-                style="@style/EditTextTheme"
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/inscriptionConfirmMdpEdit"
-                android:src="@drawable/profile_mail" />
+                android:textColor="@color/primaryTextColor"
+                android:text="@string/welcome"
+                android:gravity="center"
+                android:textSize="30sp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="15dp"/>
 
-            <EditText
-                android:id="@+id/inscription_activity_mdp_input"
-                style="@style/EditTextTheme"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/inscriptionMdpEdit" />
-        </LinearLayout>
-    </LinearLayout>
+                android:orientation="horizontal"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp">
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/profile_mail"/>
+                <EditText
+                    android:id="@+id/inscription_activity_mail_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/EditTextTheme"
+                    android:hint="@string/inscriptionMailEdit"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/profile_pwd" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginStart="10dp"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/inscription_activity_mdp_input"
+                        style="@style/EditTextTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/inscriptionMdpEdit" />
+
+                    <EditText
+                        android:id="@+id/inscription_activity_confirmMdp_input"
+                        style="@style/EditTextTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/inscriptionConfirmMdpEdit"
+                        android:src="@drawable/profile_mail" />
+
+
+                </LinearLayout>
+            </LinearLayout>
 
 
 
-    <View
-        style="@style/HorizontalSeparator"/>
+            <View
+                style="@style/HorizontalSeparator"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/inscriptionInfosSupp"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="15dp"
-        android:textSize="20sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/inscriptionInfosSupp"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="15dp"
+                android:textSize="20sp"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp">
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:src="@drawable/profile_name"/>
-        <EditText
-            android:id="@+id/inscription_activity_name_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/EditTextTheme"
-            android:hint="@string/inscriptionNameEdit"/>
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp">
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/profile_name"/>
+                <EditText
+                    android:id="@+id/inscription_activity_name_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/EditTextTheme"
+                    android:hint="@string/inscriptionNameEdit"/>
+            </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp">
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:src="@drawable/inscription_adress"/>
-        <EditText
-            android:id="@+id/inscription_activity_adress_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/EditTextTheme"
-            android:hint="@string/inscriptionAdresseEdit"/>
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp">
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/inscription_adress"/>
+                <EditText
+                    android:id="@+id/inscription_activity_adress_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/EditTextTheme"
+                    android:hint="@string/inscriptionAdresseEdit"/>
+            </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp">
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:src="@drawable/inscription_birthday"/>
-        <EditText
-            android:id="@+id/inscription_activity_date_naissance_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/inscriptionDateEdit"
-            style="@style/EditTextTheme"
-            android:inputType="date"/>
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp">
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/inscription_birthday"/>
+                <EditText
+                    android:id="@+id/inscription_activity_date_naissance_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/inscriptionDateEdit"
+                    style="@style/EditTextTheme"
+                    android:inputType="date"/>
+            </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp">
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:src="@drawable/inscription_gender"/>
-        <Spinner
-            android:id="@+id/inscription_activity_sexe_input"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="@string/inscriptionSexeEdit"
-            android:layout_marginEnd="20dp"
-            android:layout_marginStart="20dp"/>
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp">
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/inscription_gender"/>
+                <Spinner
+                    android:id="@+id/inscription_activity_sexe_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/inscriptionSexeEdit"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="20dp"/>
+            </LinearLayout>
 
-    <View style="@style/HorizontalSeparator" />
+            <View style="@style/HorizontalSeparator" />
 
 
             <Button
@@ -176,4 +195,6 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="40dp"
                 android:text="@string/inscriptionSubmit" />
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
