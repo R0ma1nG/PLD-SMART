@@ -29,6 +29,10 @@
         <activity
             android:name=".Activities.HomeActivity"
             android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".Activities.ProfileActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

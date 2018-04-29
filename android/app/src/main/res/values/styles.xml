@@ -16,6 +16,12 @@
         <item name="android:background">@color/primaryTextColor</item>
     </style>
 
+    <!-- Image style-->
+        <style name="ImageTheme">
+            <item name="android:layout_width">50dp</item>
+            <item name="android:layout_height">50dp</item>
+        </style>
+
     <!--InputText style -->
     <style name="EditTextTheme">
         <item name="android:layout_width">match_parent</item>

@@ -18,4 +18,6 @@
     <color name="tertiaryDarkColor">#009a2d</color>
     <color name="tertiaryTextColor">#000000</color>
 
+    <color name="riskyColor">#50FC0505</color>
+
 </resources>

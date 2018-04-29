@@ -61,7 +61,7 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-    private void initNavigationMenu() {
+    public void initNavigationMenu() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

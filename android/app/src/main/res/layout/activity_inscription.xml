@@ -29,11 +29,13 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"/>
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/profile_mail"/>
         <EditText
             android:id="@+id/inscription_activity_mail_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/EditTextTheme"
             android:hint="@string/inscriptionMailEdit"/>
     </LinearLayout>
 
@@ -43,35 +45,40 @@
         android:orientation="horizontal"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp">
+
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_gravity="center"
             android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"/>
-        <EditText
-            android:id="@+id/inscription_activity_mdp_input"
+            android:src="@drawable/profile_pwd" />
+
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/inscriptionMdpEdit"/>
+            android:layout_marginEnd="0dp"
+            android:layout_marginStart="10dp"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/inscription_activity_confirmMdp_input"
+                style="@style/EditTextTheme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/inscriptionConfirmMdpEdit"
+                android:src="@drawable/profile_mail" />
+
+            <EditText
+                android:id="@+id/inscription_activity_mdp_input"
+                style="@style/EditTextTheme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/inscriptionMdpEdit" />
+        </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp">
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"/>
-        <EditText
-            android:id="@+id/inscription_activity_confirmMdp_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/inscriptionConfirmMdpEdit"/>
-    </LinearLayout>
+
 
     <View
         style="@style/HorizontalSeparator"/>
@@ -95,11 +102,13 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"/>
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/profile_name"/>
         <EditText
             android:id="@+id/inscription_activity_name_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/EditTextTheme"
             android:hint="@string/inscriptionNameEdit"/>
     </LinearLayout>
 
@@ -113,11 +122,13 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"/>
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/inscription_adress"/>
         <EditText
             android:id="@+id/inscription_activity_adress_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/EditTextTheme"
             android:hint="@string/inscriptionAdresseEdit"/>
     </LinearLayout>
 
@@ -131,12 +142,14 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"/>
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/inscription_birthday"/>
         <EditText
             android:id="@+id/inscription_activity_date_naissance_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/inscriptionDateEdit"
+            style="@style/EditTextTheme"
             android:inputType="date"/>
     </LinearLayout>
 
@@ -150,7 +163,8 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"/>
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/inscription_gender"/>
         <Spinner
             android:id="@+id/inscription_activity_sexe_input"
             android:layout_width="match_parent"
