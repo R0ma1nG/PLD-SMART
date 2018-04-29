@@ -8,6 +8,8 @@ var releve = require("./models/releve");
 var utilisateur = require("./models/utilisateur");
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/smart_db'); // connect to our database
+// in order to populate real database, please uncomment following line:
+//mongoose.connect('mongodb://admin:admin@ds147459.mlab.com:47459/smart_db'); // connect to our database
 
 const real_capteur_id = new mongoose.mongo.ObjectId("5add92e9e36c0adec0253805")
 
