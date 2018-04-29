@@ -176,7 +176,7 @@ router.put('/:id', function (req, res) {
   if (req.body.idAssoc) {
     new Promise((resolve, reject) => {
       var newIdAssoc = mongoose.Types.ObjectId(req.body.idAssoc);
-       utilisateur.findByIdAndUpdate(userId, { idAssoc: newIdAssoc }, function (err, user) {
+      utilisateur.findByIdAndUpdate(userId, { idAssoc: newIdAssoc }, function (err, user) {
       if (err || !user) reject(res.status(500).send("Unable to modify user's assoc"));
       else resolve(user);
       });

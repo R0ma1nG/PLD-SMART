@@ -81,12 +81,12 @@ router.put('/ajoutDechet/:idCapteur',function (req, res) {
 });
 
 // Supprimer un dépot en cours et créer le dépot terminé associé
-router.post('/terminerScan/:idDepotEnCours', function (req, res) {
+// TODO Vérifier que le capteur n'est pas déjà utilisé.
+router.post('/terminerScan/:idCapteur', function (req, res) {
   var idDepotTermine = new mongoose.mongo.ObjectId();
   new Promise( (resolve, reject) => {
-    // On récupère le dépot qui est terminé
-    depotEnCours.findById(req.params.idDepotEnCours, function(err, dep) {
-      console.log('Fin du dépot : '+dep)
+    // On récupère le dépot en cours
+    depotEnCours.findOne({idCapteur: req.params.idCapteur}, function(err, dep) {
       if (err) reject(res.status(500).send("Erreur : "+ err));
       if (dep === null ) reject(res.status(500).send("Ce depot est deja terminé."));
       else resolve(dep);
@@ -109,12 +109,13 @@ router.post('/terminerScan/:idDepotEnCours', function (req, res) {
   })
   // Suppression du dépot en cours
   .then( () => {
-    return depotEnCours.findByIdAndRemove(req.params.idDepotEnCours, function (err, depotSupprime) {
-      if (err) res.status(500).send("There was a problem validating your depot in db : "+ err);
+    return depotEnCours.findOneAndRemove({idCapteur: req.params.idCapteur}, function (err, depotSupprime) {
       console.log(depotSupprime+' a été delete')
+      if (err) res.status(500).send("There was a problem validating your depot in db : "+ err);
       else return depotSupprime;
     });
   })
+  // On retourne le nouveau depot
   .then( () => {
     depot.findById(idDepotTermine, "date montant idAssoc",function (err, infos) {
       if (err) res.status(500).send("There was a problem validating your depot in db : "+ err);
