@@ -76,6 +76,8 @@
     <string name="home_donations">0,00€</string>
 
     <string name="scan_packaging_info">Scannez un code barre pour savoir dans quelle poubelle le déposer !</string>
+    <string name="packaging_info_product">Produit scanné : </string>
+    <string name="packaging_info_scan_another">Scanner un autre produit</string>
 
     <string name="deposit_qr_info">Scannez le code QR de la benne</string>
     <string name="deposit_qr_button">Taper le code</string>
