@@ -20,7 +20,10 @@ import java.net.CookieManager;
 
 public class HttpClient {
 
-    private final static String SERVER_IP = "pld-smart.azurewebsites.net";
+    public final static String HTTP = "http://";
+
+    //private final static String SERVER_IP = "pld-smart.azurewebsites.net";
+    private final static String SERVER_IP = "192.168.0.21:8080";
 
     public interface OnResponseCallback {
         void onJSONResponse(int statusCode, JSONObject response);
@@ -30,13 +33,16 @@ public class HttpClient {
         NetworkAccess access = new NetworkAccess(activity.getApplicationContext());
         if(!access.isNetworkAvailable())
             return false;
-        String url = "https://"+SERVER_IP+relativePath;
+        String url = HTTP+SERVER_IP+relativePath;
         if(parameter != null && !parameter.equals("")) {
             url += "/"+parameter;
         }
         OkHttpClient mClient = new OkHttpClient();
+        CookieHandler cookieHandler = new CookieManager();
+        mClient.setCookieHandler(cookieHandler);
         Request myGetRequest = new Request.Builder()
                 .url(url)
+                .get()
                 .build();
 
         mClient.newCall(myGetRequest).enqueue(new Callback() {
@@ -86,7 +92,7 @@ public class HttpClient {
         mClient.setCookieHandler(cookieHandler);
         MediaType JSON_TYPE = MediaType.parse("application/json");
         Request myGetRequest = new Request.Builder()
-                .url("https://"+SERVER_IP+relativePath)
+                .url(HTTP+SERVER_IP+relativePath)
                 .addHeader("Content-Type", "application/json")
                 .post(RequestBody.create(JSON_TYPE, body))
                 .build();
@@ -133,7 +139,7 @@ public class HttpClient {
         NetworkAccess access = new NetworkAccess(activity.getApplicationContext());
         if(!access.isNetworkAvailable())
             return false;
-        String url = "https://"+SERVER_IP+relativePath;
+        String url = HTTP+SERVER_IP+relativePath;
         if(parameter != null && !parameter.equals("")) {
             url += "/"+parameter;
         }
@@ -187,7 +193,7 @@ public class HttpClient {
 
     public static void DELETE(String relativePath, String parameter, final Activity activity, final OnResponseCallback callback) {
 
-        String url = "https://"+SERVER_IP+relativePath;
+        String url = HTTP+SERVER_IP+relativePath;
         if(parameter != null && !parameter.equals("")) {
             url += "/"+parameter;
         }
