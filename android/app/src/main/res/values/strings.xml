@@ -49,7 +49,7 @@
     <string name="nav_map">Carte des bennes</string>
     <string name="nav_account">Mon Compte</string>
     <string name="nav_scan">Scanner un emballage</string>
-    <string name="nav_schedule">Planning de collecte</string>
+    <string name="nav_planning">Planning de collecte</string>
     <string name="nav_settings">Paramètres</string>
     <string name="nav_logout">Se déconnecter</string>
     <string name="title_activity_test">TestActivity</string>
@@ -81,4 +81,249 @@
     <!-- Map String -->
     <string name="mapKey">AIzaSyBqi9F2i_pJB4SPuXOEJOMLqzLYnyMzN7w</string>
     <string name="title_activity_maps">Map</string>
+
+    <!-- Planning -->
+    <string-array name="planning_zone_array">
+        <item>Albigny-sur-Saône</item>
+        <item>Bron</item>
+        <item>Cailloux-Sur-Fontaines</item>
+        <item>Caluire-et-Cuire</item>
+        <item>Champagne-au-Mont-d'Or</item>
+        <item>Charbonnières-les-Bains</item>
+        <item>Charly</item>
+        <item>Chassieu</item>
+        <item>Collonges-au-Mont-d'Or</item>
+        <item>Corbas</item>
+        <item>Couzon-au-Mont-d'Or</item>
+        <item>Craponne</item>
+        <item>Curis-au-Mont-d'Or</item>
+        <item>Dardilly</item>
+        <item>Décines-Charpieu</item>
+        <item>Ecully</item>
+        <item>Feyzin</item>
+        <item>Fleurieu-sur-Saône</item>
+        <item>Fontaines-Saint-Martin</item>
+        <item>Fontaines-sur-Saône</item>
+        <item>Francheville</item>
+        <item>Genay</item>
+        <item>Givors</item>
+        <item>Grigny</item>
+        <item>Irigny</item>
+        <item>Jonage</item>
+        <item>La Mulatière</item>
+        <item>La Tour de Salvagny</item>
+        <item>Limonest</item>
+        <item>Lyon</item>
+        <item>Marcy-l'Etoile</item>
+        <item>Meyzieu</item>
+        <item>Mions</item>
+        <item>Montanay</item>
+        <item>Neuville-sur-Saône</item>
+        <item>Oullins</item>
+        <item>Pierre-Bénite</item>
+        <item>Poleymieux-au-Mont-d'Or</item>
+        <item>Quincieux</item>
+        <item>Rillieux-la-Pape</item>
+        <item>Rochetaillée-sur-Saône</item>
+        <item>Saint-Cyr-au-Mont-d'Or</item>
+        <item>Saint-Didier-au-Mont-d'Or</item>
+        <item>Saint-Fons</item>
+        <item>Saint-Genis-Laval</item>
+        <item>Saint-Genis-les-Ollières</item>
+        <item>Saint-Germain-au-Mont-d'Or</item>
+        <item>Saint-Priest</item>
+        <item>Saint-Romain-au-Mont-d'Or</item>
+        <item>Sainte-Foy-lès-Lyon</item>
+        <item>Sathonay-Camp</item>
+        <item>Sathonay-Village</item>
+        <item>Solaize</item>
+        <item>Tassin-la-Demi-Lune</item>
+        <item>Vaulx-en-Velin</item>
+        <item>Vénissieux</item>
+        <item>Vernaison</item>
+        <item>Villeurbanne</item>
+    </string-array>
+
+    <string-array name="planning_grey_trash_day">
+        <item>Le mardi entre 6 et 13h</item>
+        <item>Les lundi, mardi, jeudi, vendredi et samedi entre 6 et 13h30</item>
+        <item>Le lundi entre 6 et 13h</item>
+        <item>Le mardi et samedi entre 6 et 13h</item>
+        <item>Le mardi et le vendredi entre 6 et 13h</item>
+        <item>Le mardi et le vendredi entre 6 et 13h</item>
+        <item>Le lundi entre 6 et 13h</item>
+        <item>Les mardi et vendreoi entre 6 et 13h</item>
+        <item>Le lundi et vendredi entre 6 et 13h</item>
+        <item>Le lundi et jeudi entre 6 et 13h</item>
+        <item>Couzon-au-Mont-d'Or</item>
+        <item>Craponne</item>
+        <item>Curis-au-Mont-d'Or</item>
+        <item>Dardilly</item>
+        <item>Décines-Charpieu</item>
+        <item>Ecully</item>
+        <item>Feyzin</item>
+        <item>Fleurieu-sur-Saône</item>
+        <item>Fontaines-Saint-Martin</item>
+        <item>Fontaines-sur-Saône</item>
+        <item>Francheville</item>
+        <item>Genay</item>
+        <item>Givors</item>
+        <item>Grigny</item>
+        <item>Irigny</item>
+        <item>Jonage</item>
+        <item>La Mulatière</item>
+        <item>La Tour de Salvagny</item>
+        <item>Limonest</item>
+        <item>Lyon</item>
+        <item>Marcy-l'Etoile</item>
+        <item>Meyzieu</item>
+        <item>Mions</item>
+        <item>Montanay</item>
+        <item>Neuville-sur-Saône</item>
+        <item>Oullins</item>
+        <item>Pierre-Bénite</item>
+        <item>Poleymieux-au-Mont-d'Or</item>
+        <item>Quincieux</item>
+        <item>Rillieux-la-Pape</item>
+        <item>Rochetaillée-sur-Saône</item>
+        <item>Saint-Cyr-au-Mont-d'Or</item>
+        <item>Saint-Didier-au-Mont-d'Or</item>
+        <item>Saint-Fons</item>
+        <item>Saint-Genis-Laval</item>
+        <item>Saint-Genis-les-Ollières</item>
+        <item>Saint-Germain-au-Mont-d'Or</item>
+        <item>Saint-Priest</item>
+        <item>Saint-Romain-au-Mont-d'Or</item>
+        <item>Sainte-Foy-lès-Lyon</item>
+        <item>Sathonay-Camp</item>
+        <item>Sathonay-Village</item>
+        <item>Solaize</item>
+        <item>Tassin-la-Demi-Lune</item>
+        <item>Vaulx-en-Velin</item>
+        <item>Vénissieux</item>
+        <item>Vernaison</item>
+        <item>Villeurbanne</item>
+    </string-array>
+
+    <string-array name="planning_yellow_trash_day">
+        <item>Le jeudi entre 6 et 13h</item>
+        <item>Le mercredi entre 6 et 13h30</item>
+        <item>Le jeudi entre 6 et 13h</item>
+        <item>Le jeudi entre 6 et 13h</item>
+        <item>Le mercredi entre 6 et 13h</item>
+        <item>Le jeudi entre 6 et 13h</item>
+        <item>Le mercredi des semaines impaires entre 6 et 13h</item>
+        <item>Le mercredi entre 6 et 13h</item>
+        <item>Le mercredi entre 6 et 13h</item>
+        <item>Le mardi entre 6 et 13h</item>
+        <item>Couzon-au-Mont-d'Or</item>
+        <item>Craponne</item>
+        <item>Curis-au-Mont-d'Or</item>
+        <item>Dardilly</item>
+        <item>Décines-Charpieu</item>
+        <item>Ecully</item>
+        <item>Feyzin</item>
+        <item>Fleurieu-sur-Saône</item>
+        <item>Fontaines-Saint-Martin</item>
+        <item>Fontaines-sur-Saône</item>
+        <item>Francheville</item>
+        <item>Genay</item>
+        <item>Givors</item>
+        <item>Grigny</item>
+        <item>Irigny</item>
+        <item>Jonage</item>
+        <item>La Mulatière</item>
+        <item>La Tour de Salvagny</item>
+        <item>Limonest</item>
+        <item>Lyon</item>
+        <item>Marcy-l'Etoile</item>
+        <item>Meyzieu</item>
+        <item>Mions</item>
+        <item>Montanay</item>
+        <item>Neuville-sur-Saône</item>
+        <item>Oullins</item>
+        <item>Pierre-Bénite</item>
+        <item>Poleymieux-au-Mont-d'Or</item>
+        <item>Quincieux</item>
+        <item>Rillieux-la-Pape</item>
+        <item>Rochetaillée-sur-Saône</item>
+        <item>Saint-Cyr-au-Mont-d'Or</item>
+        <item>Saint-Didier-au-Mont-d'Or</item>
+        <item>Saint-Fons</item>
+        <item>Saint-Genis-Laval</item>
+        <item>Saint-Genis-les-Ollières</item>
+        <item>Saint-Germain-au-Mont-d'Or</item>
+        <item>Saint-Priest</item>
+        <item>Saint-Romain-au-Mont-d'Or</item>
+        <item>Sainte-Foy-lès-Lyon</item>
+        <item>Sathonay-Camp</item>
+        <item>Sathonay-Village</item>
+        <item>Solaize</item>
+        <item>Tassin-la-Demi-Lune</item>
+        <item>Vaulx-en-Velin</item>
+        <item>Vénissieux</item>
+        <item>Vernaison</item>
+        <item>Villeurbanne</item>
+    </string-array>
+
+    <string-array name="planning_link_array">
+        <item>https://www.grandlyon.com/fileadmin/user_upload/media/pdf/proprete/calendrier/calendriercollecte_albigny.pdf</item>
+        <item>https://www.grandlyon.com/fileadmin/user_upload/media/pdf/proprete/calendrier/calendriercollecte_bron-s3.pdf</item>
+        <item>https://www.grandlyon.com/fileadmin/user_upload/media/pdf/proprete/calendrier/calendriercollecte_cailloux.pdf</item>
+        <item>https://www.grandlyon.com/fileadmin/user_upload/media/pdf/proprete/calendrier/calendriercollecte_caluire-s1.pdf</item>
+        <item>https://www.grandlyon.com/fileadmin/user_upload/media/pdf/proprete/calendrier/calendriercollecte_champagne.pdf</item>
+        <item>https://www.grandlyon.com/fileadmin/user_upload/media/pdf/proprete/calendrier/calendriercollecte_charbonnieres.pdf</item>
+        <item>https://www.grandlyon.com/fileadmin/user_upload/media/pdf/proprete/calendrier/calendriercollecte_charly.pdf</item>
+        <item>https://www.grandlyon.com/fileadmin/user_upload/media/pdf/proprete/calendrier/calendriercollecte_chassieu-s2.pdf</item>
+        <item>https://www.grandlyon.com/fileadmin/user_upload/media/pdf/proprete/calendrier/calendriercollecte_collonges.pdf</item>
+        <item>https://www.grandlyon.com/fileadmin/user_upload/media/pdf/proprete/calendrier/calendriercollecte_corbas.pdf</item>
+        <item>Couzon-au-Mont-d'Or</item>
+        <item>Craponne</item>
+        <item>Curis-au-Mont-d'Or</item>
+        <item>Dardilly</item>
+        <item>Décines-Charpieu</item>
+        <item>Ecully</item>
+        <item>Feyzin</item>
+        <item>Fleurieu-sur-Saône</item>
+        <item>Fontaines-Saint-Martin</item>
+        <item>Fontaines-sur-Saône</item>
+        <item>Francheville</item>
+        <item>Genay</item>
+        <item>Givors</item>
+        <item>Grigny</item>
+        <item>Irigny</item>
+        <item>Jonage</item>
+        <item>La Mulatière</item>
+        <item>La Tour de Salvagny</item>
+        <item>Limonest</item>
+        <item>Lyon</item>
+        <item>Marcy-l'Etoile</item>
+        <item>Meyzieu</item>
+        <item>Mions</item>
+        <item>Montanay</item>
+        <item>Neuville-sur-Saône</item>
+        <item>Oullins</item>
+        <item>Pierre-Bénite</item>
+        <item>Poleymieux-au-Mont-d'Or</item>
+        <item>Quincieux</item>
+        <item>Rillieux-la-Pape</item>
+        <item>Rochetaillée-sur-Saône</item>
+        <item>Saint-Cyr-au-Mont-d'Or</item>
+        <item>Saint-Didier-au-Mont-d'Or</item>
+        <item>Saint-Fons</item>
+        <item>Saint-Genis-Laval</item>
+        <item>Saint-Genis-les-Ollières</item>
+        <item>Saint-Germain-au-Mont-d'Or</item>
+        <item>Saint-Priest</item>
+        <item>Saint-Romain-au-Mont-d'Or</item>
+        <item>Sainte-Foy-lès-Lyon</item>
+        <item>Sathonay-Camp</item>
+        <item>Sathonay-Village</item>
+        <item>Solaize</item>
+        <item>Tassin-la-Demi-Lune</item>
+        <item>Vaulx-en-Velin</item>
+        <item>Vénissieux</item>
+        <item>Vernaison</item>
+        <item>Villeurbanne</item>
+    </string-array>
 </resources>

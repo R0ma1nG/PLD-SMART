@@ -24,9 +24,10 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Activities.Connection.ConnectionActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -45,47 +46,50 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.HomeActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+
         <activity
             android:name=".Activities.MapsActivity"
             android:label="@string/title_activity_maps"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".Activities.HomeActivity"/>
+            android:parentActivityName=".Activities.HomeActivity"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".Activities.TemplateActivity"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".Activities.HomeActivity"/>
+            android:parentActivityName=".Activities.HomeActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.Connection.ChooseAssociationActivity"
             android:parentActivityName=".Activities.Connection.InscriptionActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.ScanPackaging.ScanPackagingActivity"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".Activities.HomeActivity"/>
+            android:parentActivityName=".Activities.HomeActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.ScanPackaging.PackagingInfoActivity"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".Activities.ScanPackaging.ScanPackagingActivity"/>
+            android:parentActivityName=".Activities.ScanPackaging.ScanPackagingActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.Deposit.DepositQRActivity"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".Activities.HomeActivity"/>
+            android:parentActivityName=".Activities.HomeActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.Deposit.DepositManualActivity"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".Activities.Deposit.DepositQRActivity"/>
+            android:parentActivityName=".Activities.Deposit.DepositQRActivity"
+            android:screenOrientation="portrait" />
         <activity
-            android:screenOrientation="portrait"
             android:name=".Activities.Deposit.DepositInProgressActivity"
-            android:parentActivityName=".Activities.Deposit.DepositQRActivity"/>
+            android:parentActivityName=".Activities.Deposit.DepositQRActivity"
+            android:screenOrientation="portrait" />
         <activity
-            android:screenOrientation="portrait"
             android:name=".Activities.Deposit.DepositRejectionActivity"
-            android:parentActivityName=".Activities.Deposit.DepositQRActivity"/>
+            android:parentActivityName=".Activities.Deposit.DepositQRActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Activities.PlanningActivity"></activity>
     </application>
 
 </manifest>
