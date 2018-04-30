@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/app_bar_drawer"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <SurfaceView
+            android:id="@+id/deposit_qr_surface_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/deposit_qr_info"
+            android:gravity="center_horizontal"
+            android:layout_alignParentTop="true"
+            android:paddingTop="40dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:textColor="@color/secondaryTextColor"
+            android:textSize="18sp"/>
+
+        <Button
+            android:id="@+id/deposit_qr_manual_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="@string/deposit_qr_button"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            style="@style/ButtonTheme"/>
+    </RelativeLayout>
+</LinearLayout>

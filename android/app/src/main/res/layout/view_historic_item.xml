@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:id="@+id/historic_view_infos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Title"
+            android:gravity="start"
+            android:textSize="20sp"
+            android:textColor="@color/primaryTextColor" />
+
+        <TextView
+            android:id="@+id/historic_view_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Description"
+            android:gravity="start"
+            android:layout_marginStart="25dp"/>
+
+        <View
+            style="@style/HorizontalListSeparator" />
+    </LinearLayout>
+
+</LinearLayout>

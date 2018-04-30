@@ -2,6 +2,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.h4413.recyclyon">
 
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality. 
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,7 +23,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Connection.ConnectionActivity"
+            android:name=".Activities.Connection.ConnectionActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,22 +32,79 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Connection.InscriptionActivity"
+            android:name=".Activities.Connection.InscriptionActivity"
             android:label="@string/inscription"
-            android:parentActivityName=".Connection.ConnectionActivity"
+            android:parentActivityName=".Activities.Connection.ConnectionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.Connection.CGUActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".Activities.Connection.ChooseAssociationActivity" />
+        <activity
+            android:name=".Activities.Connection.ForgotPwdActivity"
+            android:parentActivityName=".Activities.Connection.ConnectionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.HomeActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".Activities.ProfileActivity"
+            android:screenOrientation="portrait"/>
+           
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".Activities.MapsActivity"
+            android:label="@string/title_activity_maps"
+            android:parentActivityName=".Activities.HomeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.TemplateActivity"
+            android:parentActivityName=".Activities.HomeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.Connection.ChooseAssociationActivity"
+            android:parentActivityName=".Activities.Connection.InscriptionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.ScanPackaging.ScanPackagingActivity"
+            android:parentActivityName=".Activities.HomeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.ScanPackaging.PackagingInfoActivity"
+            android:parentActivityName=".Activities.ScanPackaging.ScanPackagingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.Deposit.DepositQRActivity"
+            android:parentActivityName=".Activities.HomeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.Deposit.DepositManualActivity"
+            android:parentActivityName=".Activities.Deposit.DepositQRActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.Deposit.DepositInProgressActivity"
+            android:parentActivityName=".Activities.Deposit.DepositQRActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.Deposit.DepositRejectionActivity"
+            android:parentActivityName=".Activities.Deposit.DepositQRActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.Deposit.DepositEndActivity"
+            android:parentActivityName=".Activities.Deposit.DepositInProgressActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".Connection.CGUActivity"
-            android:label="@string/app_name"
-            android:parentActivityName=".Connection.InscriptionActivity" />
-
+            android:name=".Activities.SettingsActivity"
+            android:parentActivityName=".Activities.HomeActivity"
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".Connection.ForgotPwdActivity"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".Connection.ConnectionActivity"></activity>
-
-        <activity
-            android:name=".HomeActivity"
+            android:name=".Activities.PlanningActivity"
+            android:parentActivityName=".Activities.HomeActivity"
             android:screenOrientation="portrait"/>
     </application>
 

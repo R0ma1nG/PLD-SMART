@@ -9,7 +9,8 @@ var UtilisateurSchema   = new Schema({
     adresse: String,
     dateNaissance: Date,
     sexe: Number,
-    idAssoc: Schema.Types.ObjectId
+    idAssoc: Schema.Types.ObjectId,
+    isAdmin: Boolean
 });
 
 UtilisateurSchema.methods.generateHash = function(password) {
@@ -19,6 +20,10 @@ UtilisateurSchema.methods.generateHash = function(password) {
 // checking if password is valid
 UtilisateurSchema.methods.validPassword = function(password) {
     return bcrypt.compareSync(password, this.motDePasse);
+};
+
+UtilisateurSchema.methods.changePassword = function(newPassword) {
+    this.motDePasse = newPassword;
 };
 
 
