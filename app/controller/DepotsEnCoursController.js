@@ -94,7 +94,8 @@ router.post('/terminerScan/:idCapteur', function (req, res) {
   })
   // Création du nouveau dépot
   .then( (dep) => {
-    return depot.create({
+    if (dep.montant == 0) return;
+    else return depot.create({
       _id: idDepotTermine,
       date: dep.date,
       montant: dep.montant,
