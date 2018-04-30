@@ -40,7 +40,7 @@ router.get('/codeBarre/:codeBarre', function (req, res) {
   })
   .then( ( resultat ) => {
     res.status(200).send(resultat);
-  })
+  });
 });
 
 

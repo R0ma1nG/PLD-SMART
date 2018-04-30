@@ -10,6 +10,7 @@ var pwdToken = require("../models/pwdToken");
 
 // middleware to use for all requests
 router.use(function (req, res, next) {
+  console.log(req.url);
   if (req.url.match('forgotPassword') || req.url.match('success')) next();
   else if (!req.isAuthenticated()) res.status(401).send("You're not authenticated !");
   else {
