@@ -162,7 +162,6 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ProfileActivity.this, ChangeAssociationActivity.class);
-                //intent.putExtra("Association", mCurrentAssociation);
                 startActivityForResult(intent, REQUEST_CODE_ASSOCIATION);
             }
         });
@@ -199,5 +198,19 @@ public class ProfileActivity extends AppCompatActivity {
         String strDt = simpleDate.format(mUser.dateNaissance);
         mDateNaissanceInput.setText(strDt);
         mSexInput.setSelection(mUser.sexe+1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        mUser = UserServices.getCurrentUserFromSharedPreferences(this);
+        HttpClient.GET(Routes.Associations, mUser.idAssoc, ProfileActivity.this, new HttpClient.OnResponseCallback() {
+            @Override
+            public void onJSONResponse(int statusCode, JSONObject response) {
+                Gson gson = new Gson();
+                Association association = gson.fromJson(String.valueOf(response), Association.class);
+                mAssociation.setText(association.nom);
+            }
+        });
     }
 }

@@ -3,6 +3,7 @@ package com.h4413.recyclyon.Activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,11 +17,15 @@ import com.h4413.recyclyon.Activities.Connection.CGUActivity;
 import com.h4413.recyclyon.Adapters.ChooseAssociationRecyclerViewAdapter;
 import com.h4413.recyclyon.Model.Association;
 import com.h4413.recyclyon.Model.AssociationList;
+import com.h4413.recyclyon.Model.User;
 import com.h4413.recyclyon.R;
+import com.h4413.recyclyon.Services.UserServices;
 import com.h4413.recyclyon.Utilities.HttpClient;
 import com.h4413.recyclyon.Utilities.NavbarInitializer;
 import com.h4413.recyclyon.Utilities.Routes;
+import com.h4413.recyclyon.Utilities.SharedPreferencesKeys;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ChangeAssociationActivity extends AppCompatActivity implements AssociationAdapterCallback {
@@ -37,11 +42,15 @@ public class ChangeAssociationActivity extends AppCompatActivity implements Asso
 
     private Association mCurrentAssociation;
 
+    private User mUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_association);
         NavbarInitializer.configureToolbar(this, R.string.appName);
+
+        mUser = UserServices.getCurrentUserFromSharedPreferences(this);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.choose_association_activity_recyclerView);
         mCurrentApplicationText = (TextView) findViewById(R.id.choose_association_activity_association_text);
@@ -71,16 +80,19 @@ public class ChangeAssociationActivity extends AppCompatActivity implements Asso
             public void onClick(View v) {
 
                 //intent.putExtra("Association", mCurrentAssociation);
-
-                Gson gson = new Gson();
-                SharedPreferences sharedPref = getPreferences(MODE_PRIVATE);
-                String json = sharedPref.getString(SP_KEY_ASSOCIATION, "");
-                mCurrentAssociation = gson.fromJson(json, Association.class);
-                Intent intent = new Intent();
-                intent.putExtra(SP_KEY_ASSOCIATION, mCurrentAssociation);
-                setResult(RESULT_OK, intent);
-                finish();
-
+                JSONObject obj = new JSONObject();
+                try {
+                    obj.put("idAssoc", mCurrentAssociation._id);
+                } catch (JSONException e) {e.printStackTrace();}
+                HttpClient.PUT(Routes.Users, mUser._id, obj.toString(), ChangeAssociationActivity.this, new HttpClient.OnResponseCallback() {
+                    @Override
+                    public void onJSONResponse(int statusCode, JSONObject response) {
+                        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                        sharedPref.edit().putString(SharedPreferencesKeys.USER_KEY, response.toString()).apply();
+                        setResult(RESULT_OK);
+                        finish();
+                    }
+                });
             }
         });
         mValidateButton.setEnabled(false);
