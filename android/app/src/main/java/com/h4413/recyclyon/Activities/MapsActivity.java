@@ -2,8 +2,12 @@ package com.h4413.recyclyon.Activities;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -65,8 +69,19 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             mMap.setMyLocationEnabled(true);
+
+            LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            Criteria criteria = new Criteria();
+
+            Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
+            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+            CameraPosition cameraPosition = new CameraPosition.Builder().target(latLng).zoom(15).build();
+            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
         } else {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, ACCESS_FINE_LOCATION_REQUEST_CODE);
+            LatLng latLng = new LatLng(45.757396, 4.840871);
+            CameraPosition cameraPosition = new CameraPosition.Builder().target(latLng).zoom(15).build();
+            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
         }
 
         populator = new MapPopulator(mMap, this);
@@ -88,14 +103,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 populator.displayMarkers();
             }
         });
-
-
-        /*List<Bin> bins = new ArrayList<>();
-        bins.add(new Bin("1", "1 rue des teinturiers", 45.7580549, 4.7650808, true));
-        bins.add(new Bin("1", "1 rue des teinturiers not ", 45.7582549, 4.7670808, false));*/
-
-        //populator.fillMapPrototype(bins);
-
 
 
         LatLng position = new LatLng(45.7580539, 4.7650808);
