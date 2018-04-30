@@ -65,7 +65,9 @@
                 <EditText
                     android:id="@+id/profile_activity_adress_input"
                     style="@style/EditTextTheme"
-                    android:hint="Adresse" />
+                    android:hint="Adresse"
+                    android:maxLines="4"
+                    android:imeOptions="actionNone"/>
 
         </LinearLayout>
 

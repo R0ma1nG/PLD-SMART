@@ -1,5 +1,6 @@
 package com.h4413.recyclyon.Utilities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -34,6 +35,13 @@ public class NavbarInitializer {
 
         DrawerLayout drawer = (DrawerLayout) activity.findViewById(R.id.template_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(activity, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+
+        toolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hideKeyboard(v, activity);
+            }
+        });
 
         drawer.addDrawerListener(toggle);
         toggle.syncState();
@@ -75,4 +83,12 @@ public class NavbarInitializer {
         ActionBar ab = activity.getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
     }
+
+
+    protected static void hideKeyboard(View view, AppCompatActivity activity)
+    {
+        InputMethodManager in = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        in.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+    }
+
 }

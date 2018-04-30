@@ -34,6 +34,7 @@ var AssociationsController = require('./controller/AssociationsController');
 var CapteursController = require('./controller/CapteursController');
 var DepotsEnCoursController = require('./controller/DepotsEnCoursController');
 var UtilsController = require('./controller/UtilsController');
+var AdminController = require('./controller/AdminController');
 var AuthController = require('./controller/AuthController')(app, passport);
 
 
@@ -44,6 +45,7 @@ app.use('/api/depots', DepotsController);
 app.use('/api/associations', AssociationsController);
 app.use('/api/capteurs', CapteursController);
 app.use('/api/depotsEnCours', DepotsEnCoursController);
+app.use('/api/admin', AdminController);
 app.use('/api/utils', UtilsController);
 
 //First redirect (non définitif)

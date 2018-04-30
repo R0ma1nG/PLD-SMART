@@ -1,6 +1,7 @@
 package com.h4413.recyclyon.Activities;
 
 import android.bluetooth.BluetoothClass;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,7 +14,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -58,6 +61,7 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         NavbarInitializer.initNavigationMenu(this, R.id.nav_account, R.string.title_activity_account);
 
+
         mUser = new User();
 
         mSubmitButton = (Button) findViewById(R.id.profile_activity_submit_btn);
@@ -73,12 +77,14 @@ public class ProfileActivity extends AppCompatActivity {
         mSexInput.setAdapter(adapter);
 
 
-        mUser = UserServices.getCurrentUserFromSharedPreferences(this);
-        mAdressInput.setText(mUser.adresse);
-        SimpleDateFormat simpleDate =  new SimpleDateFormat("dd/MM/yyyy");
-        String strDt = simpleDate.format(mUser.dateNaissance);
-        mDateNaissanceInput.setText(strDt);
-        mSexInput.setSelection(mUser.sexe+1);
+        if(mUser.dateNaissance != null) {
+            mUser = UserServices.getCurrentUserFromSharedPreferences(this);
+            mAdressInput.setText(mUser.adresse);
+            SimpleDateFormat simpleDate = new SimpleDateFormat("dd/MM/yyyy");
+            String strDt = simpleDate.format(mUser.dateNaissance);
+            mDateNaissanceInput.setText(strDt);
+            mSexInput.setSelection(mUser.sexe + 1);
+        }
         
         //Verouille les champs sans le click sur modifier
         mSexInput.setEnabled(false);

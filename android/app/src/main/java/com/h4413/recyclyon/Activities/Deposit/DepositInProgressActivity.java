@@ -20,6 +20,7 @@ import com.google.android.gms.vision.barcode.Barcode;
 import com.google.gson.Gson;
 import com.h4413.recyclyon.Model.User;
 import com.h4413.recyclyon.R;
+import com.h4413.recyclyon.Services.UserServices;
 import com.h4413.recyclyon.Utilities.HttpClient;
 import com.h4413.recyclyon.Utilities.IntentExtraKeys;
 import com.h4413.recyclyon.Utilities.Routes;
@@ -41,6 +42,7 @@ public class DepositInProgressActivity extends AppCompatActivity {
     private ImageView mImage;
 
     private String idDepot;
+    private User mUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,18 +56,15 @@ public class DepositInProgressActivity extends AppCompatActivity {
 
         mFinishButton = (Button) findViewById(R.id.deposit_progress_button);
 
-        Gson gson = new Gson();
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        String str = sharedPref.getString(SharedPreferencesKeys.USER_KEY, "");
-        User usr = gson.fromJson(str, User.class);
+        mUser = UserServices.getCurrentUserFromSharedPreferences(this);
         JSONObject body = new JSONObject();
         try {
-            body.put("idUtilisateur", usr._id);
-            body.put("idAssoc", usr.idAssoc);
+            body.put("idUtilisateur", mUser._id);
+            body.put("idAssoc", mUser.idAssoc);
             body.put("idCapteur", mQRCode.displayValue);
         } catch (JSONException e) { e.printStackTrace(); }
 
-        HttpClient.POST(Routes.BeginDeposit, body.toString(), DepositInProgressActivity.this, new HttpClient.OnResponseCallback() {
+        HttpClient.POST(Routes.BeginDeposit, null, body.toString(), DepositInProgressActivity.this, new HttpClient.OnResponseCallback() {
             @Override
             public void onJSONResponse(int statusCode, JSONObject response) {
                 if(statusCode == 200) {
@@ -86,7 +85,7 @@ public class DepositInProgressActivity extends AppCompatActivity {
                 try {
                     body.put("montant", 0);
                 } catch (JSONException e) {e.printStackTrace();}
-                HttpClient.PUT(Routes.FinishDeposit, idDepot, body.toString(), DepositInProgressActivity.this, new HttpClient.OnResponseCallback() {
+                HttpClient.POST(Routes.FinishDeposit, mQRCode.displayValue, body.toString(), DepositInProgressActivity.this, new HttpClient.OnResponseCallback() {
                     @Override
                     public void onJSONResponse(int statusCode, JSONObject response) {
                         String idAssoc = "";
@@ -99,6 +98,7 @@ public class DepositInProgressActivity extends AppCompatActivity {
                         intent.putExtra(IntentExtraKeys.DEPOT_MONTANT_KEY, montant);
                         intent.putExtra(IntentExtraKeys.ID_ASSOC_KEY, idAssoc);
                         startActivityForResult(intent, REQUEST_CODE_END_DEPOSIT);
+                        finish();
                     }
                 });
             }
@@ -111,7 +111,7 @@ public class DepositInProgressActivity extends AppCompatActivity {
         RotateAnimation anim = new RotateAnimation(355f, 0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         anim.setInterpolator(new LinearInterpolator());
         anim.setRepeatCount(Animation.INFINITE);
-        anim.setDuration(1500);
+        anim.setDuration(1900);
 
         mImage.startAnimation(anim);
     }
@@ -126,7 +126,7 @@ public class DepositInProgressActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         setResult(resultCode);
-        finish();
+        finishAffinity();
     }
 
     @Override

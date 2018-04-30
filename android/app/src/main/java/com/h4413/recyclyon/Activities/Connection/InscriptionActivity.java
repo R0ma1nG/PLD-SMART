@@ -145,7 +145,7 @@ public class InscriptionActivity extends AppCompatActivity {
             mUtilisateur = gson.fromJson(json, User.class);
             mUtilisateur.idAssoc = association.id;
 
-            HttpClient.POST(Routes.Signup, mUtilisateur.toString(), InscriptionActivity.this, new HttpClient.OnResponseCallback() {
+            HttpClient.POST(Routes.Signup, null, mUtilisateur.toString(), InscriptionActivity.this, new HttpClient.OnResponseCallback() {
                 @Override
                 public void onJSONResponse(int statusCode, JSONObject response) {
                     if(statusCode == 200) {

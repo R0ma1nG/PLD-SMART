@@ -75,7 +75,7 @@ public class ConnectionActivity extends AppCompatActivity {
                     e.printStackTrace();
                     mConnectionButton.setEnabled(true);
                 }
-                HttpClient.POST(Routes.Login, obj.toString(), ConnectionActivity.this, new HttpClient.OnResponseCallback() {
+                HttpClient.POST(Routes.Login,null, obj.toString(), ConnectionActivity.this, new HttpClient.OnResponseCallback() {
                     @Override
                     public void onJSONResponse(int statusCode, JSONObject response) {
                         if(statusCode == 401) {
@@ -87,6 +87,9 @@ public class ConnectionActivity extends AppCompatActivity {
 
                             final Gson gson = new Gson();
                             final ConnectionOk userid = gson.fromJson(response.toString(), ConnectionOk.class);
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {e.printStackTrace();}
                             HttpClient.GET(Routes.Users, userid.idUtilisateur, ConnectionActivity.this, new HttpClient.OnResponseCallback() {
                                 @Override
                                 public void onJSONResponse(int statusCode, JSONObject response) {
