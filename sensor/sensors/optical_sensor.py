@@ -54,7 +54,7 @@ class IRSensor:
         self._timer.stop()
         self._adc.stop_adc()
 
-    def detects(self, threshold=1.):
+    def detects(self, threshold=100.):
         none_vals = np.sum([v is None for v in self._timestamp_buffer])
         ts_buffer, v_buffer = np.asarray(self._timestamp_buffer)[none_vals:], np.asarray(self._value_buffer)[none_vals:]
         mean = np.trapz(v_buffer, x=(ts_buffer / np.ptp(ts_buffer)))
