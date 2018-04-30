@@ -6,8 +6,8 @@ public class Routes {
     public static String Signup ="/signup";
     public static String Associations = "/api/associations";
     public static String Bins = "/api/poubelles/infos";
-    public static String BeginDeposit = "/api/depots/demarrerScan";
-    public static String FinishDeposit = "/api/depots/terminerScan";
+    public static String BeginDeposit = "/api/depotsEnCours/demarrerScan";
+    public static String FinishDeposit = "/api/depotsEnCours/terminerScan";
     public static String Historic = "/api/depots/historique";
-    public static String Barcode = "/api/utils/scanCB";
+    public static String Barcode = "/api/utils/codeBarre";
 }

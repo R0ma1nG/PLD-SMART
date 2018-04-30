@@ -20,7 +20,12 @@ import java.net.CookieManager;
 
 public class HttpClient {
 
-    private final static String SERVER_IP = "pld-smart.azurewebsites.net";
+    public final static String HTTP = "http://";
+
+    //private final static String SERVER_IP = "pld-smart.azurewebsites.net";
+    private final static String SERVER_IP = "localhost:8080";
+
+    private static OkHttpClient mHttpClient = new OkHttpClient().setCookieHandler(new CookieManager());
 
     public interface OnResponseCallback {
         void onJSONResponse(int statusCode, JSONObject response);
@@ -30,16 +35,20 @@ public class HttpClient {
         NetworkAccess access = new NetworkAccess(activity.getApplicationContext());
         if(!access.isNetworkAvailable())
             return false;
-        String url = "https://"+SERVER_IP+relativePath;
+        String url = HTTP+SERVER_IP+relativePath;
         if(parameter != null && !parameter.equals("")) {
             url += "/"+parameter;
         }
-        OkHttpClient mClient = new OkHttpClient();
+        if(mHttpClient.getCookieHandler() == null) {
+            CookieHandler cookieHandler = new CookieManager();
+            mHttpClient.setCookieHandler(cookieHandler);
+        }
         Request myGetRequest = new Request.Builder()
                 .url(url)
+                .get()
                 .build();
 
-        mClient.newCall(myGetRequest).enqueue(new Callback() {
+        mHttpClient.newCall(myGetRequest).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
 
@@ -77,21 +86,26 @@ public class HttpClient {
         return true;
     }
 
-    public static boolean POST(String relativePath, String body, final Activity activity, final OnResponseCallback callback) {
+    public static boolean POST(String relativePath, String parameter, String body, final Activity activity, final OnResponseCallback callback) {
         NetworkAccess access = new NetworkAccess(activity.getApplicationContext());
         if(!access.isNetworkAvailable())
             return false;
-        OkHttpClient mClient = new OkHttpClient();
-        CookieHandler cookieHandler = new CookieManager();
-        mClient.setCookieHandler(cookieHandler);
+        String url = HTTP+SERVER_IP+relativePath;
+        if(parameter != null && !parameter.equals("")) {
+            url += "/"+parameter;
+        }
+        if(mHttpClient.getCookieHandler() == null) {
+            CookieHandler cookieHandler = new CookieManager();
+            mHttpClient.setCookieHandler(cookieHandler);
+        }
         MediaType JSON_TYPE = MediaType.parse("application/json");
         Request myGetRequest = new Request.Builder()
-                .url("https://"+SERVER_IP+relativePath)
+                .url(url)
                 .addHeader("Content-Type", "application/json")
                 .post(RequestBody.create(JSON_TYPE, body))
                 .build();
 
-        mClient.newCall(myGetRequest).enqueue(new Callback() {
+        mHttpClient.newCall(myGetRequest).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
 
@@ -133,13 +147,14 @@ public class HttpClient {
         NetworkAccess access = new NetworkAccess(activity.getApplicationContext());
         if(!access.isNetworkAvailable())
             return false;
-        String url = "https://"+SERVER_IP+relativePath;
+        String url = HTTP+SERVER_IP+relativePath;
         if(parameter != null && !parameter.equals("")) {
             url += "/"+parameter;
         }
-        OkHttpClient mClient = new OkHttpClient();
-        CookieHandler cookieHandler = new CookieManager();
-        mClient.setCookieHandler(cookieHandler);
+        if(mHttpClient.getCookieHandler() == null) {
+            CookieHandler cookieHandler = new CookieManager();
+            mHttpClient.setCookieHandler(cookieHandler);
+        }
         MediaType JSON_TYPE = MediaType.parse("application/json");
         Request myGetRequest = new Request.Builder()
                 .url(url)
@@ -147,7 +162,7 @@ public class HttpClient {
                 .put(RequestBody.create(JSON_TYPE, body))
                 .build();
 
-        mClient.newCall(myGetRequest).enqueue(new Callback() {
+        mHttpClient.newCall(myGetRequest).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
 
@@ -187,19 +202,20 @@ public class HttpClient {
 
     public static void DELETE(String relativePath, String parameter, final Activity activity, final OnResponseCallback callback) {
 
-        String url = "https://"+SERVER_IP+relativePath;
+        String url = HTTP+SERVER_IP+relativePath;
         if(parameter != null && !parameter.equals("")) {
             url += "/"+parameter;
         }
-        OkHttpClient mClient = new OkHttpClient();
-        CookieHandler cookieHandler = new CookieManager();
-        mClient.setCookieHandler(cookieHandler);
+        if(mHttpClient.getCookieHandler() == null) {
+            CookieHandler cookieHandler = new CookieManager();
+            mHttpClient.setCookieHandler(cookieHandler);
+        }
         Request myGetRequest = new Request.Builder()
                 .url(url)
                 .delete()
                 .build();
 
-        mClient.newCall(myGetRequest).enqueue(new Callback() {
+        mHttpClient.newCall(myGetRequest).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
 

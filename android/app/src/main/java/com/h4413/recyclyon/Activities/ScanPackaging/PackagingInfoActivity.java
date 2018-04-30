@@ -1,22 +1,25 @@
 package com.h4413.recyclyon.Activities.ScanPackaging;
 
 import android.content.Intent;
-import android.support.design.widget.NavigationView;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.vision.barcode.Barcode;
-import com.h4413.recyclyon.Listeners.NavigationItemSelectedListener;
+import com.google.gson.Gson;
+import com.h4413.recyclyon.Model.ScannedProduct;
 import com.h4413.recyclyon.R;
 import com.h4413.recyclyon.Utilities.DownLoadImageTask;
+import com.h4413.recyclyon.Utilities.HttpClient;
 import com.h4413.recyclyon.Utilities.NavbarInitializer;
+import com.h4413.recyclyon.Utilities.Routes;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class PackagingInfoActivity extends AppCompatActivity {
 
@@ -25,6 +28,7 @@ public class PackagingInfoActivity extends AppCompatActivity {
     private TextView mBarCodeText;
     private Button mScanAnotherButton;
     private ImageView mProductImage;
+    private TextView mTestTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,18 +42,42 @@ public class PackagingInfoActivity extends AppCompatActivity {
         mBarCodeText = (TextView) findViewById(R.id.packaging_info_barcode);
         mScanAnotherButton = (Button) findViewById(R.id.packaging_info_scan_another_btn);
         mProductImage = (ImageView) findViewById(R.id.packaging_info_product_image);
+        mTestTextView = (TextView) findViewById(R.id.packaging_info_test_textview);
         mScanAnotherButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(PackagingInfoActivity.this, ScanPackagingActivity.class);
+                startActivity(intent);
                 setResult(RESULT_OK);
                 finish();
             }
         });
-        new DownLoadImageTask(mProductImage).execute("https://static.openfoodfacts.org/images/products/317/973/232/6911/front_fr.11.400.jpg");
-        if(mBarcode != null) {
-            mBarCodeText.setText(mBarcode.displayValue);
-        } else {
-            mBarCodeText.setText("Erreur dans la lecture du code barre.");
-        }
+        HttpClient.GET(Routes.Barcode, mBarcode.displayValue, this, new HttpClient.OnResponseCallback() {
+            @Override
+            public void onJSONResponse(int statusCode, JSONObject response) {
+                if(statusCode==404) {
+                    mBarCodeText.setText(R.string.packaging_info_product_not_found);
+                    mProductImage.setImageResource(R.drawable.product_not_found);
+                    return;
+                }
+                try {
+                    response = (JSONObject) response.get("product");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Gson gson = new Gson();
+                ScannedProduct product = gson.fromJson(response.toString(), ScannedProduct.class);
+                new DownLoadImageTask(mProductImage).execute(product.image);
+                mBarCodeText.setText(product.nom);
+                mTestTextView.setText(product.emballage.toString());
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+         super.onActivityResult(requestCode, resultCode, data);
+         setResult(RESULT_OK);
+         finish();
     }
 }

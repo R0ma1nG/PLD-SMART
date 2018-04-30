@@ -43,6 +43,7 @@ public class DepositEndActivity extends AppCompatActivity {
         mAssociationName = (TextView)findViewById(R.id.deposit_end_assoc);
         mMontant = (TextView) findViewById(R.id.deposit_end_montant);
         mAssociationLogo = (ImageView) findViewById(R.id.deposit_end_assoc_img);
+        mFinishButton.setEnabled(false);
 
         HttpClient.GET(Routes.Associations, idAssoc, this, new HttpClient.OnResponseCallback() {
             @Override
@@ -53,6 +54,7 @@ public class DepositEndActivity extends AppCompatActivity {
                     mMontant.setText(montant+"€");
                     mAssociationName.setText(assocName);
                     new DownLoadImageTask(mAssociationLogo).execute(url);
+                    mFinishButton.setEnabled(true);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -62,8 +64,8 @@ public class DepositEndActivity extends AppCompatActivity {
         mFinishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setResult(RESULT_OK);
-                finish();
+            setResult(RESULT_OK);
+            finish();
             }
         });
     }
