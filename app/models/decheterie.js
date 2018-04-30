@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var PoubelleSchema = new Schema({
+var DecheterieSchema = new Schema({
     _id: Schema.Types.ObjectId,
     id_grandlyon: String,
     adresse: String,
@@ -9,12 +9,11 @@ var PoubelleSchema = new Schema({
     code_postal: Number,
     commune: String,
     gestionnaire: String,
-    observation: String,
     numero_voie: String,
     voie: String,
+    telephone: String,
     lattitude: Number,
-    longitude: Number,
-    remplissage: Number
+    longitude: Number
 });
 
-module.exports = mongoose.model('poubelle', PoubelleSchema, 'poubelle');
+module.exports = mongoose.model('decheterie', DecheterieSchema, 'decheterie');
