@@ -5,6 +5,7 @@ var capteur = require("./models/capteur");
 var depot = require("./models/depot");
 var poubelle = require("./models/poubelle");
 var releve = require("./models/releve");
+var decheterie = require("./models/decheterie");
 var utilisateur = require("./models/utilisateur");
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/smart_db'); // connect to our database
@@ -82,16 +83,19 @@ function populate_db() {
     depot.remove({}, function (err) { });
     capteur.remove({}, function (err) { });
     poubelle.remove({}, function (err) { });
+    decheterie.remove({}, function (err) { });
+
 
     // Populate database from GrandLyon trash locations
-    dataset_download_link = "https://download.data.grandlyon.com/wfs/grandlyon?SERVICE=WFS&VERSION=2.0.0&outputformat=GEOJSON&maxfeatures=-1&request=GetFeature&typename=gic_collecte.gicsiloverre&SRSNAME=urn:ogc:def:crs:EPSG::4171"
+    trash_dataset_download_link = "https://download.data.grandlyon.com/wfs/grandlyon?SERVICE=WFS&VERSION=2.0.0&outputformat=GEOJSON&maxfeatures=-1&request=GetFeature&typename=gic_collecte.gicsiloverre&SRSNAME=urn:ogc:def:crs:EPSG::4171"
     var trash_id = undefined;
-    request(dataset_download_link, { json: true }, (err, res, body) => {
+    request(trash_dataset_download_link, { json: true }, (err, res, body) => {
         if (err) { return console.log(err); }
         else {
             body.features.forEach(element => {
                 trash_id = new mongoose.mongo.ObjectId();
                 var props = element.properties;
+                var coords = element.geometry.coordinates;
                 poubelle.create({
                     _id: trash_id,
                     id_grandlyon: props.identifiant,
@@ -103,8 +107,8 @@ function populate_db() {
                     numero_voie: props.numerodansvoie,
                     voie: props.voie,
                     adresse: props.numerodansvoie + " " + props.voie + "\n" + props.code_postal + " " + props.commune,
-                    longitude: element.geometry.coordinates[0],
-                    lattitude: element.geometry.coordinates[1],
+                    longitude: coords[0],
+                    lattitude: coords[1],
                     remplissage: -1
                 });
 
@@ -112,6 +116,32 @@ function populate_db() {
                     create_dummy_releve(trash_id);
                 if (Math.random() < 0.01)
                     create_dummy_sensor(trash_id);
+            });
+        }
+    });
+
+    // Populate decheteries
+    trash_dataset_download_link = "https://download.data.grandlyon.com/wfs/grandlyon?SERVICE=WFS&VERSION=2.0.0&outputformat=GEOJSON&maxfeatures=30&request=GetFeature&typename=gip_proprete.gipdecheterie&SRSNAME=urn:ogc:def:crs:EPSG::4171"
+    request(trash_dataset_download_link, { json: true }, (err, res, body) => {
+        if (err) { return console.log(err); }
+        else {
+            body.features.forEach(element => {
+                var props = element.properties;
+                var coords = element.geometry.coordinates;
+                decheterie.create({
+                    _id: new mongoose.mongo.ObjectId(),
+                    id_grandlyon: props.identifiant,
+                    code_insee: props.code_insee,
+                    code_postal: props.code_postal,
+                    telephone: props.telephone,
+                    commune: props.commune,
+                    gestionnaire: props.gestionnaire,
+                    numero_voie: props.numerodansvoie,
+                    voie: props.voie,
+                    adresse: props.numerodansvoie + " " + props.voie + "\n" + props.code_postal + " " + props.commune,
+                    longitude: coords[0],
+                    lattitude: coords[1]
+                });
             });
         }
     });
