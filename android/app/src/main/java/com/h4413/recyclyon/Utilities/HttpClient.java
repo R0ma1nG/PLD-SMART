@@ -23,7 +23,9 @@ public class HttpClient {
     public final static String HTTP = "http://";
 
     //private final static String SERVER_IP = "pld-smart.azurewebsites.net";
-    private final static String SERVER_IP = "192.168.0.21:8080";
+    private final static String SERVER_IP = "192.168.43.108:8080";
+
+    private static OkHttpClient mHttpClient = new OkHttpClient().setCookieHandler(new CookieManager());
 
     public interface OnResponseCallback {
         void onJSONResponse(int statusCode, JSONObject response);
@@ -37,15 +39,16 @@ public class HttpClient {
         if(parameter != null && !parameter.equals("")) {
             url += "/"+parameter;
         }
-        OkHttpClient mClient = new OkHttpClient();
-        CookieHandler cookieHandler = new CookieManager();
-        mClient.setCookieHandler(cookieHandler);
+        if(mHttpClient.getCookieHandler() == null) {
+            CookieHandler cookieHandler = new CookieManager();
+            mHttpClient.setCookieHandler(cookieHandler);
+        }
         Request myGetRequest = new Request.Builder()
                 .url(url)
                 .get()
                 .build();
 
-        mClient.newCall(myGetRequest).enqueue(new Callback() {
+        mHttpClient.newCall(myGetRequest).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
 
@@ -87,9 +90,10 @@ public class HttpClient {
         NetworkAccess access = new NetworkAccess(activity.getApplicationContext());
         if(!access.isNetworkAvailable())
             return false;
-        OkHttpClient mClient = new OkHttpClient();
-        CookieHandler cookieHandler = new CookieManager();
-        mClient.setCookieHandler(cookieHandler);
+        if(mHttpClient.getCookieHandler() == null) {
+            CookieHandler cookieHandler = new CookieManager();
+            mHttpClient.setCookieHandler(cookieHandler);
+        }
         MediaType JSON_TYPE = MediaType.parse("application/json");
         Request myGetRequest = new Request.Builder()
                 .url(HTTP+SERVER_IP+relativePath)
@@ -97,7 +101,7 @@ public class HttpClient {
                 .post(RequestBody.create(JSON_TYPE, body))
                 .build();
 
-        mClient.newCall(myGetRequest).enqueue(new Callback() {
+        mHttpClient.newCall(myGetRequest).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
 
@@ -143,9 +147,10 @@ public class HttpClient {
         if(parameter != null && !parameter.equals("")) {
             url += "/"+parameter;
         }
-        OkHttpClient mClient = new OkHttpClient();
-        CookieHandler cookieHandler = new CookieManager();
-        mClient.setCookieHandler(cookieHandler);
+        if(mHttpClient.getCookieHandler() == null) {
+            CookieHandler cookieHandler = new CookieManager();
+            mHttpClient.setCookieHandler(cookieHandler);
+        }
         MediaType JSON_TYPE = MediaType.parse("application/json");
         Request myGetRequest = new Request.Builder()
                 .url(url)
@@ -153,7 +158,7 @@ public class HttpClient {
                 .put(RequestBody.create(JSON_TYPE, body))
                 .build();
 
-        mClient.newCall(myGetRequest).enqueue(new Callback() {
+        mHttpClient.newCall(myGetRequest).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
 
@@ -197,15 +202,16 @@ public class HttpClient {
         if(parameter != null && !parameter.equals("")) {
             url += "/"+parameter;
         }
-        OkHttpClient mClient = new OkHttpClient();
-        CookieHandler cookieHandler = new CookieManager();
-        mClient.setCookieHandler(cookieHandler);
+        if(mHttpClient.getCookieHandler() == null) {
+            CookieHandler cookieHandler = new CookieManager();
+            mHttpClient.setCookieHandler(cookieHandler);
+        }
         Request myGetRequest = new Request.Builder()
                 .url(url)
                 .delete()
                 .build();
 
-        mClient.newCall(myGetRequest).enqueue(new Callback() {
+        mHttpClient.newCall(myGetRequest).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
 
