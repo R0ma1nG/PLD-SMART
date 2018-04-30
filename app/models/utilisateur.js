@@ -9,7 +9,8 @@ var UtilisateurSchema   = new Schema({
     adresse: String,
     dateNaissance: Date,
     sexe: Number,
-    idAssoc: Schema.Types.ObjectId
+    idAssoc: Schema.Types.ObjectId,
+    isAdmin: Boolean
 });
 
 UtilisateurSchema.methods.generateHash = function(password) {

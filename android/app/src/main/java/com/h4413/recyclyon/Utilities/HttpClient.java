@@ -23,7 +23,7 @@ public class HttpClient {
     public final static String HTTP = "http://";
 
     //private final static String SERVER_IP = "pld-smart.azurewebsites.net";
-    private final static String SERVER_IP = "192.168.0.16:8080";
+    private final static String SERVER_IP = "192.168.43.108:8080";
 
     private static OkHttpClient mHttpClient = new OkHttpClient().setCookieHandler(new CookieManager());
 

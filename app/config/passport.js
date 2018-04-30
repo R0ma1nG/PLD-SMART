@@ -69,6 +69,7 @@ module.exports = function(passport) {
                 newUser.dateNaissance = req.body.dateNaissance;
                 newUser.sexe = req.body.sexe;
                 newUser.idAssoc = mongoose.Types.ObjectId(req.body.idAssoc);
+                newUser.isAdmin = false;
 
                 console.log("New User : "+newUser);
 
@@ -102,7 +103,7 @@ passport.use('local-login', new LocalStrategy({
                 return done(err);
 
             // if no user is found, return the message
-            if (!user)
+            if (!user || user.isAdmin == true)
                 return done(null, false); // req.flash is the way to set flashdata using connect-flash
 
             // if the user is found but the password is wrong

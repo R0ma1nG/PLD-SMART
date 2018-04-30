@@ -40,6 +40,7 @@ router.post('/', function (req, res) {
         newUser.dateNaissance = req.body.dateNaissance;
         newUser.sexe = req.body.sexe;
         newUser.idAssoc = idAssoc;
+        newUser.isAdmin = req.body.isAdmin;
 
         resolve(newUser);
       }
