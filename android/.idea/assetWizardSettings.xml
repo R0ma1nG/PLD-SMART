@@ -33,8 +33,9 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="imageAsset" value="C:\Users\Charles\Documents\GitHub\PLD-SMART\android\app\src\main\res\drawable\Connection\mail.png" />
-                                      <entry key="outputName" value="profile_name" />
+                                      <entry key="assetType" value="IMAGE" />
+                                      <entry key="imageAsset" value="C:\Users\Charles\Downloads\recycle-sign.png" />
+                                      <entry key="outputName" value="recycling" />
                                       <entry key="theme" value="CUSTOM" />
                                       <entry key="themeColor" value="217f33" />
                                     </map>
