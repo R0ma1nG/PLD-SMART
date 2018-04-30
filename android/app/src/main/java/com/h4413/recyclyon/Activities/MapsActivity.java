@@ -79,8 +79,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
         } else {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, ACCESS_FINE_LOCATION_REQUEST_CODE);
-            LatLng latLng = new LatLng(45.757396, 4.840871);
-            CameraPosition cameraPosition = new CameraPosition.Builder().target(latLng).zoom(15).build();
+            LatLng position = new LatLng(45.768234, 4.833646);
+            CameraPosition cameraPosition = new CameraPosition.Builder().target(position).zoom(15).build();
             mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
         }
 
@@ -98,17 +98,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onJSONResponse(int statusCode, JSONObject response) {
                 //Toast.makeText(getApplicationContext(), "Poubelles : "+String.valueOf(statusCode), Toast.LENGTH_LONG).show();
                 Gson gson = new Gson();
+                String test = response.toString();
                 BinList binList = gson.fromJson(response.toString(), BinList.class);
                 populator.createMarkers(binList.data);
                 populator.displayMarkers();
             }
         });
-
-
-        LatLng position = new LatLng(45.7580539, 4.7650808);
-        //mMap.addMarker(new MarkerOptions().position(position).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_bin_full)));
-        CameraPosition cameraPosition = new CameraPosition.Builder().target(position).zoom(15).build();
-        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 
     @SuppressLint("MissingPermission")

@@ -27,7 +27,6 @@ public class MapPopulator implements GoogleMap.OnMarkerClickListener {
     }
 
     public void createMarkers(Bin[] bins){
-        Toast.makeText(activity, "start Create", Toast.LENGTH_SHORT);
         for(Bin bin : bins){
             Marker marker;
             LatLng ll = new LatLng(bin.getLat(), bin.getLong());
