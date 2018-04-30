@@ -40,6 +40,7 @@ router.post('/', function (req, res) {
         newUser.dateNaissance = req.body.dateNaissance;
         newUser.sexe = req.body.sexe;
         newUser.idAssoc = idAssoc;
+        newUser.isAdmin = false;
 
         resolve(newUser);
       }
@@ -190,7 +191,8 @@ router.put('/:id', function (req, res) {
         adresse: req.body.adresse,
         mail: req.body.mail,
         dateNaissance: req.body.dateNaissance,
-        sexe: req.body.sexe
+        sexe: req.body.sexe,
+        isAdmin: req.body.isAdmin ? true : false
       }, function (err, user) {
       if (err || !user) reject(res.status(500).send("Unable to modify the whole user"));
       else resolve(user);
