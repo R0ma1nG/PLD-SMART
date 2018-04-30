@@ -1,0 +1,63 @@
+<html>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script>
+        $(document).ready(function () {
+        //event handler for submit button
+            $("#btnSubmit").click(function () {
+                //collect userName and password entered by users
+                var password = $("#password").val();
+                var url = window.location.pathname;
+                //call the authenticate function
+                authenticate(password, url);
+            });
+        });
+
+    //authenticate function to make ajax call
+    function authenticate(password, url) {
+        $.ajax
+        ({
+            type: "POST",
+            contentType:"application/json",
+            //the url where you want to sent the userName and password to
+            url: `${url}`,
+            dataType: 'json',
+            //json object to sent to the authentication url
+            data: '{"password" : "' + password + '"}',
+            error: function(err) {
+                alert('An error occured, wrong token !');
+            }
+        })
+        .done(function(data) {
+                    window.location.href = data.redirect;
+                    alert('Password successfuly changed');
+                });
+    };
+    </script>
+ <head>
+   <meta charset="utf-8">
+    <title>Changer de mot de passe</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <style>
+        body {
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+
+        .jumbotron {
+          margin-top: 10px;
+        }
+    </style>
+ </head> 
+<body>
+    <div class="col-sm-8 col-sm-offset-2">
+      <div class="jumbotron text-center">
+        <h1><span class="fa fa-sign-in"></span> Mot de passe oublié</h1>
+            <label>New password: </label>
+            <input type="password" id="password"/>
+          <div>
+            <button id="btnSubmit" type="button" class="btn btn-primary">Valider</button>
+          </div>
+      </div>
+    </div>
+  </body>
+</html>
