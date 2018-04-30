@@ -46,7 +46,12 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.HomeActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".Activities.ProfileActivity"
+            android:screenOrientation="portrait"/>
+           
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

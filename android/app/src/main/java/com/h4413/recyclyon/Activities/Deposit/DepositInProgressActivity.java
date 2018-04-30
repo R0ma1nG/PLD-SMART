@@ -98,9 +98,9 @@ public class DepositInProgressActivity extends AppCompatActivity {
     }
 
     private void configureToolbar(){
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.title_deposit_in_progress);
-        setSupportActionBar(toolbar);
+        setSupportActionBar(toolbar);*/
     }
 
     @Override

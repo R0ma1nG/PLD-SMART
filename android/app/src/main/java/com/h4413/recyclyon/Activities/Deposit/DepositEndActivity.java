@@ -15,6 +15,7 @@ import com.h4413.recyclyon.R;
 import com.h4413.recyclyon.Utilities.DownLoadImageTask;
 import com.h4413.recyclyon.Utilities.HttpClient;
 import com.h4413.recyclyon.Utilities.IntentExtraKeys;
+import com.h4413.recyclyon.Utilities.NavbarInitializer;
 import com.h4413.recyclyon.Utilities.Routes;
 
 import org.json.JSONException;
@@ -32,7 +33,7 @@ public class DepositEndActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deposit_end);
 
-        configureToolbar();
+        NavbarInitializer.configureToolbar(this, R.string.title_deposit_end);
 
         Intent intent = getIntent();
         String idAssoc = intent.getStringExtra(IntentExtraKeys.ID_ASSOC_KEY);
@@ -65,12 +66,6 @@ public class DepositEndActivity extends AppCompatActivity {
                 finish();
             }
         });
-    }
-
-    private void configureToolbar(){
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(R.string.title_deposit_end);
-        setSupportActionBar(toolbar);
     }
 
     @Override

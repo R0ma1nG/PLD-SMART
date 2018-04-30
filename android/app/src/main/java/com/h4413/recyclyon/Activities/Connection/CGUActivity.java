@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.h4413.recyclyon.R;
+import com.h4413.recyclyon.Utilities.NavbarInitializer;
 
 public class CGUActivity extends AppCompatActivity {
 
@@ -20,7 +21,7 @@ public class CGUActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cgu);
 
-        configureToolbar();
+        NavbarInitializer.configureToolbar(this, R.string.appName);
 
         mAcceptButton = (Button) findViewById(R.id.cgu_activity_accept_btn);
         mAcceptButton.setOnClickListener(new View.OnClickListener() {
@@ -37,13 +38,5 @@ public class CGUActivity extends AppCompatActivity {
         if (extras != null) {
             mAssociation = (Association)extras.getSerializable("Association");
         }*/
-    }
-
-    private void configureToolbar(){
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        ActionBar ab = getSupportActionBar();
-        ab.setDisplayHomeAsUpEnabled(true);
     }
 }

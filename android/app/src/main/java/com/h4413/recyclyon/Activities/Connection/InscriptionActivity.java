@@ -20,6 +20,7 @@ import com.h4413.recyclyon.Model.Association;
 import com.h4413.recyclyon.Model.User;
 import com.h4413.recyclyon.R;
 import com.h4413.recyclyon.Utilities.HttpClient;
+import com.h4413.recyclyon.Utilities.NavbarInitializer;
 import com.h4413.recyclyon.Utilities.Routes;
 
 import org.json.JSONException;
@@ -50,8 +51,7 @@ public class InscriptionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inscription);
-
-        configureToolbar();
+        NavbarInitializer.configureToolbar(this, R.string.inscription);
 
         mSubmitButton = (Button) findViewById(R.id.inscription_activity_submit_btn);
         mMailInput = (EditText) findViewById(R.id.inscription_activity_mail_input);
@@ -151,14 +151,6 @@ public class InscriptionActivity extends AppCompatActivity {
             sharedPref.edit().putString(SP_KEY_USER, gson.toJson(mUtilisateur)).apply();
         }
         super.onStop();
-    }
-
-    private void configureToolbar(){
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        ActionBar ab = getSupportActionBar();
-        ab.setDisplayHomeAsUpEnabled(true);
     }
 
     private boolean isEmpty(EditText etText) {
