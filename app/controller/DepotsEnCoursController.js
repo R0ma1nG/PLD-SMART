@@ -72,8 +72,7 @@ router.put('/ajoutDechet/:idCapteur',function (req, res) {
   })
   // Incrémenter le montant du dépot
   .then( (depotEC) => {
-    // new Promise( (resolve, reject) => {
-    var nouveauMontant = parseInt(depotEC.montant + 1);
+    var nouveauMontant = parseInt(depotEC.montant + 0.002);
     return depotEnCours.findByIdAndUpdate(depotEC._id, {montant: nouveauMontant}, {new: true}, function(err, depotMaJ) {
       if (err) return (res.status(500).send("Impossible d'incrémenter le montant' : "+ err));
       else return res.status(200).send(depotMaJ);

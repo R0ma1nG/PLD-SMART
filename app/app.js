@@ -46,10 +46,10 @@ app.use('/api/poubelles', PoubellesController);
 app.use('/api/depots', DepotsController);
 app.use('/api/associations', AssociationsController);
 app.use('/api/capteurs', CapteursController);
-app.use('/', WebsiteController);
 app.use('/api/depotsEnCours', DepotsEnCoursController);
 app.use('/api/admin', AdminController);
 app.use('/api/utils', UtilsController);
+app.use('/', WebsiteController);
 
 //First redirect (non définitif)
 app.get('/', function (req, res) {
