@@ -9,5 +9,5 @@ public class Routes {
     public static String BeginDeposit = "/api/depotsEnCours/demarrerScan";
     public static String FinishDeposit = "/api/depotsEnCours/terminerScan";
     public static String Historic = "/api/depots/historique";
-    public static String Barcode = "/api/utils/scanCB";
+    public static String Barcode = "/api/utils/codeBarre";
 }

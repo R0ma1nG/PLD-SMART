@@ -75,7 +75,7 @@ public class ConnectionActivity extends AppCompatActivity {
                     e.printStackTrace();
                     mConnectionButton.setEnabled(true);
                 }
-                HttpClient.POST(Routes.Login, obj.toString(), ConnectionActivity.this, new HttpClient.OnResponseCallback() {
+                HttpClient.POST(Routes.Login,null, obj.toString(), ConnectionActivity.this, new HttpClient.OnResponseCallback() {
                     @Override
                     public void onJSONResponse(int statusCode, JSONObject response) {
                         if(statusCode == 401) {

@@ -21,14 +21,21 @@ router.get('/codeBarre/:codeBarre', function (req, res) {
       xmlHttp.open("GET", url, false);
       xmlHttp.send(null);
       var json = JSON.parse(xmlHttp.responseText);
+      if(json.status_verbose == "product not found"){
+        resolve(res.status(404).send("Produit non trouvé"));
+      }
       var textResult = "{ \"product\": { \"image\":\"\", \"nom\":\"\", \"emballage\":\"\"}}";
       var jsonResult = JSON.parse(textResult);
       // Ajout de l'image
-      jsonResult.product.image = json.product.selected_images.front.display;
+      if(json.product.selected_images.front.display.fr == null) {
+        jsonResult.product.image = json.product.selected_images.front.display.en;
+      } else {
+        jsonResult.product.image = json.product.selected_images.front.display.fr;
+      }
       // Ajout du nom du produit
       jsonResult.product.nom = json.product.product_name;
       //ajout de l'emballage
-      jsonResult.product.emballage = json.product.packaging;
+      jsonResult.product.emballage = json.product.packaging_tags;
       resolve(jsonResult);
   })
   .then( ( resultat ) => {

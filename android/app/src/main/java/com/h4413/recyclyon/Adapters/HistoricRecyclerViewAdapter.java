@@ -11,9 +11,11 @@ import com.h4413.recyclyon.Model.Historic;
 import com.h4413.recyclyon.Model.HistoricEntry;
 import com.h4413.recyclyon.R;
 
+import java.util.List;
+
 public class HistoricRecyclerViewAdapter extends RecyclerView.Adapter<HistoricRecyclerViewAdapter.ViewHolder> {
 
-    private Depot[] mDataset;
+    private List<Depot> mDataset;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -31,7 +33,7 @@ public class HistoricRecyclerViewAdapter extends RecyclerView.Adapter<HistoricRe
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public HistoricRecyclerViewAdapter(Depot[] dataset) {
+    public HistoricRecyclerViewAdapter(List<Depot> dataset) {
         mDataset = dataset;
     }
 
@@ -47,7 +49,7 @@ public class HistoricRecyclerViewAdapter extends RecyclerView.Adapter<HistoricRe
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        Depot entry = mDataset[position];
+        Depot entry = mDataset.get(position);
         holder.mTitle.setText(String.valueOf(entry.montant)+"€ pour "+entry.nom);
         holder.mDescription.setText(entry.date.toString());
     }
@@ -55,6 +57,6 @@ public class HistoricRecyclerViewAdapter extends RecyclerView.Adapter<HistoricRe
     @Override
     public int getItemCount() {
         if(mDataset == null) return 0;
-        return mDataset.length;
+        return mDataset.size();
     }
 }
