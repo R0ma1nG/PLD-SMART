@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/choose_association_view_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:minHeight="75dp"
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp"
+    android:paddingTop="15dp">
+
+    <ImageView
+        android:layout_height="100dp"
+        android:layout_width="100dp"
+        android:id="@+id/choose_association_view_logo"
+        android:src="@drawable/connection_pwd"
+        android:layout_marginStart="10dp"
+        android:padding="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginStart="10dp">
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/choose_association_view_title"
+            android:text="Title"
+            android:textSize="25sp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/primaryTextColor"/>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/choose_association_view_description"
+            android:text="Description"
+            android:layout_weight="1" />
+
+        <View
+            style="@style/HorizontalListSeparator" />
+    </LinearLayout>
+
+
+</LinearLayout>
