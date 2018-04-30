@@ -69,6 +69,7 @@ module.exports = function (passport) {
                         newUser.dateNaissance = req.body.dateNaissance;
                         newUser.sexe = req.body.sexe;
                         newUser.idAssoc = mongoose.Types.ObjectId(req.body.idAssoc);
+                        newUser.isAdmin = false;
 
                         console.log("New User : " + newUser);
 
@@ -102,14 +103,11 @@ module.exports = function (passport) {
                     return done(err);
 
                 // if no user is found, return the message
-                if (!user)
+                if (!user || user.isAdmin == true)
                     return done(null, false); // req.flash is the way to set flashdata using connect-flash
 
                 // if the user is found but the password is wrong
                 if (!user.validPassword(password))
-                    return done(null, false);
-
-                if (user.isAdmin)
                     return done(null, false);
 
                 // all is well, return successful user
@@ -134,11 +132,7 @@ module.exports = function (passport) {
                     return done(err);
 
                 // if no user is found, return the message
-                if (!user)
-                    return done(null, false); // req.flash is the way to set flashdata using connect-flash
-
-                // if no user is found, return the message
-                if (!user.isAdmin)
+                if (!user || user.isAdmin != true)
                     return done(null, false); // req.flash is the way to set flashdata using connect-flash
 
                 // if the user is found but the password is wrong
