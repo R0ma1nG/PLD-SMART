@@ -63,7 +63,7 @@ public class DepositManualActivity extends AppCompatActivity {
         mEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                if(s.length() == 24 && s.toString().matches("^[a-zA-Z0-9]*$"))
+                if(s.length() == 23 && s.toString().matches("^[a-zA-Z0-9]*$"))
                 {
                     mValidateButton.setEnabled(true);
                     mCancelButton.setEnabled(true);
