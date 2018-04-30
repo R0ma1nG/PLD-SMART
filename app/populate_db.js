@@ -1,3 +1,4 @@
+var _ = require('underscore')
 const request = require('request');
 var mongoose = require('mongoose');
 var association = require("./models/association");
@@ -77,14 +78,13 @@ function create_dummy_users(assoc_id1, assoc_id2) {
 
 function populate_db() {
     // Drop all collections
-    utilisateur.remove({}, function (err) { });
-    association.remove({}, function (err) { });
-    releve.remove({}, function (err) { });
-    depot.remove({}, function (err) { });
-    capteur.remove({}, function (err) { });
-    poubelle.remove({}, function (err) { });
-    decheterie.remove({}, function (err) { });
-
+    var collections = _.keys(mongoose.connection.collections)
+    collections.forEach(element => {
+        var col = mongoose.connection.collections[element];
+        col.drop(function (err) {
+            console.log(err);
+        });
+    });
 
     // Populate database from GrandLyon trash locations
     trash_dataset_download_link = "https://download.data.grandlyon.com/wfs/grandlyon?SERVICE=WFS&VERSION=2.0.0&outputformat=GEOJSON&maxfeatures=-1&request=GetFeature&typename=gic_collecte.gicsiloverre&SRSNAME=urn:ogc:def:crs:EPSG::4171"
