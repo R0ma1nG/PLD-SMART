@@ -23,7 +23,7 @@ router.get('/accueil', function (req, res) {
 });
 
 router.get('/Dashboard', function (req, res) {
-  res.render('Dashboard');
+  res.render('Dash-Remplissage');
 });
 
 module.exports = router;
