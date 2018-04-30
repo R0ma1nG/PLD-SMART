@@ -1,5 +1,6 @@
 package com.h4413.recyclyon.Utilities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -12,7 +13,9 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.h4413.recyclyon.Listeners.NavigationItemSelectedListener;
@@ -31,6 +34,7 @@ public class NavbarInitializer {
 
         DrawerLayout drawer = (DrawerLayout) activity.findViewById(R.id.template_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(activity, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 

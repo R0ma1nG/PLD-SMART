@@ -3,11 +3,16 @@ package com.h4413.recyclyon.Activities.Deposit;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +38,8 @@ public class DepositInProgressActivity extends AppCompatActivity {
 
     private Button mFinishButton;
 
+    private ImageView mImage;
+
     private String idDepot;
 
     @Override
@@ -43,6 +50,7 @@ public class DepositInProgressActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         mQRCode = intent.getParcelableExtra("QRCode");
+
 
         mFinishButton = (Button) findViewById(R.id.deposit_progress_button);
 
@@ -95,12 +103,23 @@ public class DepositInProgressActivity extends AppCompatActivity {
                 });
             }
         });
+
+        mImage = (ImageView) findViewById(R.id.deposit_in_progress_image);
+
+        float centerX = this.getResources().getDisplayMetrics().widthPixels/2;
+        float centerY = this.getResources().getDisplayMetrics().heightPixels/2;
+        RotateAnimation anim = new RotateAnimation(355f, 0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        anim.setInterpolator(new LinearInterpolator());
+        anim.setRepeatCount(Animation.INFINITE);
+        anim.setDuration(1500);
+
+        mImage.startAnimation(anim);
     }
 
     private void configureToolbar(){
-        /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.title_deposit_in_progress);
-        setSupportActionBar(toolbar);*/
+        setSupportActionBar(toolbar);
     }
 
     @Override

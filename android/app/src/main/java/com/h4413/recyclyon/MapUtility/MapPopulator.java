@@ -89,9 +89,9 @@ public class MapPopulator implements GoogleMap.OnMarkerClickListener {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         if(bin.isFull()) {
-            builder.setMessage(bin.getAdress()).setTitle("Benne remplie");
+            builder.setMessage(bin.getAdress()).setTitle(bin.getAdress());
         } else {
-            builder.setMessage(bin.getAdress()).setTitle("Benne disponible");
+            builder.setMessage(bin.getAdress()).setTitle(bin.getAdress());
         }
         AlertDialog dialog = builder.create();
         dialog.show();
