@@ -14,6 +14,16 @@ router.use(function(req, res, next) {
 
 
 // get the list of all the poubelles
+router.get('/', function (req, res) {
+  new Promise( (resolve, reject) => {
+    poubelle.find({}, function (err, poubelles) {
+      if (err) reject(res.status(500).send("There was a problem finding the poubelles in db"));
+      resolve(res.status(200).send(poubelles));
+    });
+  });
+});
+
+// get the list of all the poubelles with precise infos
 router.get('/infos', function (req, res) {
   new Promise( (resolve, reject) => {
     poubelle.find({}, "lattitude longitude remplissage" ,function (err, poubelles) {

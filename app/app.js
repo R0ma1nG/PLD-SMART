@@ -51,6 +51,7 @@ app.use('/api/admin', AdminController);
 app.use('/api/utils', UtilsController);
 app.use('/', WebsiteController);
 
+
 //First redirect (non définitif)
 app.get('/', function (req, res) {
   res.render('index');
