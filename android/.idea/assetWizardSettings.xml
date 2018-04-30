@@ -19,16 +19,13 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-<<<<<<< HEAD
                                       <entry key="imageAsset" value="C:\Users\Charles\Downloads\recycle-sign.png" />
                                       <entry key="outputName" value="recycling" />
                                       <entry key="theme" value="CUSTOM" />
                                       <entry key="themeColor" value="217f33" />
-=======
                                       <entry key="imageAsset" value="$USER_HOME$/Downloads/product_not_found.jpg" />
                                       <entry key="outputName" value="product_not_found" />
                                       <entry key="themeColor" value="ffffff" />
->>>>>>> 629198121b15810e8607a3d2a33234e6352a332e
                                     </map>
                                   </option>
                                 </PersistentState>

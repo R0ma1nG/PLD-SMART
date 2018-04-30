@@ -143,7 +143,7 @@ public class InscriptionActivity extends AppCompatActivity {
             SharedPreferences sharedPref = getPreferences(MODE_PRIVATE);
             String json = sharedPref.getString(SP_KEY_USER, "");
             mUtilisateur = gson.fromJson(json, User.class);
-            mUtilisateur.idAssoc = association.id;
+            mUtilisateur.idAssoc = association._id;
 
             HttpClient.POST(Routes.Signup, null, mUtilisateur.toString(), InscriptionActivity.this, new HttpClient.OnResponseCallback() {
                 @Override

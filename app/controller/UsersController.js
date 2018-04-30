@@ -10,6 +10,7 @@ var pwdToken = require("../models/pwdToken");
 
 // middleware to use for all requests
 router.use(function (req, res, next) {
+  console.log(req.url);
   if (req.url.match('forgotPassword') || req.url.match('success')) next();
   else if (!req.isAuthenticated()) res.status(401).send("You're not authenticated !");
   else {
@@ -40,6 +41,7 @@ router.post('/', function (req, res) {
         newUser.dateNaissance = req.body.dateNaissance;
         newUser.sexe = req.body.sexe;
         newUser.idAssoc = idAssoc;
+        newUser.isAdmin = req.body.isAdmin;
 
         resolve(newUser);
       }
@@ -190,7 +192,8 @@ router.put('/:id', function (req, res) {
         adresse: req.body.adresse,
         mail: req.body.mail,
         dateNaissance: req.body.dateNaissance,
-        sexe: req.body.sexe
+        sexe: req.body.sexe,
+        isAdmin: req.body.isAdmin ? true : false
       }, function (err, user) {
       if (err || !user) reject(res.status(500).send("Unable to modify the whole user"));
       else resolve(user);
