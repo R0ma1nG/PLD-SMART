@@ -16,6 +16,7 @@ router.use(function(req, res, next) {
 
 // Créer un dépot en cours
 // TODO : crash server si la benne est pleine
+// TODO Vérifier que le capteur n'est pas déjà utilisé.
 router.post('/demarrerScan', function (req, res) {
   new Promise( (resolve, reject) => {
     // On récupère l'id de la poubelle à partir de l'idCapteur
@@ -81,13 +82,11 @@ router.put('/ajoutDechet/:idCapteur',function (req, res) {
 });
 
 // Supprimer un dépot en cours et créer le dépot terminé associé
-// TODO Vérifier que le capteur n'est pas déjà utilisé.
 router.post('/terminerScan/:idCapteur', function (req, res) {
   var idDepotTermine = new mongoose.mongo.ObjectId();
   new Promise( (resolve, reject) => {
-    // On récupère le dépot qui est terminé
-    depotEnCours.find({idCapteur: req.params.idCapteur}, function(err, dep) {
-      console.log('Fin du dépot : '+dep)
+    // On récupère le dépot en cours
+    depotEnCours.findOne({idCapteur: req.params.idCapteur}, function(err, dep) {
       if (err) reject(res.status(500).send("Erreur : "+ err));
       if (dep === null ) reject(res.status(500).send("Ce depot est deja terminé."));
       else resolve(dep);
@@ -116,6 +115,7 @@ router.post('/terminerScan/:idCapteur', function (req, res) {
       else return depotSupprime;
     });
   })
+  // On retourne le nouveau depot
   .then( () => {
     depot.findById(idDepotTermine, "date montant idAssoc",function (err, infos) {
       if (err) res.status(500).send("There was a problem validating your depot in db : "+ err);
