@@ -86,17 +86,21 @@ public class HttpClient {
         return true;
     }
 
-    public static boolean POST(String relativePath, String body, final Activity activity, final OnResponseCallback callback) {
+    public static boolean POST(String relativePath, String parameter, String body, final Activity activity, final OnResponseCallback callback) {
         NetworkAccess access = new NetworkAccess(activity.getApplicationContext());
         if(!access.isNetworkAvailable())
             return false;
+        String url = HTTP+SERVER_IP+relativePath;
+        if(parameter != null && !parameter.equals("")) {
+            url += "/"+parameter;
+        }
         if(mHttpClient.getCookieHandler() == null) {
             CookieHandler cookieHandler = new CookieManager();
             mHttpClient.setCookieHandler(cookieHandler);
         }
         MediaType JSON_TYPE = MediaType.parse("application/json");
         Request myGetRequest = new Request.Builder()
-                .url(HTTP+SERVER_IP+relativePath)
+                .url(url)
                 .addHeader("Content-Type", "application/json")
                 .post(RequestBody.create(JSON_TYPE, body))
                 .build();
