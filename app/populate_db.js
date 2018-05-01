@@ -15,16 +15,6 @@ mongoose.connect('mongodb://localhost:27017/smart_db'); // connect to our databa
 
 const real_capteur_id = new mongoose.mongo.ObjectId("5add92e9e36c0adec0253805")
 
-function create_dummy_releve(trash_id) {
-    // Generate fake history of 'releve' for given public trash
-    releve.create({
-        _id: new mongoose.mongo.ObjectId(),
-        date: "1976-10-25 00:00:00.000",
-        tauxRemplissage: Math.random() * 10,
-        idPoubelle: trash_id
-    });
-}
-
 function create_dummy_sensor(trash_id) {
     // Add default sensor
     capteur.create({
@@ -47,33 +37,19 @@ function create_dummy_users(assoc_id1, assoc_id2) {
         sexe: 0,
         idAssoc: assoc_id1,
     });
-    var user_id2 = new mongoose.mongo.ObjectId();
-    utilisateur.create({
-        _id: user_id2,
-        mail: "bettancourt@loreal.com",
-        motDePasse: "$2a$08$VeK9ZE4upDhhW6.ftfQw8usgpUiNapgOg50eZ3XFYZi8DDKaO2CZW",
-        nom: "Betty",
-        adresse: "2 place bellecour",
-        dateNaissance: "1971-10-25 00:00:00.000",
-        sexe: 1,
-        idAssoc: assoc_id2,
-    });
 
-    // Create dummy depots
-    depot.create({
-        _id: new mongoose.mongo.ObjectId(),
-        montant: 10,
-        idUtilisateur: user_id1,
-        idAssoc: assoc_id1,
-        idCapteur: real_capteur_id
-    });
-    depot.create({
-        _id: new mongoose.mongo.ObjectId(),
-        montant: 4,
-        idUtilisateur: user_id2,
-        idAssoc: assoc_id2,
-        idCapteur: real_capteur_id
-    });
+    for (var i = 0; i < 1239; i++) {
+        utilisateur.create({
+            _id: new mongoose.mongo.ObjectId(),
+            mail: "user" + i + "@gmail.com",
+            motDePasse: "$2a$08$VeK9ZE4upDhhW6.ftfQw8usgpUiNapgOg50eZ3XFYZi8DDKaO2CZW",
+            nom: "user#" + i,
+            adresse: "2 rue de la fleur apart " + i,
+            dateNaissance: "1976-10-25 00:00:00.000",
+            sexe: i % 2,
+            idAssoc: i % 2 == 0 ? assoc_id1 : assoc_id2,
+        });
+    }
 }
 
 function populate_db() {
@@ -115,8 +91,6 @@ function populate_db() {
                 });
 
                 if (Math.random() < 0.10)
-                    create_dummy_releve(trash_id);
-                if (Math.random() < 0.01)
                     create_dummy_sensor(trash_id);
                 if (first_trash) {
                     first_trash = false;
