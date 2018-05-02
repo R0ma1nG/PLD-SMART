@@ -51,13 +51,13 @@ function create_dummy_users(assoc_id1, assoc_id2) {
     var user_id3 = new mongoose.mongo.ObjectId();
     utilisateur.create({
         _id: user_id3,
-        mail: "amail",
-        motDePasse: "pwd", // argent
+        mail: "webadmin",
+        motDePasse: "$2a$08$/xZaUhauUcgXsZB3nACr6.Ef7ydb2b2iCAORZbDuVV5xW09.Ms9w.", // pwd
         nom: "Billy",
         adresse: "69 rue des abricots frais",
         dateNaissance: "1992-01-13 00:00:00.000",
         sexe: 0,
-        idAssoc: assoc_id2,
+        isAdmin: true;
     });
 
 
