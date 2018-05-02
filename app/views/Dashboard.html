@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+            
+            <title>Dashboard</title>
+            
+            <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+                <script src="script.js"></script>
+                <script src="js/index.js"></script>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+                
+            <!-- Custom styles for this template -->
+            <link href="dashboard.css" rel="stylesheet">
+                    
+            <link href="./open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+                        
+            <style>
+                #map {
+                    height: 400px;
+                    width: 100%;
+                }
+            </style>
+                        
+    </head>
+    <body>
+        
+       <!-- En-tête -->
+       <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+           <a class="navbar-brand col-sm-3 col-md-11 mr-0" href="#">Recyc'Lyon - Interface Grand Lyon</a>
+           <ul class="navbar-nav px-5">
+               <li class="nav-item text-nowrap text-white">
+                   <span data-feather="log-out"></span>
+               </li>
+           </ul>
+       </nav>
+            
+            
+        <!-- Menu gauche -->
+            <div class="container-fluid">
+                <div class="row">
+                    <nav class="col-md-1 d-none d-md-block bg-light sidebar">
+                        <div class="sidebar-sticky">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="#">
+                                        <span data-feather="trash-2"></span>
+                                        <span class="sr-only">(current)</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        <span data-feather="file"></span>
+                                        Orders
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        <span data-feather="shopping-cart"></span>
+                                        Products
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        <span data-feather="users"></span>
+                                        Customers
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        <span data-feather="bar-chart-2"></span>
+                                        Reports
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        <span data-feather="layers"></span>
+                                        Integrations
+                                    </a>
+                                </li>
+                            </ul>
+                            
+                            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                                <span>Saved reports</span>
+                                <a class="d-flex align-items-center text-muted" href="#">
+                                    <span data-feather="plus-circle"></span>
+                                </a>
+                            </h6>
+                            <ul class="nav flex-column mb-2">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        <span data-feather="file-text"></span>
+                                        Current month
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        <span data-feather="file-text"></span>
+                                        Last quarter
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        <span data-feather="file-text"></span>
+                                        Social engagement
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        <span data-feather="file-text"></span>
+                                        Year-end sale
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                    </nav>
+                </div>
+            </div>
+            
+            
+            <!-- Barre de recherche -->
+            
+            <div class=" d-flex flex-row-reverse mt-5">
+                <nav class="navbar col-md-11 d-flex justify-content-end navbar-dark bg-dark p-0">
+                    
+                    
+                    <div class="form-check form-check-inline">
+                        <label class="form-check-label text-light">
+                            <input type="checkbox" class="form-check-input " value=""> Remplissage critique
+                        </label>
+                    </div>
+                    <select class="form-control w-25" id="sel1">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                    </select>
+                    <ul class="navbar-nav">
+                    <!-- Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Secteur</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Lyon 1</a>
+                            <a class="dropdown-item" href="#">Lyon 2</a>
+                            <a class="dropdown-item" href="#">chez Papy</a>
+                        </div>
+                    </li>
+                    </ul>
+                    <input class="form-control form-control-dark w-25" type="text" placeholder="Recherche" aria-label="Recherche">
+                        </nav>
+                
+            </div>
+            
+            <!-- zone centrale -->
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-11">
+                <div>
+                    <p>zone de travail</p>
+                </div>
+                
+                <!-- Map -->
+                <div id="map"></div>
+                    <script>
+                        function initMap() {
+                            var lyon = {lat: 45.75, lng: 4.85};
+                            var map = new google.maps.Map(document.getElementById('map'), {
+                                                      zoom: 11,
+                                                      center: lyon
+                                                      });
+                                                      var marker = new google.maps.Marker({
+                                                                                          position: lyon,
+                                                                                          map: map
+                                                                                          });
+                            }
+                    </script>
+                    <script async defer
+                        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmnkXd0ojkMKWNFtGQxkaMZVNVuhXY75w&callback=initMap">
+                    </script>
+                </div>
+        
+        </br></br>
+        <h2>Tableau Recapitulatif</h2>
+        <div class="table-responsive">
+            <table class="table table-striped table-sm">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Header</th>
+                        <th>Header</th>
+                        <th>Header</th>
+                        <th>Header</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1,001</td>
+                        <td>Lorem</td>
+                        <td>ipsum</td>
+                        <td>dolor</td>
+                        <td>sit</td>
+                    </tr>
+                    <tr>
+                        <td>1,001</td>
+                        <td>Lorem</td>
+                        <td>ipsum</td>
+                        <td>dolor</td>
+                        <td>sit</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        
+       
+        
+        
+        </div>
+        
+        <!-- Bootstrap core JavaScript
+         ================================================== -->
+        <!-- Icons -->
+        <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+        <script>
+            feather.replace()
+            </script>
+        
+        
+    </body>
+</html>
