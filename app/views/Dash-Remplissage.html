@@ -13,6 +13,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"rel="stylesheet" type="text/css">
+    <link href="https://cdn.datatables.net/1.10.16/css/dataTables.jqueryui.min.css" rel="stylesheet" type="text/css">
     <link href="dashboard.css" rel="stylesheet" type="text/css">
 
     <!-- JS Scripts -->
@@ -62,6 +65,7 @@
 
     <script>
         $(document).ready(function () {
+            var table = $("#recap").DataTable();
             var url = "http://localhost:8080/api/poubelles";
             $.ajax
                 ({
@@ -77,17 +81,14 @@
                 .done(function (data) {
                     data.forEach(function (element) {
                         var pos = new google.maps.LatLng(element.lattitude, element.longitude);
-                        var contenu = '<tr>';
-                        contenu += '<td><img id="' + pos + '" src="ic_zoom.png" height=20 width=20 onclick="getMarker(this)" onmouseover="" style="cursor: pointer;"></img></td>';
-                        contenu += '<td>' + element.id_grandlyon + '</td><td>' + element.adresse + '</td><td>'
-                        if (element.remplissage) {
-                            contenu += 'oui';
-                        } else {
-                            contenu += 'non';
-                        }
-                        contenu += '</td>'
-                        contenu += '<td>' + element.gestionnaire + '</td>' + '</tr>';
-                        $("#recap").append(contenu);
+                        var contenu = [
+                            '<img id="' + pos + '" src= "ic_zoom.png" height= 20 width= 20 onclick= "getMarker(this)" onmouseover= "" style= "cursor: pointer;" > </img>',
+                            element.id_grandlyon,
+                            element.adresse,
+                            element.remplissage ? "oui" : "non",
+                            element.gestionnaire
+                        ];
+                        table.row.add(contenu).draw();
                         var marker = new google.maps.Marker({
                             position: pos,
                             map: map,
@@ -214,21 +215,22 @@
         </br>
         </br>
         <h4>Tableau Recapitulatif</h4>
-        <div class="table-responsive">
-            <table id="recap" class="table table-hover table-sm ">
+        <!--<div class="table-responsive"> -->
+            <table id="recap" class="display" style="width:100%">
                 <thead>
                     <tr>
                         <th> </th>
                         <th>#</th>
                         <th>Adresse</th>
                         <th>Remplissage</th>
+                        <th>gestionnaire</th>
                     </tr>
                 </thead>
                 <tbody id="tbody">
 
                 </tbody>
             </table>
-        </div>
+        <!--</div>-->
 </body>
 
 </html>
