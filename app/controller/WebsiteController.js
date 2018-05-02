@@ -30,4 +30,8 @@ router.get('/Dashboard-Collecte', function (req, res) {
   res.render('Dash-Collecte.html');
 });
 
+router.get('/Dashboard-Analyse', function (req, res) {
+  res.render('Dash-Analyse.html');
+});
+
 module.exports = router;
