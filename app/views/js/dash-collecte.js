@@ -76,8 +76,8 @@ function initMap() {
         zoom: 15,
         center: lyon
     });
-    var marker = new google.maps.Marker({
+    /*var marker = new google.maps.Marker({
         position: lyon,
         map: map
-    });
+    });*/
 }
