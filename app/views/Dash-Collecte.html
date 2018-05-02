@@ -7,24 +7,20 @@
     <title>Dashboard Collecte</title>
 
     <!-- Custom styles for this template -->
-    
     <script src="js/dash-collecte.js"></script>
+    <script src="js/dashboard.js"></script>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link href="dashboard.css" rel="stylesheet" type="text/css">
-    
-
-    <!--<link href="./open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">-->
-
-    <style>
-        #map {
-            height: 400px;
-            width: 100%;
-        }
-    </style>
+    <link href="dashboard-collecte.css" rel="stylesheet" type="text/css">
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmnkXd0ojkMKWNFtGQxkaMZVNVuhXY75w&callback=initMap"></script>
+    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+    <script>
+        $(document).ready(function() { init() });
+    </script>
 </head>
 
 <body>
@@ -34,7 +30,7 @@
         <a class="navbar-brand col-sm-3 col-md-11 mr-0" href="#">Recyc'Lyon - Interface Grand Lyon</a>
         <ul class="navbar-nav px-5">
             <li class="nav-item text-nowrap text-white">
-                <span data-feather="log-out"></span>
+                <span data-feather="log-out" onclick="logout();"></span>
             </li>
         </ul>
     </nav>
@@ -49,22 +45,22 @@
                         
                         <li class="nav-item">
                             <a class="nav-link" href="./Dashboard">
-                                        <span data-feather="trash"></span>
-                                        Remplissage
-                                    </a>
+                                <span data-feather="trash"></span>
+                                Remplissage
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="./Dashboard-Collecte">
-                                        <span data-feather="trash-2"></span>Collecte
-                                        <span class="sr-only">(current)</span>
-                                    </a>
+                                <span data-feather="trash-2"></span>Collecte
+                                <span class="sr-only">(current)</span>
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./Dash-Analyse.html">
-                                        <span data-feather="activity"></span>
-                                        Analyse
-                                    </a>
-
+                            <a class="nav-link" href="./Dashboard-Analyse">
+                                <span data-feather="activity"></span>
+                                Analyse
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </nav>
@@ -79,23 +75,6 @@
 
         <!-- Map -->
         <div id="map"></div>
-        <script>
-            function initMap() {
-                var lyon = { lat: 45.75, lng: 4.85 };
-                var map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 11,
-                    center: lyon
-                });
-                var marker = new google.maps.Marker({
-                    position: lyon,
-                    map: map
-                });
-            }
-        </script>
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmnkXd0ojkMKWNFtGQxkaMZVNVuhXY75w&callback=initMap">
-
-        </script>
-        </div>
 
         </br>
         <!--Filtres-->
@@ -104,8 +83,8 @@
                 <h4>Tableau Recapitulatif</h4>
                 <div class="form-check form-check-inline justify-content-end">
                     <form>
-                        Date :
-                        <input type="date" name="dateFilter" onchange="dateChanged(event);" class="datepicker">
+                        <p style="font-size: 1.4em">Date :
+                        <input type="date" name="dateFilter" onchange="dateChanged(event);" id="datePicker" class="datepicker"></p>
                     </form>
                 </div>
             </nav>
@@ -124,21 +103,12 @@
                 </tbody>
             </table>
         </div>
-
-
-        </div>
-
-        <!-- Bootstrap core JavaScript
-         ================================================== -->
-        <!-- Icons -->
-        <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-        <script>
-            feather.replace()
-        </script>
-        <script>
+        
+        <!--<script>
             $(document).ready(function () {
-                var url = "/api/admin/releves";
-                $.ajax
+                document.getElementById('datePicker').valueAsDate = new Date();
+                var url = "/api/admin/releves/";
+                /*$.ajax 
                     ({
                         type: "GET",
                         contentType: "application/json",
@@ -156,9 +126,9 @@
                             contenu += '</tr>';
                             $("#recap").append(contenu);
                         });
-                    });
+                    });*/
             });
-        </script>
+        </script>-->
 </body>
 
 </html>
