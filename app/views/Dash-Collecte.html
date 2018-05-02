@@ -73,8 +73,17 @@
 
     <!-- zone centrale -->
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10">
-        <h1>Collecte des bennes</h1>
-
+        <div class="container">
+            <div class="row">
+                <div class="col-md-1">
+                        <div class="loader" id="loader"></div>
+                </div>
+                <div class="col-md-10">
+                    <h1>Collecte des bennes</h1>
+                </div>
+            </div>
+        </div>
+        <progress id="Progress_Bar" value="0" max="100">0 %</progress>
         <!-- Map -->
         <div id="map" overflow-y="auto"></div>
         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmnkXd0ojkMKWNFtGQxkaMZVNVuhXY75w&callback=initMap"></script>
