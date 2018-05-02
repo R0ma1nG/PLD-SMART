@@ -43,7 +43,6 @@ router.get('/releves/:date', function(req, res) {
       var mesReleves= {'data': []};
       releves.forEach(function(rel){
         if (rel.date.getUTCDate() == jour && rel.date.getUTCMonth() == mois && rel.date.getUTCFullYear() == annee) {
-<<<<<<< HEAD
           poubelle.findById(rel.idPoubelle, "lattitude longitude", function (err, bin) {
             // console.log(bin);
             if (err) reject(res.status(500).send("impossible de trouver la poubelle associée à ce relevé "+err));
@@ -54,10 +53,6 @@ router.get('/releves/:date', function(req, res) {
               mesReleves.data.push(rel);
             }
           });
-=======
-          //console.log(rel.date);
-          mesReleves.data.push(rel);
->>>>>>> 84cd78adae02da2ce6cb8aad558361cb8f8b8bb2
         }
       });
       console.log('avant le then : '+ mesReleves);
