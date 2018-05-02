@@ -71,17 +71,7 @@
         </div>
     </div>
 
-    <!--Filtres-->
-    <div class=" d-flex flex-row-reverse mt-5" id="filtres">
-        <nav class="navbar col-md-10 d-flex justify-content-end navbar-dark bg-dark p-0">
-            <div class="form-check form-check-inline">
-                <form>
-                    Date :
-                    <input type="date" name="dateFilter" onchange="dateChanged(event);">
-                </form>
-            </div>
-        </nav>
-    </div>
+    
 
     <!-- zone centrale -->
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10">
@@ -108,18 +98,25 @@
         </div>
 
         </br>
-        </br>
-        <h4>Tableau Recapitulatif</h4>
+        <!--Filtres-->
+        <div id="filtres">
+            <nav class="navbar col-md-12">
+                <h4>Tableau Recapitulatif</h4>
+                <div class="form-check form-check-inline justify-content-end">
+                    <form>
+                        Date :
+                        <input type="date" name="dateFilter" onchange="dateChanged(event);" class="datepicker">
+                    </form>
+                </div>
+            </nav>
+        </div>
         <div class="table-responsive">
             <table id="recap" class="table table-hover table-sm ">
                 <thead>
                     <tr>
-                        <th> </th>
                         <th>#</th>
-                        <th>Header</th>
-                        <th>Header</th>
-                        <th>Header</th>
-                        <th>Header</th>
+                        <th>Date</th>
+                        <th>Rempplissage</th>
                     </tr>
                 </thead>
                 <tbody id="tbody">
@@ -127,9 +124,6 @@
                 </tbody>
             </table>
         </div>
-
-
-
 
 
         </div>
@@ -143,7 +137,7 @@
         </script>
         <script>
             $(document).ready(function () {
-                var url = "/api/poubelles";
+                var url = "/api/admin/releves";
                 $.ajax
                     ({
                         type: "GET",
@@ -157,8 +151,8 @@
                     })
                     .done(function (data) {
                         data.forEach(function (element) {
-                            var contenu = '<tr><td></td>';
-                            contenu += '<td>'+element._id+'</td><td>'+element.adresse+'</td><td>'+element.remplissage+'</td>';
+                            var contenu = '<tr>';
+                            contenu += '<td>'+element._id+'</td><td>'+element.date+'</td><td>'+element.tauxRemplissage+'</td>';
                             contenu += '</tr>';
                             $("#recap").append(contenu);
                         });

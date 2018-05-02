@@ -114,6 +114,14 @@
                 });
         });
     </script>
+    <script>
+        //filtrage remplissage
+        $("#checkbox").click(function () {
+            if ($("#checkbox").is(":checked")) {
+                alert("check");
+            }
+        });
+    </script>
     <!--<link href="./open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">-->
 
     <style>
@@ -179,7 +187,7 @@
 
             <div class="form-check form-check-inline">
                 <label class="form-check-label text-light">
-                            <input type="checkbox" class="form-check-input " value=""> Remplissage critique
+                            <input id="checkbox" type="checkbox" class="form-check-input " value=""> Remplissage critique
                         </label>
             </div>
             <select class="form-control w-25 mr-1" id="sel1">
@@ -217,6 +225,7 @@
                     </tr>
                 </thead>
                 <tbody id="tbody">
+
                 </tbody>
             </table>
         </div>

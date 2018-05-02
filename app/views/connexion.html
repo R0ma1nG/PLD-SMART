@@ -18,6 +18,17 @@
                 //call the authenticate function
                 authenticate(password, email, url);
             });
+            $("#fenetre").keyup(function (e) { // On dit l'action à faire lors de l'appui sur une touche
+                                
+                if (e.keyCode == 13) { // Si c'est la touche entrée
+                    //collect userName and password entered by users
+                    var password = $("#inputPassword").val();
+                    var email = $("#inputMail").val();
+                    var url = window.location.pathname;
+                    //call the authenticate function
+                    authenticate(password, email, url);
+                }
+            });
         });
 
         //authenticate function to make ajax call
@@ -48,7 +59,7 @@
 <body class="text-center">
     <!-- En tête de page -->
 
-    <div>
+    <div id="fenetre">
 
         <div class="jumbotron text-center" style="margin-bottom:0">
             <h2>Recyc'Lyon - Interface Grand Lyon</h2>
@@ -70,6 +81,8 @@
             </div>
 
     </div>
+
+
 </body>
 
 </html>
