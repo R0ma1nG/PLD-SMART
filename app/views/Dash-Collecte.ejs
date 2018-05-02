@@ -4,22 +4,18 @@
 <head>
     <meta charset="UTF-8">
 
-    <title>Dashboard</title>
-
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-    <script src="script.js"></script>
-    <script src="js/index.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-
+    <title>Dashboard Collecte</title>
 
     <!-- Custom styles for this template -->
-    <link href="dashboard.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="dashboard.css" rel="stylesheet" type="text/css">
 
-    <link href="./open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+    <!--<link href="./open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">-->
 
     <style>
         #map {
@@ -27,7 +23,6 @@
             width: 100%;
         }
     </style>
-
 </head>
 
 <body>
@@ -49,16 +44,17 @@
             <nav class="col-md-2 d-none d-md-block bg-light sidebar">
                 <div class="sidebar-sticky">
                     <ul class="nav flex-column">
+                        
                         <li class="nav-item">
-                            <a class="nav-link active" href="./Dash-Remplissage.html">
-                                        <span data-feather="trash-2"></span>Remplissage
-                                        <span class="sr-only">(current)</span>
+                            <a class="nav-link" href="./Dashboard">
+                                        <span data-feather="trash"></span>
+                                        Remplissage
                                     </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./Dash-Collecte.html">
-                                        <span data-feather="trash"></span>
-                                        Collecte
+                            <a class="nav-link active" href="./Dashboard-Collecte">
+                                        <span data-feather="trash-2"></span>Collecte
+                                        <span class="sr-only">(current)</span>
                                     </a>
                         </li>
                         <li class="nav-item">
@@ -68,41 +64,15 @@
                                     </a>
 
                     </ul>
-
-
                 </div>
-
             </nav>
         </div>
     </div>
 
 
-    <!-- Barre de recherche -->
-
-    <div class=" d-flex flex-row-reverse mt-5">
-        <nav class="navbar col-md-10 d-flex justify-content-end navbar-dark bg-dark p-0">
-
-
-            <div class="form-check form-check-inline">
-                <label class="form-check-label text-light">
-                            <input type="checkbox" class="form-check-input " value=""> Remplissage critique
-                        </label>
-            </div>
-            <select class="form-control w-25 mr-1" id="sel1">
-                        <option>Grand Lyon</option>
-                        <option>Lyon 1</option>
-                        <option>Lyon 2</option>
-                        <option>Lyon 3</option>
-                        <option>Lyon 4</option>
-                    </select>
-            <input class="form-control form-control-dark w-25" type="text" placeholder="Recherche" aria-label="Recherche">
-        </nav>
-
-    </div>
-
     <!-- zone centrale -->
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10">
-        <h1>Remplissage des bennes</h1>
+        <h1>Collecte des bennes</h1>
         <!-- Map -->
         <div id="map"></div>
         <script>
@@ -139,28 +109,7 @@
                     </tr>
                 </thead>
                 <tbody id="tbody">
-                    <tr>
-                        <td><a class="nav-link " href="./Dash-Remp-Info.html">
-                            <span class="text-dark" data-feather="zoom-in"></span>
-                        </a>
-                        </td>
-                        <td>1,001</td>
-                        <td>Lorem</td>
-                        <td>ipsum</td>
-                        <td>dolor</td>
-                        <td>sit</td>
-                    </tr>
-                    <tr>
-                        <td><a class="nav-link" href="./Dash-Remp-Info.html">
-                            <span class="text-dark" data-feather="zoom-in"></span>
-                        </a>
-                        </td>
-                        <td>1,001</td>
-                        <td>Lorem</td>
-                        <td>ipsum</td>
-                        <td>dolor</td>
-                        <td>sit</td>
-                    </tr>
+                    
                 </tbody>
             </table>
         </div>
@@ -180,7 +129,6 @@
         </script>
         <script>
             $(document).ready(function () {
-                alert('GO');
                 var url = "http://localhost:8080/api/poubelles";
                 $.ajax
                     ({
