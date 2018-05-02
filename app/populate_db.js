@@ -15,21 +15,11 @@ mongoose.connect('mongodb://admin:admin@ds147459.mlab.com:47459/smart_db'); // c
 
 const real_capteur_id = new mongoose.mongo.ObjectId("5add92e9e36c0adec0253805")
 
-function create_dummy_releve(trash_id) {
-    // Generate fake history of 'releve' for given public trash
-    releve.create({
-        _id: new mongoose.mongo.ObjectId(),
-        date: "1976-10-25 00:00:00.000",
-        tauxRemplissage: Math.random() * 10,
-        idPoubelle: trash_id
-    });
-}
-
 function create_dummy_sensor(trash_id) {
     // Add default sensor
     capteur.create({
         _id: new mongoose.mongo.ObjectId(),
-        token: Math.floor(Math.random() * 100000000000),
+        tokenCapteur: Math.floor(Math.random() * 100000000000),
         idPoubelle: trash_id
     });
 }
@@ -70,21 +60,20 @@ function create_dummy_users(assoc_id1, assoc_id2) {
         idAssoc: assoc_id2,
     });
 
-    // Create dummy depots
-    /**depot.create({
-        _id: new mongoose.mongo.ObjectId(),
-        montant: 10,
-        idUtilisateur: user_id1,
-        idAssoc: assoc_id1,
-        idCapteur: real_capteur_id
-    });
-    depot.create({
-        _id: new mongoose.mongo.ObjectId(),
-        montant: 4,
-        idUtilisateur: user_id2,
-        idAssoc: assoc_id2,
-        idCapteur: real_capteur_id
-    }); */
+
+    /** for (var i = 0; i < 1239; i++) {
+        utilisateur.create({
+            _id: new mongoose.mongo.ObjectId(),
+            mail: "user" + i + "@gmail.com",
+            motDePasse: "$2a$08$VeK9ZE4upDhhW6.ftfQw8usgpUiNapgOg50eZ3XFYZi8DDKaO2CZW",
+            nom: "user#" + i,
+            adresse: "2 rue de la fleur apart " + i,
+            dateNaissance: "1976-10-25 00:00:00.000",
+            sexe: i % 2,
+            idAssoc: i % 2 == 0 ? assoc_id1 : assoc_id2,
+        });
+    } */
+
 }
 
 function populate_db() {
@@ -93,23 +82,23 @@ function populate_db() {
     collections.forEach(element => {
         var col = mongoose.connection.collections[element];
         col.drop(function (err) {
-            console.log(err);
+            if (err)
+                console.log(err);
         });
     });
 
     // Populate database from GrandLyon trash locations
     trash_dataset_download_link = "https://download.data.grandlyon.com/wfs/grandlyon?SERVICE=WFS&VERSION=2.0.0&outputformat=GEOJSON&maxfeatures=-1&request=GetFeature&typename=gic_collecte.gicsiloverre&SRSNAME=urn:ogc:def:crs:EPSG::4171"
-    var trash_id = undefined;
+
     request(trash_dataset_download_link, { json: true }, (err, res, body) => {
         if (err) { return console.log(err); }
         else {
+            first_trash = true;
             body.features.forEach(element => {
-                trash_id = new mongoose.mongo.ObjectId();
+                var trash_id = new mongoose.mongo.ObjectId();
                 var props = element.properties;
                 var coords = element.geometry.coordinates;
                 var statut = 0;
-                if(Math.random() < 0.10)
-                  statut = 1;
                 poubelle.create({
                     _id: trash_id,
                     id_grandlyon: props.identifiant,
@@ -124,12 +113,20 @@ function populate_db() {
                     longitude: coords[0],
                     lattitude: coords[1],
                     remplissage: statut
+                    remplissage: Math.random() > 0.1 ? 0. : 1.
                 });
 
                 if (Math.random() < 0.10)
-                    create_dummy_releve(trash_id);
-                if (Math.random() < 0.01)
                     create_dummy_sensor(trash_id);
+                if (first_trash) {
+                    first_trash = false;
+                    // Add default sensor
+                    capteur.create({
+                        _id: real_capteur_id,
+                        tokenCapteur: "348534593696437587487920546496919",
+                        idPoubelle: trash_id
+                    });
+                }
             });
         }
     });
@@ -160,12 +157,7 @@ function populate_db() {
     //     }
     // });
 
-    // Add default sensor
-    capteur.create({
-        _id: real_capteur_id,
-        token: "348534593696437587487920546496919",
-        idPoubelle: trash_id
-    });
+
 
     // Add default associations
     var assoc_id1 = new mongoose.mongo.ObjectId();

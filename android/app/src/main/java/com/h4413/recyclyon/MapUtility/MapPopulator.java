@@ -27,7 +27,6 @@ public class MapPopulator implements GoogleMap.OnMarkerClickListener {
     }
 
     public void createMarkers(Bin[] bins){
-        Toast.makeText(activity, "start Create", Toast.LENGTH_SHORT);
         for(Bin bin : bins){
             Marker marker;
             LatLng ll = new LatLng(bin.getLat(), bin.getLong());
@@ -90,9 +89,11 @@ public class MapPopulator implements GoogleMap.OnMarkerClickListener {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         if(bin.isFull()) {
-            builder.setMessage(bin.getAdress()).setTitle("Benne remplie");
+            String adr = bin.getAdress();
+            builder.setMessage(adr).setTitle("Benne Pleine");
         } else {
-            builder.setMessage(bin.getAdress()).setTitle("Benne disponible");
+            String adr = bin.getAdress();
+            builder.setMessage(adr).setTitle("Benne Disponible");
         }
         AlertDialog dialog = builder.create();
         dialog.show();
