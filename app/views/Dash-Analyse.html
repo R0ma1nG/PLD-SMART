@@ -4,11 +4,10 @@
 <head>
     <meta charset="UTF-8">
 
-    <title>Dashboard Collecte</title>
+    <title>Dashboard Analyse</title>
 
     <!-- Custom styles for this template -->
-    
-    <script src="js/dash-collecte.js"></script>
+
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -54,15 +53,15 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="./Dashboard-Collecte">
-                                <span data-feather="trash-2"></span>Collecte
-                                <span class="sr-only">(current)</span>
+                            <a class="nav-link" href="./Dashboard-Collecte">
+                                <span data-feather="activity"></span>
+                                Collecte
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./Dashboard-Analyse">
-                                <span data-feather="activity"></span>
-                                Analyse
+                            <a class="nav-link active" href="./Dashboard-Analyse">
+                                <span data-feather="trash-2"></span>Analyse
+                                <span class="sr-only">(current)</span>
                             </a>
                         </li>
                     </ul>
@@ -75,7 +74,7 @@
 
     <!-- zone centrale -->
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10">
-        <h1>Collecte des bennes</h1>
+        <h1>Analyse des données</h1>
 
         <!-- Map -->
         <div id="map"></div>
@@ -92,40 +91,8 @@
                 });
             }
         </script>
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmnkXd0ojkMKWNFtGQxkaMZVNVuhXY75w&callback=initMap">
-
-        </script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmnkXd0ojkMKWNFtGQxkaMZVNVuhXY75w&callback=initMap"></script>
         </div>
-
-        </br>
-        <!--Filtres-->
-        <div id="filtres">
-            <nav class="navbar col-md-12">
-                <h4>Tableau Recapitulatif</h4>
-                <div class="form-check form-check-inline justify-content-end">
-                    <form>
-                        <p style="font-size: 1.4em">Date :
-                        <input type="date" name="dateFilter" onchange="dateChanged(event);" id="datePicker" class="datepicker"></p>
-                    </form>
-                </div>
-            </nav>
-        </div>
-        <div class="table-responsive">
-            <table id="recap" class="table table-hover table-sm ">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Date</th>
-                        <th>Rempplissage</th>
-                    </tr>
-                </thead>
-                <tbody id="tbody">
-                    
-                </tbody>
-            </table>
-        </div>
-
-
         </div>
 
         <!-- Bootstrap core JavaScript
@@ -135,11 +102,10 @@
         <script>
             feather.replace()
         </script>
-        <script>
+        <!--<script>
             $(document).ready(function () {
-                document.getElementById('datePicker').valueAsDate = new Date();
-                var url = "/api/admin/releves/";
-                /*$.ajax 
+                var url = "/api/admin/releves";
+                $.ajax
                     ({
                         type: "GET",
                         contentType: "application/json",
@@ -157,9 +123,9 @@
                             contenu += '</tr>';
                             $("#recap").append(contenu);
                         });
-                    });*/
+                    });
             });
-        </script>
+        </script>-->
 </body>
 
 </html>

@@ -2,7 +2,7 @@ function dateChanged(e){
     $(document).ready(function () {
         var url = "/api/admin/releves/"+e.target.value;
         console.log(url);
-        $.ajax
+        /*$.ajax
             ({
                 type: "GET",
                 contentType: "application/json",
@@ -14,6 +14,6 @@ function dateChanged(e){
             })
             .done(function (data) {
                 alert("request ok");
-            });
+            });*/
     });
 }
