@@ -11,11 +11,14 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 
 // Set parameters (templates, middlewares..)
-app.engine('ejs', require('ejs').renderFile);
+app.set('views', __dirname + '/views');
+app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'ejs');
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(express.static('public'));
+app.use(express.static('views'));
 
 // Passport required
 app.use(session({ secret: 'smart' })); // session secret
