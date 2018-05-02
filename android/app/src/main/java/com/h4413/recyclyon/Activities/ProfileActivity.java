@@ -1,5 +1,6 @@
 package com.h4413.recyclyon.Activities;
 
+import android.app.DatePickerDialog;
 import android.bluetooth.BluetoothClass;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -14,11 +15,13 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -46,7 +49,9 @@ import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -55,6 +60,7 @@ public class ProfileActivity extends AppCompatActivity {
     private EditText mNameInput;
     private EditText mDateNaissanceInput;
     private TextView mAssociation;
+    private Calendar myCalendar;
 
     private static final int REQUEST_CODE_ASSOCIATION = 1;
 
@@ -87,6 +93,17 @@ public class ProfileActivity extends AppCompatActivity {
                 R.array.inscriptionSexeChoices, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSexInput.setAdapter(adapter);
+
+        myCalendar = Calendar.getInstance();
+        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, month);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel();
+            }
+        };
 
         mUser = UserServices.getCurrentUserFromSharedPreferences(this);
         mAdressInput.setText(mUser.adresse);
@@ -177,7 +194,16 @@ public class ProfileActivity extends AppCompatActivity {
                 mNameInput.setEnabled(true);
                 mSexInput.setEnabled(true);
                 mAdressInput.setEnabled(true);
+
                 mDateNaissanceInput.setEnabled(true);
+                mDateNaissanceInput.setInputType(InputType.TYPE_NULL);
+                mDateNaissanceInput.setClickable(true);
+                mDateNaissanceInput.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        new DatePickerDialog(ProfileActivity.this , date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                    }
+                });
 
                 findViewById(R.id.profile_activity_association_layout).setVisibility(View.GONE);
                 mChangeButton.setVisibility(View.GONE);
@@ -217,5 +243,12 @@ public class ProfileActivity extends AppCompatActivity {
                 mAssociation.setText(association.nom);
             }
         });
+    }
+
+    private void updateLabel(){
+        String myFormat = "dd/MM/yyyy";
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.FRANCE);
+
+        mDateNaissanceInput.setText(sdf.format(myCalendar.getTime()));
     }
 }
