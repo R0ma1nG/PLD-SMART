@@ -131,6 +131,7 @@
                         <th>Id Benne</th>
                         <th>Adresse</th>
                         <th>Remplie</th>
+                        <th>Gestionnaire</th>
                     	</tr>
                 </thead>
                 <tbody id="tbody">
@@ -167,7 +168,7 @@
         <!-- Icons -->
         <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
         <script>
-            feather.replace()
+             feather.replace()
         </script>
         <script>
             $(document).ready(function () {
@@ -186,15 +187,17 @@
                     .done(function (data) {
                         data.forEach(function (element) {
                             var contenu = '<tr>';
-                            contenu+='<td><a class="nav-link" href="./Dash-Remp-Info.html"><span class="text-dark" data-feather="zoom-in"></span></a></td>';
-                            contenu += '<td>' + element._id + '</td><td>' + element.adresse + '</td><td>' 
+                            contenu+='<td>loupe</td>';
+                            contenu += '<td>' + element.id_grandlyon + '</td><td>' + element.adresse + '</td><td>' 
                            	if (element.remplissage) { 	
-                            contenu+='oui' + '</td>';
+                            contenu+='oui';
                         	}else{
                         		contenu+='non';
                         	}
-                            contenu += '</tr>';
+                            contenu += '</td>'
+                            contenu+='<td>'+element.gestionnaire+'</td>'+'</tr>';
                             $("#recap").append(contenu);
+                           
                             var pos = new google.maps.LatLng(element.lattitude, element.longitude);
                             var marker = new google.maps.Marker({
                                 position: pos,
