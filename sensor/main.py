@@ -11,6 +11,7 @@ ID_CAPTEUR = 3485386495
 TOKEN_CAPTEUR = 348534593696437587487920546496919
 MIC_MODEL_DIR = './sensors/models/mic'
 BACKEND_API_URL = "localhost:3455"
+#BACKEND_API_URL = "https://pld-smart.azurewebsites.net"
 FLUSH_TO_BACKEND_PERIOD = 30
 MIC_DATA_DIR = './sensors/data/mic/raw'
 
@@ -29,8 +30,8 @@ def main():
             with events_buffer_lock:
                 canReachServer = True  # TODO:...
                 if canReachServer:
-                    url = os.path.join(BACKEND_API_URL, 'NotifyBottleEvents', ID_CAPTEUR)
-                    resp = requests.post(url, json={'tokenCapteur': TOKEN_CAPTEUR, 'timestamps': bottle_events_buffer})
+                    url = os.path.join(BACKEND_API_URL, 'api/depotsEnCours/ajoutDechet', ID_CAPTEUR)
+                    resp = requests.post(url, json={'tokenCapteur': TOKEN_CAPTEUR, 'timestamps': [event.isoformat() for event in bottle_events_buffer]})
                     if resp.status_code == 200:
                         bottle_events.extend(bottle_events_buffer)
                         bottle_events_buffer.clear()
