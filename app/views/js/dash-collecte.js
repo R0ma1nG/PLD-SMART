@@ -27,6 +27,8 @@ function formatDate(date) {
 }
 
 function fillTable(url) {
+    document.getElementById("loader").style.visibility = 'visible';
+    document.getElementById("Progress_Bar").style.visibility = 'hidden';
     var table;
     if($.fn.dataTable.isDataTable("#recap")) {
         table = $("#recap").DataTable();
@@ -47,7 +49,12 @@ function fillTable(url) {
         }
     })
     .done(function (data) {
-        console.log("requete ok");
+        console.log("done");
+        document.getElementById("loader").style.visibility = 'hidden';
+        var progressBar = document.getElementById("Progress_Bar");
+        progressBar.style.visibility = 'visible';
+        progressBar.value = 0;
+        progressBar.max = data.data.length;
         data.data.forEach(function (element) {
             var contenu = [
                 element._id,
@@ -55,8 +62,11 @@ function fillTable(url) {
                 element.tauxRemplissage
             ];
             table.row.add(contenu).draw();
+            window.setTimeout(function () {
+                    table.row.add(contenu).draw();
+                    progressBar.value += 1;
+                }, 30);
         });
-        console.log("remplissage ok");
     });
 }
 
