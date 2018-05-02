@@ -1,3 +1,6 @@
+var markers = [];
+var poubelles = [];
+
 function init() {
     document.getElementById("loader").style.visibility = 'visible';
     var table;
@@ -65,3 +68,26 @@ function init() {
         });
         feather.replace()
 };
+
+function toogleRemplissage(element) {
+    var table = $("#recap").DataTable();
+    table.column(3).search( element.checked ? "oui" : "non" ).draw();
+    if(element.checked) {
+        var i = 0;
+        markers.forEach(function(marker) {
+            if(!poubelles[i].remplissage) {
+                marker.setVisible(false);
+            }
+            i++;
+        });
+    } else {
+        markers.forEach(function(marker) {
+            marker.setVisible(true);
+        });
+    }
+}
+
+function changeLocationFilter(element) {
+    var table = $("#recap").DataTable();
+    table.column(2).search( element.value ).draw();
+}

@@ -42,10 +42,10 @@
                 zoom: 15,
                 center: lyon
             });
-            var marker = new google.maps.Marker({
+            /*var marker = new google.maps.Marker({
                 position: lyon,
                 map: map
-            });
+            });*/
 
             google.maps.event.addListener(map, 'zoom_changed', function () {
                 var zoom = map.getZoom();
@@ -124,28 +124,7 @@
     </div>
 
 
-    <!-- Barre de recherche -->
 
-    <div class=" d-flex flex-row-reverse mt-5">
-        <nav class="navbar col-md-10 d-flex justify-content-end navbar-dark bg-dark p-0">
-
-
-            <div class="form-check form-check-inline">
-                <label class="form-check-label text-light">
-                    <input id="checkbox" type="checkbox" class="form-check-input " value=""> Remplissage critique
-                </label>
-            </div>
-            <select class="form-control w-25 mr-1" id="sel1">
-                <option>Grand Lyon</option>
-                <option>Lyon 1</option>
-                <option>Lyon 2</option>
-                <option>Lyon 3</option>
-                <option>Lyon 4</option>
-            </select>
-            <input class="form-control form-control-dark w-25" type="text" placeholder="Recherche" aria-label="Recherche">
-        </nav>
-
-    </div>
 
     <!-- zone centrale -->
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10">
@@ -162,14 +141,32 @@
         <progress id="Progress_Bar" value="0" max="100">0 %</progress>
         <!-- Map -->
         <div id="map" overflow-y="auto"></div>
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmnkXd0ojkMKWNFtGQxkaMZVNVuhXY75w&callback=initMap">
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmnkXd0ojkMKWNFtGQxkaMZVNVuhXY75w&callback=initMap"></script>
 
-        </script>
+        <!-- Barre de recherche -->
+        <div class="flex-row-reverse">
+            <nav class="navbar col-md-12 d-flex justify-content-end navbar-dark bg-dark p-0">
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label text-light">
+                        <input id="checkbox" type="checkbox" class="form-check-input " value="" onchange="toogleRemplissage(this);">Bennes pleines uniquement
+                    </label>
+                </div>
+                <select class="form-control w-25 mr-1" id="sel1" onchange="changeLocationFilter(this);">
+                    <option> </option>
+                    <option>Lyon 1 69001</option>
+                    <option>Lyon 2 69002</option>
+                    <option>Lyon 3 69003</option>
+                    <option>Lyon 4 69004</option>
+                    <option>Lyon 5 69005</option>
+                    <option>Lyon 6 69006</option>
+                    <option>Lyon 7 69007</option>
+                    <option>Lyon 8 69008</option>
+                    <option>Villeurbanne 69100</option>
+                </select>
+                <input class="form-control form-control-dark w-25" type="text" placeholder="Recherche" aria-label="Recherche">
+            </nav>
+        </div>
 
-        </br>
-        </br>
-        <h4>Tableau Recapitulatif</h4>
-        <!--<div class="table-responsive"> -->
         <table id="recap" class="display" style="width:100%">
             <thead>
                 <tr>
