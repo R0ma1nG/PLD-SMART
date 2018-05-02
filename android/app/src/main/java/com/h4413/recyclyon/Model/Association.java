@@ -4,14 +4,14 @@ import java.io.Serializable;
 
 public class Association implements Serializable {
 
-    public String id;
+    public String _id;
     public String nom;
     public String description;
     public String logoUrl;
 
     public Association(String id, String nom, String description, String url) {
         this.logoUrl = url;
-        this.id = id;
+        this._id = id;
         this.description = description;
         this.nom = nom;
     }

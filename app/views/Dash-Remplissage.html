@@ -7,7 +7,7 @@
     <title>Dashboard</title>
 
     <!-- Custom styles for this template -->
-    
+
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -99,10 +99,19 @@
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10">
         <h1>Remplissage des bennes</h1>
         <!-- Map -->
-        <div id="map"></div>
+        <div id="map" overflow-y="auto"></div>
         <script>
             var map;
             var markers = [];
+            var infowindow;
+            var icons = {
+                0: {
+                    icon: '/ic_bin.png'
+                },
+                1: {
+                    icon: '/ic_bin_full.png'
+                }
+            };
             function initMap() {
                 var lyon = { lat: 45.75, lng: 4.85 };
                 map = new google.maps.Map(document.getElementById('map'), {
@@ -113,7 +122,17 @@
                     position: lyon,
                     map: map
                 });
-            }
+            };
+
+            function getMarker(img) {
+                var marker = markers.find(function (element) {
+                    return element.position == img.id;
+                });
+                map.setCenter(marker.position);
+                map.setZoom(16);
+                google.maps.event.trigger(marker, 'click');
+                window.scrollTo(0, 0);
+            };
         </script>
         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmnkXd0ojkMKWNFtGQxkaMZVNVuhXY75w&callback=initMap">
 
@@ -128,30 +147,13 @@
                 <thead>
                     <tr>
                         <th> </th>
-                        <th>Id Benne</th>
+                        <th>#</th>
                         <th>Adresse</th>
-                        <th>Remplie</th>
-                        <th>Gestionnaire</th>
-                    	</tr>
+                        <th>Remplissage</th>
+                    </tr>
                 </thead>
                 <tbody id="tbody">
-                    <tr>
-                        <td>
-                        </td>
-                        <td>1,001</td>
-                        <td>Lorem</td>
-                        <td>ipsum</td>
-                        <td>dolor</td>
-         
-                    </tr>
-                    <tr>
-                        <td><a class="nav-link" href="./Dash-Remp-Info.html"><span class="text-dark" data-feather="zoom-in"></span></a>
-                        </td>
-                        <td>1,001</td>
-                        <td>Lorem</td>
-                        <td>ipsum</td>
-                        <td>dolor</td>
-                    </tr>
+
                 </tbody>
             </table>
         </div>
@@ -165,10 +167,6 @@
         <!-- Bootstrap core JavaScript
          ================================================== -->
         <!-- Icons -->
-        <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-        <script>
-             feather.replace()
-        </script>
         <script>
             $(document).ready(function () {
                 var url = "http://localhost:8080/api/poubelles";
@@ -185,24 +183,38 @@
                     })
                     .done(function (data) {
                         data.forEach(function (element) {
-                            var contenu = '<tr>';
-                            contenu+='<td>loupe</td>';
-                            contenu += '<td>' + element.id_grandlyon + '</td><td>' + element.adresse + '</td><td>' 
-                           	if (element.remplissage) { 	
-                            contenu+='oui';
-                        	}else{
-                        		contenu+='non';
-                        	}
-                            contenu += '</td>'
-                            contenu+='<td>'+element.gestionnaire+'</td>'+'</tr>';
-                            $("#recap").append(contenu);
-                           
                             var pos = new google.maps.LatLng(element.lattitude, element.longitude);
+                            var contenu = '<tr>';
+                            contenu += '<td><img id="' + pos + '" src="ic_zoom.png" height=20 width=20 onclick="getMarker(this)" onmouseover="" style="cursor: pointer;"></img></td>';
+                            contenu += '<td>' + element.id_grandlyon + '</td><td>' + element.adresse + '</td><td>'
+                            if (element.remplissage) {
+                                contenu += 'oui';
+                            } else {
+                                contenu += 'non';
+                            }
+                            contenu += '</td>'
+                            contenu += '<td>' + element.gestionnaire + '</td>' + '</tr>';
+                            $("#recap").append(contenu);
                             var marker = new google.maps.Marker({
                                 position: pos,
                                 map: map,
                                 visible: false,
-                                icon: '/views/ic_bin.png'
+                                icon: icons[element.remplissage].icon
+                            });
+                            marker.addListener('click', function () {
+                                if (infowindow) {
+                                    infowindow.close();
+                                }
+                                var contentString = '<h1> Info poubelle </h1>' +
+                                    '<div>' +
+                                    'adresse: ' + element.adresse + '</br>' +
+                                    'remplissage: ' + element.remplissage +
+                                    '</div>';
+                                marker.contentStr = contentString;
+                                infowindow = new google.maps.InfoWindow({
+                                    content: contentString
+                                });
+                                infowindow.open(map, marker);
                             });
                             markers.push(marker);
                         });
@@ -215,6 +227,7 @@
                         markers[i].setVisible(zoom >= 15);
                     }
                 });
+
                 
                 //filtrage remplissage
                 $("#checkbox").click(function () {
@@ -222,6 +235,7 @@
                     alert("check");
                 }
             });
+
             });
         </script>
         <script>

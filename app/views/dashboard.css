@@ -109,3 +109,9 @@ h1 {
 
 .border-top { border-top: 1px solid #e5e5e5; }
 .border-bottom { border-bottom: 1px solid #e5e5e5; }
+
+.datepicker {
+  border-radius: 10px;
+  border: 1px solid #999999;
+  text-align: center;
+}
