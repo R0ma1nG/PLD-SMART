@@ -42,7 +42,7 @@ function init() {
                     position: pos,
                     map: map,
                     visible: true,
-                    icon: icons[element.remplissage].icon
+                    icon: icons[element.remplissage].icon,
                 });
                 marker.addListener('click', function () {
                     if (infowindow) {
@@ -90,4 +90,12 @@ function toogleRemplissage(element) {
 function changeLocationFilter(element) {
     var table = $("#recap").DataTable();
     table.column(2).search( element.value ).draw();
+    var data = table.rows().data();
+    console.log(data);
+    console.log(data.count);
+    /*data.forEach(function(element) {
+        var found = poubelles.find(function(poubelle) {
+            return element. > 10;
+        });
+    })*/
 }
