@@ -80,7 +80,7 @@
 
             <div class="form-check form-check-inline">
                 <label class="form-check-label text-light">
-                            <input type="checkbox" class="form-check-input " value=""> Remplissage critique
+                            <input id="checkbox" type="checkbox" class="form-check-input " value=""> Remplissage critique
                         </label>
             </div>
             <select class="form-control w-25 mr-1" id="sel1">
@@ -142,7 +142,7 @@
                         <td>Lorem</td>
                         <td>ipsum</td>
                         <td>dolor</td>
-                        <td>sit</td>
+         
                     </tr>
                     <tr>
                         <td><a class="nav-link" href="./Dash-Remp-Info.html"><span class="text-dark" data-feather="zoom-in"></span></a>
@@ -151,7 +151,6 @@
                         <td>Lorem</td>
                         <td>ipsum</td>
                         <td>dolor</td>
-                        <td>sit</td>
                     </tr>
                 </tbody>
             </table>
@@ -216,6 +215,13 @@
                         markers[i].setVisible(zoom >= 15);
                     }
                 });
+                
+                //filtrage remplissage
+                $("#checkbox").click(function () {
+                if($("#checkbox").is(":checked")){
+                    alert("check");
+                }
+            });
             });
         </script>
         <script>
