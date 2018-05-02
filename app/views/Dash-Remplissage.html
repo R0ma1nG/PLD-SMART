@@ -65,7 +65,14 @@
 
     <script>
         $(document).ready(function () {
-            var table = $("#recap").DataTable();
+            var table;
+            if($.fn.dataTable.isDataTable("#recap")) {
+                table = $("#recap").DataTable();
+            } else {
+                table = $("#recap").DataTable({
+                    "orderClasses": false
+                });
+            }
             var url = "http://localhost:8080/api/poubelles";
             $.ajax
                 ({

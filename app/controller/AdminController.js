@@ -30,13 +30,20 @@ router.get('/benneDetails/:idPoubelle', function(req, res) {
 // Recupérer la liste des relèves correspondant à la date
 router.get('/releves/:date', function(req, res) {
   new Promise( (resolve, reject) => {
-    // var dateDemandee = new Date(req.params.date);
-    var dateDemandee = new Date();
-    //var dateDemandee = Date.parse(req.params.date);
-    console.log(dateDemandee.getUTCDate());
+    var dateDemandee = new Date(req.params.date);
+    var annee = dateDemandee.getUTCFullYear();
+    var mois = dateDemandee.getUTCMonth();
+    var jour = dateDemandee.getUTCDate();
     releve.find({}, function (err, releves) {
-      if (err) reject(res.status(500).send("There was a problem finding your poubelle in db"));
-      resolve(res.status(200).send(releves));
+      if (err) reject(res.status(500).send("There was a problem comparing the dates"));
+      var mesReleves= {'data': []};
+      releves.forEach(function(rel){
+        if (rel.date.getUTCDate() == jour && rel.date.getUTCMonth() == mois && rel.date.getUTCFullYear() == annee) {
+          //console.log(rel.date);
+          mesReleves.data.push(rel);
+        }
+      })
+      resolve(res.status(200).send(mesReleves));
     });
   });
 });
