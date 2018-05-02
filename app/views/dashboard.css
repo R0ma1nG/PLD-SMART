@@ -14,7 +14,7 @@ h1 {
 
 
 #map {
-    height: 400px;
+    height: 650px;
     width: 100%;
 }
 
@@ -118,6 +118,16 @@ progress[value]::-webkit-progress-value {
 
  .navbar-dark {
    background-color: #282f36;
+ }
+
+
+ .navbar-nav .nav-link {
+   margin-right: 4px;
+   color: #fff;
+ }
+
+ .navbar-nav {
+   margin-right: 35px;
  }
 
 .navbar-brand {
