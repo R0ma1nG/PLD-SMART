@@ -87,7 +87,7 @@ function populate_db() {
                     adresse: props.numerodansvoie + " " + props.voie + "\n" + props.code_postal + " " + props.commune,
                     longitude: coords[0],
                     lattitude: coords[1],
-                    remplissage: -1
+                    remplissage: Math.random() > 0.1 ? 0. : 1.
                 });
 
                 if (Math.random() < 0.10)
