@@ -47,7 +47,7 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState); 
         setContentView(R.layout.activity_home);
 
         NavbarInitializer.initNavigationMenu(this, R.id.nav_homepage, R.string.nav_homepage);

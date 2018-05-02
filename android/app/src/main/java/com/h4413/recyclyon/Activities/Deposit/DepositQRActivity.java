@@ -153,9 +153,7 @@ public class DepositQRActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode != REQUEST_CODE_MANUAL){
             setResult(resultCode);
             finish();
-        }
     }
 }
