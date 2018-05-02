@@ -160,8 +160,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/inscriptionDateEdit"
+                    android:clickable="true"
+                    android:editable="false"
                     style="@style/EditTextTheme"
-                    android:inputType="date"/>
+                    android:inputType="none"/>
             </LinearLayout>
 
             <LinearLayout

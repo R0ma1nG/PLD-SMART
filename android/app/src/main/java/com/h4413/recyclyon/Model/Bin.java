@@ -3,14 +3,14 @@ package com.h4413.recyclyon.Model;
 public class Bin {
 
     private String _id;
-    private String adress;
+    private String adresse;
     private double lattitude;
     private double longitude;
     private boolean full;
 
-    public Bin(String id, String adress, double lat, double aLong, boolean full) {
+    public Bin(String id, String adresse, double lat, double aLong, boolean full) {
         this._id = id;
-        this.adress = adress;
+        this.adresse = adresse;
         lattitude = lat;
         longitude = aLong;
         this.full = full;
@@ -21,7 +21,7 @@ public class Bin {
     }
 
     public String getAdress() {
-        return adress;
+        return adresse;
     }
 
     public double getLat() {

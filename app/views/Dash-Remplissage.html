@@ -45,13 +45,13 @@
                 <div class="sidebar-sticky">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" href="./Dash-Remplissage.html">
+                            <a class="nav-link active" href="./Dashboard">
                                         <span data-feather="trash-2"></span>Remplissage
                                         <span class="sr-only">(current)</span>
                                     </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./Dash-Collecte.html">
+                            <a class="nav-link" href="./Dashboard-Collecte">
                                         <span data-feather="trash"></span>
                                         Collecte
                                     </a>
@@ -131,7 +131,7 @@
                 map.setCenter(marker.position);
                 map.setZoom(16);
                 google.maps.event.trigger(marker, 'click');
-                window.scrollTo(0,0); 
+                window.scrollTo(0, 0);
             };
         </script>
         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmnkXd0ojkMKWNFtGQxkaMZVNVuhXY75w&callback=initMap">
@@ -166,13 +166,8 @@
         <!-- Bootstrap core JavaScript
          ================================================== -->
         <!-- Icons -->
-        <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-        <script>
-                    feather.replace()
-        </script>
         <script>
             $(document).ready(function () {
-                alert('GO');
                 var url = "http://localhost:8080/api/poubelles";
                 $.ajax
                     ({
@@ -188,9 +183,16 @@
                     .done(function (data) {
                         data.forEach(function (element) {
                             var pos = new google.maps.LatLng(element.lattitude, element.longitude);
-                            var contenu = '<tr><td><img id="' + pos + '" src="ic_zoom.png" height=20 width=20 onclick="getMarker(this)" onmouseover="" style="cursor: pointer;"></img></td>';
-                            contenu += '<td>' + element._id + '</td><td>' + element.adresse + '</td><td>' + element.remplissage + '</td>';
-                            contenu += '</tr>';
+                            var contenu = '<tr>';
+                            contenu += '<td><img id="' + pos + '" src="ic_zoom.png" height=20 width=20 onclick="getMarker(this)" onmouseover="" style="cursor: pointer;"></img></td>';
+                            contenu += '<td>' + element.id_grandlyon + '</td><td>' + element.adresse + '</td><td>'
+                            if (element.remplissage) {
+                                contenu += 'oui';
+                            } else {
+                                contenu += 'non';
+                            }
+                            contenu += '</td>'
+                            contenu += '<td>' + element.gestionnaire + '</td>' + '</tr>';
                             $("#recap").append(contenu);
                             var marker = new google.maps.Marker({
                                 position: pos,
@@ -207,7 +209,7 @@
                                     'adresse: ' + element.adresse + '</br>' +
                                     'remplissage: ' + element.remplissage +
                                     '</div>';
-                                    marker.contentStr = contentString;
+                                marker.contentStr = contentString;
                                 infowindow = new google.maps.InfoWindow({
                                     content: contentString
                                 });
