@@ -12,9 +12,6 @@ router.use(function(req, res, next) {
 });
 
 
-// Récupérer la liste des bennes avec quelques infos
-// router.get
-
 
 // Recupérer les détails d'une benne
 router.get('/benneDetails/:idPoubelle', function(req, res) {
@@ -32,18 +29,59 @@ router.get('/releves/:date', function(req, res) {
   new Promise( (resolve, reject) => {
     var dateDemandee = new Date(req.params.date);
     var annee = dateDemandee.getUTCFullYear();
-    var mois = dateDemandee.getUTCMonth()+1;
+    var mois = dateDemandee.getUTCMonth();
     var jour = dateDemandee.getUTCDate();
     releve.find({}, function (err, releves) {
       if (err) reject(res.status(500).send("There was a problem comparing the dates"));
       var mesReleves= {'data': []};
       releves.forEach(function(rel){
         if (rel.date.getUTCDate() == jour && rel.date.getUTCMonth() == mois && rel.date.getUTCFullYear() == annee) {
-          console.log(rel.date);
-          mesReleves.data.push(rel);
+          poubelle.findById(rel.idPoubelle, "lattitude longitude", function (err, bin) {
+            // console.log(bin);
+            if (err) reject(res.status(500).send("impossible de trouver la poubelle associée à ce relevé "+err));
+            else {
+              rel.latitude = bin.lattitude;
+              rel.longitude = bin.longitude;
+              console.log('rel = '+rel);
+              mesReleves.data.push(rel);
+            }
+          });
         }
-      })
-      resolve(res.status(200).send(mesReleves));
+      });
+      console.log('avant le then : '+ mesReleves);
+      resolve(mesReleves);
+      // resolve(res.status(200).send(mesReleves));
+    });
+  })
+  .then( (rlvs) => {
+    console.log('finalement :'+ rlvs);
+    return res.status(200).send(rlvs);
+  });
+});
+
+
+router.put('/releves/:idReleve',function (req, res) {
+  // Regarder si un dépot est en cours
+  new Promise( (resolve, reject) => {
+    releve.findByIdAndUpdate(req.params.idReleve, {idPoubelle: req.body.idPoubelle}, {new: true}, function(err, releveMaj) {
+      if (err) return (res.status(500).send("Impossible de mettre à jour l'id poubelle' : "+ err));
+      else resolve(res.status(200).send(releveMaj));
+    });
+  });
+});
+
+// Créer une relève
+router.post('/releves', function (req, res) {
+  var id = new mongoose.mongo.ObjectId();
+  new Promise( (resolve, reject) => {
+    releve.create({
+    _id: id,
+    idPoubelle: req.body.idPoubelle,
+    tauxRemplissage: req.body.tauxRemplissage,
+    date: req.body.date
+    }, function (err, relev) {
+          if (err) reject(res.status(500).send("There was a problem creating your releve in db : "+ err));
+          resolve(res.status(200).send(relev));
     });
   });
 });
