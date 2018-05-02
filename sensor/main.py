@@ -39,9 +39,6 @@ def main():
             threading.Timer(FLUSH_TO_BACKEND_PERIOD, _flush_events).start()
         _flush_events()
 
-        # TODO: Setup a periodic job updating trash level
-        # level_listener.read_trash_level(cam, bottle_history)
-
         # TODO: ... if we should stop
         # stop_event.set()
         # thread.join()

@@ -60,6 +60,9 @@ class IRSensor:
         mean = np.trapz(v_buffer, x=(ts_buffer / np.ptp(ts_buffer)))
         return mean < threshold
 
+    def getBuffer(self):
+        return np.asarray(self._value_buffer)
+
     def _update_buffer(self):
         self._timestamp_buffer.append(datetime.datetime.now())
         self._value_buffer.append(self._adc.get_last_result())
