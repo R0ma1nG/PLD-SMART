@@ -7,7 +7,7 @@ var releve = require("../models/releve");
 
 // middleware to use for all requests
 router.use(function (req, res, next) {
-  console.log('Router middleware log, request : ', req.url); // do logging
+  //console.log('Router middleware log, request : ', req.url); // do logging
   next(); // make sure we go to the next routes and don't stop here
 });
 
@@ -25,54 +25,44 @@ router.get('/benneDetails/:idPoubelle', function (req, res) {
 
 
 // Recupérer la liste des relèves correspondant à la date
-router.get('/releves/:date', function (req, res) {
-  new Promise((resolve, reject) => {
-    releve.find({}, function (err, releves) {
-      if (err) reject(res.status(500).send("There was a problem comparing the dates"));
-      //var mesReleves= {'data': []};
-      console.log("releves trouvés: " + releves);
-      resolve(releves);
-    });
-  })
-    .then((releves) => {
-      console.log("Here come the promise.all");
-      return Promise.all(releves.map( (releve) => {
-        console.log("INITIAL RELEVE");
-        console.log(releve);
-        return new Promise((resolve, reject) => {
-          var dateDemandee = new Date(req.params.date);
-          var annee = dateDemandee.getUTCFullYear();
-          var mois = dateDemandee.getUTCMonth();
-          var jour = dateDemandee.getUTCDate();
-          if (releve.date.getUTCDate() != jour || releve.date.getUTCMonth() != mois || releve.date.getUTCFullYear() != annee) {
-            reject("Cant pass the condition");
-          }
-            poubelle.findById(releve.idPoubelle, "lattitude longitude", function (err, bin) {
-              if (err) reject(res.status(500).send("impossible de trouver la poubelle associée à ce relevé " + err));
-              resolve(bin);
-            });
-        })
-          .then((bin) => {
-            var newReleve = {
-              _id: releve._id,
-              date: releve.date,
-              tauxRemplissage: releve.tauxRemplissage,
-              idPoubelle: releve.idPoubelle,
-              latitude: bin.lattitude,
-              longitude: bin.longitude
-            };
-            console.log("NEW RELEVE");
-            console.log(newReleve);
-            return newReleve;
-          });
-      }));
-    })
-    .then((mesReleves) => {
-      console.log("FINISH");
-      res.status(200).send(mesReleves);
-    });
+router.get('/releves/:date', async function (req, res, next) {
+  try {
+    const releves = await releve.find({}).lean();
+    const mesReleves = [];
+    const poubelles = {};
+    for (const releve of releves) {
+      if (releve.idPoubelle) poubelles[releve.idPoubelle] = 1;
+      else delete releves.releve;
+    }
+    for (const idPoubelle of Object.keys(poubelles)) {
+      poubelles[idPoubelle] = await poubelle.findById(idPoubelle, "lattitude longitude");
+    }
+    for (const releve of releves) {
+      var dateDemandee = new Date(req.params.date);
+      var annee = dateDemandee.getUTCFullYear();
+      var mois = dateDemandee.getUTCMonth();
+      var jour = dateDemandee.getUTCDate();
+      const actualDate = new Date(releve.date);
+      if (actualDate.getUTCDate() == jour && actualDate.getUTCMonth() == mois && actualDate.getUTCFullYear() == annee) {
+        console.log("GOOD BIN");
+        mesReleves.push({
+          _id: releve._id,
+          date: releve.date,
+          tauxRemplissage: releve.tauxRemplissage,
+          idPoubelle: releve.idPoubelle,
+          latitude: poubelles[releve.idPoubelle].lattitude,
+          longitude: poubelles[releve.idPoubelle].longitude
+        });
+      }
+    };
+    res.status(200).send(mesReleves);
+  }
+  catch (e) {
+    console.log("Error " + e);
+    next(e);
+  }
 });
-  
+
 
 
 router.put('/releves/:idReleve', function (req, res) {

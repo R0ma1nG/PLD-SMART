@@ -68,7 +68,11 @@
 
     <script>
         $(document).ready(function () {
-            var table = $("#recap").DataTable();
+            var table = $("#recap").DataTable(
+                {
+                    "orderClasses": false
+                }
+            );
             var url = "http://localhost:8080/api/poubelles";
             $.ajax
                 ({
