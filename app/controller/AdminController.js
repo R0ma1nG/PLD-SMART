@@ -12,16 +12,23 @@ router.use(function(req, res, next) {
 });
 
 
-
-// Recupérer les détails d'une benne
+// Recupérer la liste des releves d'une benne
 router.get('/benneDetails/:idPoubelle', function(req, res) {
   new Promise( (resolve, reject) => {
-    poubelle.findById(req.params.idPoubelle, function (err, poubelle) {
+  //   poubelle.findById(req.params.idPoubelle, function (err, poubelle) {
+  //     if (err) reject(res.status(500).send("There was a problem finding your poubelle in db"));
+  //     resolve(poubelle);
+  //   });
+  // })
+  // .then( (bin) => {
+    // console.log(bin);
+    releve.find({idPoubelle: req.params.idPoubelle}, function(err, releves) {
       if (err) reject(res.status(500).send("There was a problem finding your poubelle in db"));
-      resolve(res.status(200).send(poubelle));
+      resolve(res.status(200).send(releves));
     });
   });
 });
+
 
 
 // Recupérer la liste des relèves correspondant à la date
@@ -60,31 +67,6 @@ router.get('/releves/:date', function(req, res) {
 });
 
 
-router.put('/releves/:idReleve',function (req, res) {
-  // Regarder si un dépot est en cours
-  new Promise( (resolve, reject) => {
-    releve.findByIdAndUpdate(req.params.idReleve, {idPoubelle: req.body.idPoubelle}, {new: true}, function(err, releveMaj) {
-      if (err) return (res.status(500).send("Impossible de mettre à jour l'id poubelle' : "+ err));
-      else resolve(res.status(200).send(releveMaj));
-    });
-  });
-});
-
-// Créer une relève
-router.post('/releves', function (req, res) {
-  var id = new mongoose.mongo.ObjectId();
-  new Promise( (resolve, reject) => {
-    releve.create({
-    _id: id,
-    idPoubelle: req.body.idPoubelle,
-    tauxRemplissage: req.body.tauxRemplissage,
-    date: req.body.date
-    }, function (err, relev) {
-          if (err) reject(res.status(500).send("There was a problem creating your releve in db : "+ err));
-          resolve(res.status(200).send(relev));
-    });
-  });
-});
 
 
 // TEST : Recupérer la liste des relèves
