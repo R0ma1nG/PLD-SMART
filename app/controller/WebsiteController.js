@@ -26,4 +26,8 @@ router.get('/Dashboard', function (req, res) {
   res.render('Dash-Remplissage');
 });
 
+router.get('/Dashboard-Collecte', function (req, res) {
+  res.render('Dash-Collecte');
+});
+
 module.exports = router;

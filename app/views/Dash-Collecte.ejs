@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
 
-    <title>Dashboard</title>
+    <title>Dashboard Collecte</title>
 
     <!-- Custom styles for this template -->
     
@@ -44,16 +44,17 @@
             <nav class="col-md-2 d-none d-md-block bg-light sidebar">
                 <div class="sidebar-sticky">
                     <ul class="nav flex-column">
+                        
                         <li class="nav-item">
-                            <a class="nav-link active" href="./Dashboard">
-                                        <span data-feather="trash-2"></span>Remplissage
-                                        <span class="sr-only">(current)</span>
+                            <a class="nav-link" href="./Dashboard">
+                                        <span data-feather="trash"></span>
+                                        Remplissage
                                     </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./Dashboard-Collecte">
-                                        <span data-feather="trash"></span>
-                                        Collecte
+                            <a class="nav-link active" href="./Dashboard-Collecte">
+                                        <span data-feather="trash-2"></span>Collecte
+                                        <span class="sr-only">(current)</span>
                                     </a>
                         </li>
                         <li class="nav-item">
@@ -63,41 +64,15 @@
                                     </a>
 
                     </ul>
-
-
                 </div>
-
             </nav>
         </div>
     </div>
 
 
-    <!-- Barre de recherche -->
-
-    <div class=" d-flex flex-row-reverse mt-5">
-        <nav class="navbar col-md-10 d-flex justify-content-end navbar-dark bg-dark p-0">
-
-
-            <div class="form-check form-check-inline">
-                <label class="form-check-label text-light">
-                            <input type="checkbox" class="form-check-input " value=""> Remplissage critique
-                        </label>
-            </div>
-            <select class="form-control w-25 mr-1" id="sel1">
-                        <option>Grand Lyon</option>
-                        <option>Lyon 1</option>
-                        <option>Lyon 2</option>
-                        <option>Lyon 3</option>
-                        <option>Lyon 4</option>
-                    </select>
-            <input class="form-control form-control-dark w-25" type="text" placeholder="Recherche" aria-label="Recherche">
-        </nav>
-
-    </div>
-
     <!-- zone centrale -->
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10">
-        <h1>Remplissage des bennes</h1>
+        <h1>Collecte des bennes</h1>
         <!-- Map -->
         <div id="map"></div>
         <script>
@@ -134,28 +109,7 @@
                     </tr>
                 </thead>
                 <tbody id="tbody">
-                    <tr>
-                        <td><a class="nav-link " href="./Dash-Remp-Info.html">
-                            <span class="text-dark" data-feather="zoom-in"></span>
-                        </a>
-                        </td>
-                        <td>1,001</td>
-                        <td>Lorem</td>
-                        <td>ipsum</td>
-                        <td>dolor</td>
-                        <td>sit</td>
-                    </tr>
-                    <tr>
-                        <td><a class="nav-link" href="./Dash-Remp-Info.html">
-                            <span class="text-dark" data-feather="zoom-in"></span>
-                        </a>
-                        </td>
-                        <td>1,001</td>
-                        <td>Lorem</td>
-                        <td>ipsum</td>
-                        <td>dolor</td>
-                        <td>sit</td>
-                    </tr>
+                    
                 </tbody>
             </table>
         </div>
