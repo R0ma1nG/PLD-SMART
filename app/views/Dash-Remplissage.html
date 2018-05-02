@@ -20,6 +20,7 @@
     <!-- JS Scripts -->
 
     <script>
+        var poubelles;
         var map;
         var markers = [];
         var infowindow;
@@ -77,6 +78,7 @@
                     }
                 })
                 .done(function (data) {
+                    poubelles=data;
                     data.forEach(function (element) {
                         var pos = new google.maps.LatLng(element.lattitude, element.longitude);
                         var contenu = '<tr>';
@@ -127,12 +129,7 @@
     </script>
     <!--<link href="./open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">-->
 
-    <style>
-        #map {
-            height: 400px;
-            width: 100%;
-        }
-    </style>
+    
 </head>
 
 <body>

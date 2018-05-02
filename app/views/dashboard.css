@@ -12,6 +12,13 @@ h1 {
   vertical-align: text-bottom;
 }
 
+
+#map {
+    height: 400px;
+    width: 100%;
+}
+
+
 /*
  * Sidebar
  */
