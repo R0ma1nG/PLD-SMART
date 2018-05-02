@@ -11,7 +11,8 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 
 // Set parameters (templates, middlewares..)
-app.engine('ejs', require('ejs').renderFile);
+app.set('views', __dirname + '/views');
+app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'ejs');
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
