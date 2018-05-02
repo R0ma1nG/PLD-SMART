@@ -27,7 +27,7 @@ router.get('/dashboard', function (req, res) {
 });
 
 router.get('/Dashboard-Collecte', function (req, res) {
-  res.render('Dash-Collecte');
+  res.render('Dash-Collecte.html');
 });
 
 module.exports = router;
