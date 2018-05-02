@@ -41,10 +41,7 @@
                 zoom: 15,
                 center: lyon
             });
-            var marker = new google.maps.Marker({
-                position: lyon,
-                map: map
-            });
+            
 
             google.maps.event.addListener(map, 'zoom_changed', function () {
                 var zoom = map.getZoom();
@@ -85,11 +82,12 @@
                     poubelles=data;
                     data.forEach(function (element) {
                         var pos = new google.maps.LatLng(element.lattitude, element.longitude);
+                        var plein = element.remplissage ? "plein" : "disponible";
                         var contenu = [
                             '<img id="' + pos + '" src= "ic_zoom.png" height= 20 width= 20 onclick= "getMarker(this)" onmouseover= "" style= "cursor: pointer;" > </img>',
                             element.id_grandlyon,
                             element.adresse,
-                            element.remplissage ? "oui" : "non",
+                            plein,
                             element.gestionnaire
                         ];
                         table.row.add(contenu).draw();
@@ -103,10 +101,11 @@
                             if (infowindow) {
                                 infowindow.close();
                             }
-                            var contentString = '<h1> Info poubelle </h1>' +
+                            
+                            var contentString = '<h4> Silo '+element.id_grandlyon+'</h4>' +
                                 '<div>' +
                                 'adresse: ' + element.adresse + '</br>' +
-                                'remplissage: ' + element.remplissage +
+                                'Etat du remplissage: ' + plein +
                                 '</div>';
                             marker.contentStr = contentString;
                             infowindow = new google.maps.InfoWindow({
@@ -220,10 +219,10 @@
                 <thead>
                     <tr>
                         <th> </th>
-                        <th>#</th>
-                        <th>Adresse</th>
-                        <th>Remplissage</th>
-                        <th>Gestionnaire</th>
+                        <th># <span data-feather="chevron-down"></th>
+                        <th>Adresse <span data-feather="chevron-down"></span></th>
+                        <th>Remplissage <span data-feather="chevron-down"></th>
+                        <th>Gestionnaire <span data-feather="chevron-down"></th>
                     </tr>
                 </thead>
                 <tbody>
