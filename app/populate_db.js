@@ -98,7 +98,6 @@ function populate_db() {
                 var trash_id = new mongoose.mongo.ObjectId();
                 var props = element.properties;
                 var coords = element.geometry.coordinates;
-                var statut = 0;
                 poubelle.create({
                     _id: trash_id,
                     id_grandlyon: props.identifiant,
@@ -112,7 +111,6 @@ function populate_db() {
                     adresse: props.numerodansvoie + " " + props.voie + "\n" + props.code_postal + " " + props.commune,
                     longitude: coords[0],
                     lattitude: coords[1],
-                    remplissage: statut
                     remplissage: Math.random() > 0.1 ? 0. : 1.
                 });
 
