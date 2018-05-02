@@ -117,8 +117,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 Intent intent = new Intent(MapsActivity.this, MapsActivity.class);
                 startActivityForResult(intent, 2);
             } else {
-                Intent intent = new Intent(MapsActivity.this, MapsActivity.class);
-                startActivity(intent);
+
             }
         }
     }
