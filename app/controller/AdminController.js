@@ -32,14 +32,14 @@ router.get('/releves/:date', function(req, res) {
   new Promise( (resolve, reject) => {
     var dateDemandee = new Date(req.params.date);
     var annee = dateDemandee.getUTCFullYear();
-    var mois = dateDemandee.getUTCMonth()+1;
+    var mois = dateDemandee.getUTCMonth();
     var jour = dateDemandee.getUTCDate();
     releve.find({}, function (err, releves) {
       if (err) reject(res.status(500).send("There was a problem comparing the dates"));
       var mesReleves= {'data': []};
       releves.forEach(function(rel){
         if (rel.date.getUTCDate() == jour && rel.date.getUTCMonth() == mois && rel.date.getUTCFullYear() == annee) {
-          console.log(rel.date);
+          //console.log(rel.date);
           mesReleves.data.push(rel);
         }
       })

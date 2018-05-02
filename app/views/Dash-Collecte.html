@@ -13,14 +13,16 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link href="dashboard.css" rel="stylesheet" type="text/css">
     <link href="dashboard-collecte.css" rel="stylesheet" type="text/css">
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmnkXd0ojkMKWNFtGQxkaMZVNVuhXY75w&callback=initMap"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.datatables.net/1.10.16/css/dataTables.jqueryui.min.css" rel="stylesheet" type="text/css">
     <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
     <script>
-        $(document).ready(function() { init() });
+        $(document).ready(function () { init() });
     </script>
+
 </head>
 
 <body>
@@ -42,7 +44,7 @@
             <nav class="col-md-2 d-none d-md-block bg-light sidebar">
                 <div class="sidebar-sticky">
                     <ul class="nav flex-column">
-                        
+
                         <li class="nav-item">
                             <a class="nav-link" href="./Dashboard">
                                 <span data-feather="trash"></span>
@@ -67,15 +69,15 @@
         </div>
     </div>
 
-    
+
 
     <!-- zone centrale -->
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10">
         <h1>Collecte des bennes</h1>
 
         <!-- Map -->
-        <div id="map"></div>
-
+        <div id="map" overflow-y="auto"></div>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmnkXd0ojkMKWNFtGQxkaMZVNVuhXY75w&callback=initMap"></script>
         </br>
         <!--Filtres-->
         <div id="filtres">
@@ -84,51 +86,25 @@
                 <div class="form-check form-check-inline justify-content-end">
                     <form>
                         <p style="font-size: 1.4em">Date :
-                        <input type="date" name="dateFilter" onchange="dateChanged(event);" id="datePicker" class="datepicker"></p>
+                            <input type="date" name="dateFilter" onchange="dateChanged(event);" id="datePicker" class="datepicker">
+                        </p>
                     </form>
                 </div>
             </nav>
         </div>
         <div class="table-responsive">
-            <table id="recap" class="table table-hover table-sm ">
+            <table id="recap" class="display" style="width:100%">
                 <thead>
                     <tr>
                         <th>#</th>
                         <th>Date</th>
-                        <th>Rempplissage</th>
+                        <th>Remplissage</th>
                     </tr>
                 </thead>
-                <tbody id="tbody">
-                    
+                <tbody>
                 </tbody>
             </table>
         </div>
-        
-        <!--<script>
-            $(document).ready(function () {
-                document.getElementById('datePicker').valueAsDate = new Date();
-                var url = "/api/admin/releves/";
-                /*$.ajax 
-                    ({
-                        type: "GET",
-                        contentType: "application/json",
-                        //the url where you want to sent the userName and password to
-                        url: `${url}`,
-                        dataType: 'json',
-                        error: function (err) {
-                            alert('An error occured !');
-                        }
-                    })
-                    .done(function (data) {
-                        data.forEach(function (element) {
-                            var contenu = '<tr>';
-                            contenu += '<td>'+element._id+'</td><td>'+element.date+'</td><td>'+element.tauxRemplissage+'</td>';
-                            contenu += '</tr>';
-                            $("#recap").append(contenu);
-                        });
-                    });*/
-            });
-        </script>-->
 </body>
 
 </html>

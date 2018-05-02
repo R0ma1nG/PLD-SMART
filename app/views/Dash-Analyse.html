@@ -17,7 +17,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link href="dashboard.css" rel="stylesheet" type="text/css">
     <link href="dashboard-collecte.css" rel="stylesheet" type="text/css">
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmnkXd0ojkMKWNFtGQxkaMZVNVuhXY75w&callback=initMap"></script>
     <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
     <script>
         $(document).ready(function() { init() });
@@ -75,7 +74,8 @@
         <h1>Analyse des données</h1>
 
         <!-- Map -->
-        <div id="map"></div>
+        <div id="map" overflow-y="auto"></div>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmnkXd0ojkMKWNFtGQxkaMZVNVuhXY75w&callback=initMap"></script>
 </body>
 
 </html>
