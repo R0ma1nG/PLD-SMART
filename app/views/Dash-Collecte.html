@@ -7,7 +7,6 @@
     <title>Dashboard Collecte</title>
 
     <!-- Custom styles for this template -->
-    
     <script src="js/dash-collecte.js"></script>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
@@ -15,16 +14,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link href="dashboard.css" rel="stylesheet" type="text/css">
-    
-
-    <!--<link href="./open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">-->
-
-    <style>
-        #map {
-            height: 400px;
-            width: 100%;
-        }
-    </style>
+    <link href="dashboard-collecte.css" rel="stylesheet" type="text/css">
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmnkXd0ojkMKWNFtGQxkaMZVNVuhXY75w&callback=initMap"></script>
+    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+    <script>
+        $(document).ready(function() { init() });
+    </script>
 </head>
 
 <body>
@@ -79,23 +74,6 @@
 
         <!-- Map -->
         <div id="map"></div>
-        <script>
-            function initMap() {
-                var lyon = { lat: 45.75, lng: 4.85 };
-                var map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 11,
-                    center: lyon
-                });
-                var marker = new google.maps.Marker({
-                    position: lyon,
-                    map: map
-                });
-            }
-        </script>
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmnkXd0ojkMKWNFtGQxkaMZVNVuhXY75w&callback=initMap">
-
-        </script>
-        </div>
 
         </br>
         <!--Filtres-->
@@ -124,18 +102,8 @@
                 </tbody>
             </table>
         </div>
-
-
-        </div>
-
-        <!-- Bootstrap core JavaScript
-         ================================================== -->
-        <!-- Icons -->
-        <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-        <script>
-            feather.replace()
-        </script>
-        <script>
+        
+        <!--<script>
             $(document).ready(function () {
                 document.getElementById('datePicker').valueAsDate = new Date();
                 var url = "/api/admin/releves/";
@@ -159,7 +127,7 @@
                         });
                     });*/
             });
-        </script>
+        </script>-->
 </body>
 
 </html>

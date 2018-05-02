@@ -8,22 +8,19 @@
 
     <!-- Custom styles for this template -->
 
+    <script src="js/dash-analyse.js"></script>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link href="dashboard.css" rel="stylesheet" type="text/css">
-    
-
-    <!--<link href="./open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">-->
-
-    <style>
-        #map {
-            height: 400px;
-            width: 100%;
-        }
-    </style>
+    <link href="dashboard-collecte.css" rel="stylesheet" type="text/css">
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmnkXd0ojkMKWNFtGQxkaMZVNVuhXY75w&callback=initMap"></script>
+    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+    <script>
+        $(document).ready(function() { init() });
+    </script>
 </head>
 
 <body>
@@ -54,13 +51,13 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="./Dashboard-Collecte">
-                                <span data-feather="activity"></span>
+                                <span data-feather="trash-2"></span>
                                 Collecte
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="./Dashboard-Analyse">
-                                <span data-feather="trash-2"></span>Analyse
+                                <span data-feather="activity"></span>Analyse
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
@@ -78,54 +75,6 @@
 
         <!-- Map -->
         <div id="map"></div>
-        <script>
-            function initMap() {
-                var lyon = { lat: 45.75, lng: 4.85 };
-                var map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 11,
-                    center: lyon
-                });
-                var marker = new google.maps.Marker({
-                    position: lyon,
-                    map: map
-                });
-            }
-        </script>
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmnkXd0ojkMKWNFtGQxkaMZVNVuhXY75w&callback=initMap"></script>
-        </div>
-        </div>
-
-        <!-- Bootstrap core JavaScript
-         ================================================== -->
-        <!-- Icons -->
-        <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-        <script>
-            feather.replace()
-        </script>
-        <!--<script>
-            $(document).ready(function () {
-                var url = "/api/admin/releves";
-                $.ajax
-                    ({
-                        type: "GET",
-                        contentType: "application/json",
-                        //the url where you want to sent the userName and password to
-                        url: `${url}`,
-                        dataType: 'json',
-                        error: function (err) {
-                            alert('An error occured !');
-                        }
-                    })
-                    .done(function (data) {
-                        data.forEach(function (element) {
-                            var contenu = '<tr>';
-                            contenu += '<td>'+element._id+'</td><td>'+element.date+'</td><td>'+element.tauxRemplissage+'</td>';
-                            contenu += '</tr>';
-                            $("#recap").append(contenu);
-                        });
-                    });
-            });
-        </script>-->
 </body>
 
 </html>
