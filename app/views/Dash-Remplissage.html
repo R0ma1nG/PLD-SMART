@@ -101,9 +101,11 @@
         <!-- Map -->
         <div id="map"></div>
         <script>
+            var map;
+            var markers = [];
             function initMap() {
                 var lyon = { lat: 45.75, lng: 4.85 };
-                var map = new google.maps.Map(document.getElementById('map'), {
+                map = new google.maps.Map(document.getElementById('map'), {
                     zoom: 11,
                     center: lyon
                 });
@@ -190,14 +192,32 @@
                     .done(function (data) {
                         data.forEach(function (element) {
                             var contenu = '<tr><td></td>';
-                            contenu += '<td>'+element._id+'</td><td>'+element.adresse+'</td><td>'+element.remplissage+'</td>';
+                            contenu += '<td>' + element._id + '</td><td>' + element.adresse + '</td><td>' + element.remplissage + '</td>';
                             contenu += '</tr>';
                             $("#recap").append(contenu);
+                            var pos = new google.maps.LatLng(element.lattitude, element.longitude);
+                            var marker = new google.maps.Marker({
+                                position: pos,
+                                map: map,
+                                visible: false,
+                                icon: '/views/ic_bin.png'
+                            });
+                            markers.push(marker);
                         });
                     });
+
+                google.maps.event.addListener(map, 'zoom_changed', function () {
+                    var zoom = map.getZoom();
+                    // iterate over markers and call setVisible
+                    for (i = 0; i < markers.length; i++) {
+                        markers[i].setVisible(zoom >= 15);
+                    }
+                });
             });
         </script>
+        <script>
 
+        </script>
 
 </body>
 

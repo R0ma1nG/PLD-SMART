@@ -6,6 +6,6 @@ module.exports = function (app, passport) {
      });
 
     app.get('/connexion', function (req, res) {
-      res.render('connexion');
+      res.render('connexion.html');
     });
 };
