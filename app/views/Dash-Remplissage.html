@@ -15,6 +15,113 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link href="dashboard.css" rel="stylesheet" type="text/css">
 
+    <!-- JS Scripts -->
+
+    <script>
+        var map;
+        var markers = [];
+        var infowindow;
+        var icons = {
+            0: {
+                icon: '/ic_bin.png'
+            },
+            1: {
+                icon: '/ic_bin_full.png'
+            }
+        };
+        function initMap() {
+            var lyon = { lat: 45.75, lng: 4.85 };
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 15,
+                center: lyon
+            });
+            var marker = new google.maps.Marker({
+                position: lyon,
+                map: map
+            });
+
+            google.maps.event.addListener(map, 'zoom_changed', function () {
+                var zoom = map.getZoom();
+                // iterate over markers and call setVisible
+                for (i = 0; i < markers.length; i++) {
+                    markers[i].setVisible(zoom >= 15);
+                }
+            });
+        };
+
+        function getMarker(img) {
+            var marker = markers.find(function (element) {
+                return element.position == img.id;
+            });
+            map.setCenter(marker.position);
+            map.setZoom(16);
+            google.maps.event.trigger(marker, 'click');
+            window.scrollTo(0, 0);
+        };
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            var url = "http://localhost:8080/api/poubelles";
+            $.ajax
+                ({
+                    type: "GET",
+                    contentType: "application/json",
+                    //the url where you want to sent the userName and password to
+                    url: `${url}`,
+                    dataType: 'json',
+                    error: function (err) {
+                        alert('An error occured !');
+                    }
+                })
+                .done(function (data) {
+                    data.forEach(function (element) {
+                        var pos = new google.maps.LatLng(element.lattitude, element.longitude);
+                        var contenu = '<tr>';
+                        contenu += '<td><img id="' + pos + '" src="ic_zoom.png" height=20 width=20 onclick="getMarker(this)" onmouseover="" style="cursor: pointer;"></img></td>';
+                        contenu += '<td>' + element.id_grandlyon + '</td><td>' + element.adresse + '</td><td>'
+                        if (element.remplissage) {
+                            contenu += 'oui';
+                        } else {
+                            contenu += 'non';
+                        }
+                        contenu += '</td>'
+                        contenu += '<td>' + element.gestionnaire + '</td>' + '</tr>';
+                        $("#recap").append(contenu);
+                        var marker = new google.maps.Marker({
+                            position: pos,
+                            map: map,
+                            visible: true,
+                            icon: icons[element.remplissage].icon
+                        });
+                        marker.addListener('click', function () {
+                            if (infowindow) {
+                                infowindow.close();
+                            }
+                            var contentString = '<h1> Info poubelle </h1>' +
+                                '<div>' +
+                                'adresse: ' + element.adresse + '</br>' +
+                                'remplissage: ' + element.remplissage +
+                                '</div>';
+                            marker.contentStr = contentString;
+                            infowindow = new google.maps.InfoWindow({
+                                content: contentString
+                            });
+                            infowindow.open(map, marker);
+                        });
+                        markers.push(marker);
+                    });
+                });
+        });
+    </script>
+    <script>
+        //filtrage remplissage
+        $("#checkbox").click(function () {
+            if ($("#checkbox").is(":checked")) {
+                alert("check");
+            }
+        });
+    </script>
     <!--<link href="./open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">-->
 
     <style>
@@ -100,44 +207,9 @@
         <h1>Remplissage des bennes</h1>
         <!-- Map -->
         <div id="map" overflow-y="auto"></div>
-        <script>
-            var map;
-            var markers = [];
-            var infowindow;
-            var icons = {
-                0: {
-                    icon: '/ic_bin.png'
-                },
-                1: {
-                    icon: '/ic_bin_full.png'
-                }
-            };
-            function initMap() {
-                var lyon = { lat: 45.75, lng: 4.85 };
-                map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 11,
-                    center: lyon
-                });
-                var marker = new google.maps.Marker({
-                    position: lyon,
-                    map: map
-                });
-            };
-
-            function getMarker(img) {
-                var marker = markers.find(function (element) {
-                    return element.position == img.id;
-                });
-                map.setCenter(marker.position);
-                map.setZoom(16);
-                google.maps.event.trigger(marker, 'click');
-                window.scrollTo(0, 0);
-            };
-        </script>
         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmnkXd0ojkMKWNFtGQxkaMZVNVuhXY75w&callback=initMap">
 
         </script>
-        </div>
 
         </br>
         </br>
@@ -157,91 +229,6 @@
                 </tbody>
             </table>
         </div>
-
-
-
-
-
-        </div>
-
-        <!-- Bootstrap core JavaScript
-         ================================================== -->
-        <!-- Icons -->
-        <script>
-            $(document).ready(function () {
-                var url = "http://localhost:8080/api/poubelles";
-                $.ajax
-                    ({
-                        type: "GET",
-                        contentType: "application/json",
-                        //the url where you want to sent the userName and password to
-                        url: `${url}`,
-                        dataType: 'json',
-                        error: function (err) {
-                            alert('An error occured !');
-                        }
-                    })
-                    .done(function (data) {
-                        data.forEach(function (element) {
-                            var pos = new google.maps.LatLng(element.lattitude, element.longitude);
-                            var contenu = '<tr>';
-                            contenu += '<td><img id="' + pos + '" src="ic_zoom.png" height=20 width=20 onclick="getMarker(this)" onmouseover="" style="cursor: pointer;"></img></td>';
-                            contenu += '<td>' + element.id_grandlyon + '</td><td>' + element.adresse + '</td><td>'
-                            if (element.remplissage) {
-                                contenu += 'oui';
-                            } else {
-                                contenu += 'non';
-                            }
-                            contenu += '</td>'
-                            contenu += '<td>' + element.gestionnaire + '</td>' + '</tr>';
-                            $("#recap").append(contenu);
-                            var marker = new google.maps.Marker({
-                                position: pos,
-                                map: map,
-                                visible: false,
-                                icon: icons[element.remplissage].icon
-                            });
-                            marker.addListener('click', function () {
-                                if (infowindow) {
-                                    infowindow.close();
-                                }
-                                var contentString = '<h1> Info poubelle </h1>' +
-                                    '<div>' +
-                                    'adresse: ' + element.adresse + '</br>' +
-                                    'remplissage: ' + element.remplissage +
-                                    '</div>';
-                                marker.contentStr = contentString;
-                                infowindow = new google.maps.InfoWindow({
-                                    content: contentString
-                                });
-                                infowindow.open(map, marker);
-                            });
-                            markers.push(marker);
-                        });
-                    });
-
-                google.maps.event.addListener(map, 'zoom_changed', function () {
-                    var zoom = map.getZoom();
-                    // iterate over markers and call setVisible
-                    for (i = 0; i < markers.length; i++) {
-                        markers[i].setVisible(zoom >= 15);
-                    }
-                });
-
-                
-                //filtrage remplissage
-                $("#checkbox").click(function () {
-                if($("#checkbox").is(":checked")){
-                    alert("check");
-                }
-            });
-
-            });
-        </script>
-        <script>
-
-        </script>
-
 </body>
 
 </html>
