@@ -128,18 +128,14 @@
                 <thead>
                     <tr>
                         <th> </th>
-                        <th>#</th>
-                        <th>Header</th>
-                        <th>Header</th>
-                        <th>Header</th>
-                        <th>Header</th>
-                    </tr>
+                        <th>Id Benne</th>
+                        <th>Adresse</th>
+                        <th>Remplie</th>
+                    	</tr>
                 </thead>
                 <tbody id="tbody">
                     <tr>
-                        <td><a class="nav-link " href="./Dash-Remp-Info.html">
-                            <span class="text-dark" data-feather="zoom-in"></span>
-                        </a>
+                        <td>
                         </td>
                         <td>1,001</td>
                         <td>Lorem</td>
@@ -148,9 +144,7 @@
                         <td>sit</td>
                     </tr>
                     <tr>
-                        <td><a class="nav-link" href="./Dash-Remp-Info.html">
-                            <span class="text-dark" data-feather="zoom-in"></span>
-                        </a>
+                        <td><a class="nav-link" href="./Dash-Remp-Info.html"><span class="text-dark" data-feather="zoom-in"></span></a>
                         </td>
                         <td>1,001</td>
                         <td>Lorem</td>
@@ -177,7 +171,6 @@
         </script>
         <script>
             $(document).ready(function () {
-                alert('GO');
                 var url = "http://localhost:8080/api/poubelles";
                 $.ajax
                     ({
@@ -192,8 +185,14 @@
                     })
                     .done(function (data) {
                         data.forEach(function (element) {
-                            var contenu = '<tr><td></td>';
-                            contenu += '<td>' + element._id + '</td><td>' + element.adresse + '</td><td>' + element.remplissage + '</td>';
+                            var contenu = '<tr>';
+                            contenu+='<td><a class="nav-link" href="./Dash-Remp-Info.html"><span class="text-dark" data-feather="zoom-in"></span></a></td>';
+                            contenu += '<td>' + element._id + '</td><td>' + element.adresse + '</td><td>' 
+                           	if (element.remplissage) { 	
+                            contenu+='oui' + '</td>';
+                        	}else{
+                        		contenu+='non';
+                        	}
                             contenu += '</tr>';
                             $("#recap").append(contenu);
                             var pos = new google.maps.LatLng(element.lattitude, element.longitude);
