@@ -2,9 +2,25 @@ html,
 body {
     height: 100%;
 }
+.btn{
+    width: 70%;
+}
+.form-control{
+    display: inline; 
+    width: 70%;     
+}
+img{
+    margin: 1.5rem !important;
+}
+
+#fenetre{
+    
+    margin: 9%;
+}
+
 
 body {
-    display: -ms-flexbox;
+    display: -ms-;
     -ms-flex-align: center;
     align-items: center;
     padding-top: 40px;
@@ -17,6 +33,7 @@ body {
     max-width: 530px;
     padding: 15px;
     margin: auto;
+    background-color: inherit
 }
 
 .jumbotron .champ {
@@ -25,6 +42,7 @@ body {
     height: auto;
     padding: 10px;
     font-size: 16px;
+    background-color:
 }
 .jumbotron .champ:focus {
     z-index: 2;
