@@ -103,6 +103,7 @@
             <EditText
                 android:id="@+id/profile_activity_date_input"
                 style="@style/EditTextTheme"
+                android:editable="false"
                 android:hint="Date de naissance"
                 android:inputType="date" />
 

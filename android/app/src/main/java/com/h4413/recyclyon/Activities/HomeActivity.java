@@ -47,8 +47,8 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState); 
         setContentView(R.layout.activity_home);
-        super.onCreate(savedInstanceState);
 
         NavbarInitializer.initNavigationMenu(this, R.id.nav_homepage, R.string.nav_homepage);
 
@@ -60,13 +60,6 @@ public class HomeActivity extends AppCompatActivity {
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(this);
         mHstoricRecyclerView.setLayoutManager(mLayoutManager);
-        // specify an adapter (see also next example)
-
-        /*Historic historic = new Historic();
-        historic.depots.add(new HistoricEntry(new Date(), 1.2f, "hfezigflbeuogfuiozb"));
-        historic.depots.add(new HistoricEntry(new Date(), 2.4f, "lgkzmenogubz^^ihzizrg"));
-        historic.depots.add(new HistoricEntry(new Date(), 3.3f, "foianeoifhiheaà!fg"));
-        historic.depots.add(new HistoricEntry(new Date(), 4.1f, "ioazfhgfyigazipfgaiu"));*/
 
 
         mUser = UserServices.getCurrentUserFromSharedPreferences(this);

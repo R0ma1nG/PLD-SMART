@@ -2,6 +2,7 @@ package com.h4413.recyclyon.Activities.Deposit;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -119,6 +120,7 @@ public class DepositInProgressActivity extends AppCompatActivity {
     private void configureToolbar(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.title_deposit_in_progress);
+        toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
     }
 
@@ -126,7 +128,7 @@ public class DepositInProgressActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         setResult(resultCode);
-        finishAffinity();
+        finish();
     }
 
     @Override

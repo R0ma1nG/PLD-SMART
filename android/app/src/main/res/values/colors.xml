@@ -19,5 +19,5 @@
     <color name="tertiaryTextColor">#000000</color>
 
     <color name="riskyColor">#50FC0505</color>
-
+    <color name="titleWhite">#FFFFFF</color>
 </resources>

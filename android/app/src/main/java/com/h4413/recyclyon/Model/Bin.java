@@ -6,14 +6,14 @@ public class Bin {
     private String adresse;
     private double lattitude;
     private double longitude;
-    private boolean full;
+    private int remplissage;
 
-    public Bin(String id, String adresse, double lat, double aLong, boolean full) {
+    public Bin(String id, String adresse, double lat, double aLong, int full) {
         this._id = id;
         this.adresse = adresse;
         lattitude = lat;
         longitude = aLong;
-        this.full = full;
+        this.remplissage = full;
     }
 
     public String getId() {
@@ -33,7 +33,7 @@ public class Bin {
     }
 
     public boolean isFull() {
-        return full;
+        return (remplissage == 1);
     }
 
 

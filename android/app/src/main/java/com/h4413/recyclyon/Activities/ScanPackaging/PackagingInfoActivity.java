@@ -21,6 +21,8 @@ import com.h4413.recyclyon.Utilities.Routes;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.List;
+
 public class PackagingInfoActivity extends AppCompatActivity {
 
     private Barcode mBarcode;
@@ -28,7 +30,11 @@ public class PackagingInfoActivity extends AppCompatActivity {
     private TextView mBarCodeText;
     private Button mScanAnotherButton;
     private ImageView mProductImage;
-    private TextView mTestTextView;
+
+    private View mCartonTrash;
+    private View mNormalTrash;
+    private View mGlassTrash;
+    private View mNoInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +48,14 @@ public class PackagingInfoActivity extends AppCompatActivity {
         mBarCodeText = (TextView) findViewById(R.id.packaging_info_barcode);
         mScanAnotherButton = (Button) findViewById(R.id.packaging_info_scan_another_btn);
         mProductImage = (ImageView) findViewById(R.id.packaging_info_product_image);
-        mTestTextView = (TextView) findViewById(R.id.packaging_info_test_textview);
+        mCartonTrash = (View) findViewById(R.id.packaging_info_carton_trash);
+        mNormalTrash = (View) findViewById(R.id.packaging_info_normal_trash);
+        mGlassTrash = (View) findViewById(R.id.packaging_info_glass_trash);
+        mNoInfo = (View) findViewById(R.id.packaging_info_no_trash);
+        mNormalTrash.setVisibility(View.GONE);
+        mGlassTrash.setVisibility(View.GONE);
+        mCartonTrash.setVisibility(View.GONE);
+        mNoInfo.setVisibility(View.GONE);
         mScanAnotherButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,6 +73,7 @@ public class PackagingInfoActivity extends AppCompatActivity {
                     mProductImage.setImageResource(R.drawable.product_not_found);
                     return;
                 }
+                if(statusCode == 401) return;
                 try {
                     response = (JSONObject) response.get("product");
                 } catch (JSONException e) {
@@ -67,9 +81,31 @@ public class PackagingInfoActivity extends AppCompatActivity {
                 }
                 Gson gson = new Gson();
                 ScannedProduct product = gson.fromJson(response.toString(), ScannedProduct.class);
-                new DownLoadImageTask(mProductImage).execute(product.image);
-                mBarCodeText.setText(product.nom);
-                mTestTextView.setText(product.emballage.toString());
+                if (product.image != null)
+                    new DownLoadImageTask(mProductImage).execute(product.image);
+                if(product.nom != null)
+                    mBarCodeText.setText(product.nom);
+
+                if(product.emballage == null || product.emballage.size()==0) {
+                    mNormalTrash.setVisibility(View.GONE);
+                    mGlassTrash.setVisibility(View.GONE);
+                    mCartonTrash.setVisibility(View.GONE);
+                    mNoInfo.setVisibility(View.VISIBLE);
+                } else {
+                    mNoInfo.setVisibility(View.GONE);
+                    for (String str : product.emballage) {
+                        str = str.toLowerCase();
+                        if(listContains(str, ScannedProduct.GLASS_TAGS)) {
+                            mGlassTrash.setVisibility(View.VISIBLE);
+                        }
+                        if(listContains(str, ScannedProduct.NORMAL_TAGS)) {
+                            mNormalTrash.setVisibility(View.VISIBLE);
+                        }
+                        if(listContains(str, ScannedProduct.CARTON_TAGS)) {
+                            mCartonTrash.setVisibility(View.VISIBLE);
+                        }
+                    }
+                }
             }
         });
     }
@@ -79,5 +115,14 @@ public class PackagingInfoActivity extends AppCompatActivity {
          super.onActivityResult(requestCode, resultCode, data);
          setResult(RESULT_OK);
          finish();
+    }
+
+    private boolean listContains(String word, List<String> list) {
+        for (String str : list) {
+            if(word.contains(str)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

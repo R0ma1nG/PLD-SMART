@@ -114,7 +114,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     permissions[0].compareTo(Manifest.permission.ACCESS_FINE_LOCATION) == 0 &&
                     grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 mMap.setMyLocationEnabled(true);
-                Intent intent = new Intent(MapsActivity.this, ConnectionActivity.class);
+                Intent intent = new Intent(MapsActivity.this, MapsActivity.class);
                 startActivityForResult(intent, 2);
             } else {
 
