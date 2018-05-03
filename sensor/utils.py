@@ -20,8 +20,5 @@ class periodic_timer:
             start = time.time()
             self.func(*self._args, **self._kwargs)
             delta_t = time.time() - start
-            if delta_t < self.period:
-                self._timer = threading.Timer(self.period - delta_t, self.start, args=[count - 1])
-                self._timer.start()
-            else:
-                self.start(count - 1)
+            self._timer = threading.Timer(max(0, self.period - delta_t), self.start, args=[count - 1])
+            self._timer.start()
