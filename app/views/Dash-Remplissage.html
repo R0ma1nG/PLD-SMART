@@ -9,13 +9,14 @@
     <!-- Custom styles for this template -->
 
     <script src="js/dashboard.js"></script>
+    <script src="js/dashboard-remplissage.js"></script>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"rel="stylesheet" type="text/css">
+    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css">
     <link href="https://cdn.datatables.net/1.10.16/css/dataTables.jqueryui.min.css" rel="stylesheet" type="text/css">
     <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
     <link href="dashboard.css" rel="stylesheet" type="text/css">
@@ -38,16 +39,38 @@
         function initMap() {
             var lyon = { lat: 45.75, lng: 4.85 };
             map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 15,
+                zoom: 14,
                 center: lyon
             });
-            
+
 
             google.maps.event.addListener(map, 'zoom_changed', function () {
                 var zoom = map.getZoom();
                 // iterate over markers and call setVisible
+                /*for (i = 0; i < markers.length; i++) {
+                    markers[i].setVisible(zoom >= 14);
+                }*/
+                var pixelSizeAtZoom0 = 2; //the size of the icon at zoom level 0
+                var maxPixelSize = 2; //restricts the maximum size of the icon, otherwise the browser will choke at higher zoom levels trying to scale an image to millions of pixels
+
+                var zoom = map.getZoom();
+                var relativePixelSize = Math.round(pixelSizeAtZoom0 * Math.pow(2, -zoom)); // use 2 to the power of current zoom to calculate relative pixel size.  Base of exponent is 2 because relative size should double every time you zoom in
+
+                if (relativePixelSize > maxPixelSize) //restrict the maximum size of the icon
+                    relativePixelSize = maxPixelSize;
+
+                //change the size of the icon
                 for (i = 0; i < markers.length; i++) {
-                    markers[i].setVisible(zoom >= 15);
+                    marker.setIcon(
+                        new google.maps.MarkerImage(
+                            marker.getIcon().url, //marker's same icon graphic
+                            null,//size
+                            null,//origin
+                            null, //anchor
+                            new google.maps.Size(relativePixelSize, relativePixelSize) //changes the scale
+                        )
+                    );
+                    markers[i].setVisible(zoom >= 13);
                 }
             });
         };
@@ -64,67 +87,9 @@
     </script>
 
     <script>
-        $(document).ready(function () {
-            var table;
-            if($.fn.dataTable.isDataTable("#recap")) {
-                table = $("#recap").DataTable();
-            } else {
-                table = $("#recap").DataTable({
-                    "orderClasses": false
-                });
-            }
-            var url = "http://localhost:8080/api/poubelles";
-            $.ajax
-                ({
-                    type: "GET",
-                    contentType: "application/json",
-                    //the url where you want to sent the userName and password to
-                    url: `${url}`,
-                    dataType: 'json',
-                    error: function (err) {
-                        alert('An error occured !');
-                    }
-                })
-                .done(function (data) {
-                    poubelles=data;
-                    data.forEach(function (element) {
-                        var pos = new google.maps.LatLng(element.lattitude, element.longitude);
-                        var plein = element.remplissage ? "plein" : "disponible";
-                        var contenu = [
-                            '<img id="' + pos + '" src= "ic_zoom.png" height= 20 width= 20 onclick= "getMarker(this)" onmouseover= "" style= "cursor: pointer;" > </img>',
-                            element.id_grandlyon,
-                            element.adresse,
-                            plein,
-                            element.gestionnaire
-                        ];
-                        table.row.add(contenu).draw();
-                        var marker = new google.maps.Marker({
-                            position: pos,
-                            map: map,
-                            visible: true,
-                            icon: icons[element.remplissage].icon
-                        });
-                        marker.addListener('click', function () {
-                            if (infowindow) {
-                                infowindow.close();
-                            }
-                            
-                            var contentString = '<h4> Silo '+element.id_grandlyon+'</h4>' +
-                                '<div>' +
-                                'adresse: ' + element.adresse + '</br>' +
-                                'Etat du remplissage: ' + plein +
-                                '</div>';
-                            marker.contentStr = contentString;
-                            infowindow = new google.maps.InfoWindow({
-                                content: contentString
-                            });
-                            infowindow.open(map, marker);
-                        });
-                        markers.push(marker);
-                    });
-                });
-                feather.replace()
-        });
+
+        $(document).ready(function () { init(); });
+
     </script>
     <script>
         //filtrage remplissage
@@ -134,21 +99,26 @@
             }
         });
     </script>
-    <!--<link href="./open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">-->
-
-    
 </head>
 
 <body>
 
     <!-- En-tête -->
-    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+    <nav class="navbar navbar-dark fixed-top flex-md-nowrap p-0 shadow">
+      <div class="container-fluid">
         <a class="navbar-brand col-sm-3 col-md-11 mr-0" href="#">Recyc'Lyon - Interface Grand Lyon</a>
-        <ul class="navbar-nav px-5">
+      <!--  <ul class="navbar-nav px-5">
             <li class="nav-item text-nowrap text-white">
                 <span data-feather="log-out" onclick="logout();"></span>
             </li>
-        </ul>
+        </ul> -->
+        <ul class="nav navbar-nav navbar-right">
+          <li class="nav-item text-nowrap text-white">
+            <a href="#">
+              <span data-feather="log-out" onclick="logout();"></span>
+            </a>
+          </li>
+        </div>
     </nav>
 
 
@@ -160,81 +130,87 @@
                     <ul class="nav flex-column">
                         <li class="nav-item">
                             <a class="nav-link active" href="./Dashboard">
-                                        <span data-feather="trash-2"></span>Remplissage
-                                        <span class="sr-only">(current)</span>
-                                    </a>
+                                <span data-feather="trash-2"></span>Remplissage
+                                <span class="sr-only">(current)</span>
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="./Dashboard-Collecte">
-                                        <span data-feather="trash"></span>
-                                        Collecte
-                                    </a>
+                                <span data-feather="trash"></span>
+                                Collecte
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="./Dashboard-Analyse">
-                                        <span data-feather="activity"></span>
-                                        Analyse
-                                    </a>
-
+                                <span data-feather="activity"></span>
+                                Analyse
+                            </a>
+                        </li>
                     </ul>
-
-
                 </div>
-
             </nav>
         </div>
     </div>
 
 
-    <!-- Barre de recherche -->
 
-    <div class=" d-flex flex-row-reverse mt-5">
-        <nav class="navbar col-md-10 d-flex justify-content-end navbar-dark bg-dark p-0">
-
-
-            <div class="form-check form-check-inline">
-                <label class="form-check-label text-light">
-                            <input id="checkbox" type="checkbox" class="form-check-input " value=""> Remplissage critique
-                        </label>
-            </div>
-            <select class="form-control w-25 mr-1" id="sel1">
-                        <option>Grand Lyon</option>
-                        <option>Lyon 1</option>
-                        <option>Lyon 2</option>
-                        <option>Lyon 3</option>
-                        <option>Lyon 4</option>
-                    </select>
-            <input class="form-control form-control-dark w-25" type="text" placeholder="Recherche" aria-label="Recherche">
-        </nav>
-
-    </div>
 
     <!-- zone centrale -->
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10">
-        <h1>Remplissage des bennes</h1>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-1">
+                    <div class="loader" id="loader"></div>
+                </div>
+                <div class="col-md-10">
+                    <h1>Remplissage des bennes</h1>
+                </div>
+            </div>
+        </div>
+        <progress id="Progress_Bar" value="0" max="100">0 %</progress>
         <!-- Map -->
-        <div id="map" overflow-y="auto"></div>
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmnkXd0ojkMKWNFtGQxkaMZVNVuhXY75w&callback=initMap">
+        <div id="map" ></div>
 
-        </script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmnkXd0ojkMKWNFtGQxkaMZVNVuhXY75w&callback=initMap"></script>
 
-        </br>
-        </br>
-        <h4>Tableau Recapitulatif</h4>
-        <!--<div class="table-responsive"> -->
-            <table id="recap" class="display" style="width:100%">
-                <thead>
-                    <tr>
-                        <th> </th>
-                        <th># <span data-feather="chevron-down"></th>
-                        <th>Adresse <span data-feather="chevron-down"></span></th>
-                        <th>Remplissage <span data-feather="chevron-down"></th>
-                        <th>Gestionnaire <span data-feather="chevron-down"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+        <!-- Barre de recherche -->
+        <div class="flex-row-reverse">
+            <nav class="navbar col-md-12 d-flex justify-content-end navbar-dark bg-dark p-0">
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label text-light">
+                        <input id="checkbox" type="checkbox" class="form-check-input " value="" onchange="toogleRemplissage(this);">Bennes pleines uniquement
+                    </label>
+                </div>
+                <select class="form-control w-25 mr-1" id="sel1" onchange="changeLocationFilter(this);">
+                    <option> </option>
+                    <option>Lyon 1 69001</option>
+                    <option>Lyon 2 69002</option>
+                    <option>Lyon 3 69003</option>
+                    <option>Lyon 4 69004</option>
+                    <option>Lyon 5 69005</option>
+                    <option>Lyon 6 69006</option>
+                    <option>Lyon 7 69007</option>
+                    <option>Lyon 8 69008</option>
+                    <option>Villeurbanne 69100</option>
+                </select>
+                <input class="form-control form-control-dark w-25" type="text" placeholder="Recherche" aria-label="Recherche">
+            </nav>
+        </div>
+
+        <table id="recap" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th> </th>
+                    <th>#</th>
+                    <th>Adresse</th>
+                    <th>Remplissage</th>
+                    <th>Gestionnaire</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
 </body>
 
 </html>

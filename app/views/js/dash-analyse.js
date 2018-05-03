@@ -4,10 +4,10 @@ function initMap() {
         zoom: 11,
         center: lyon
     });
-    var marker = new google.maps.Marker({
+    /*var marker = new google.maps.Marker({
         position: lyon,
         map: map
-    });
+    });*/
 }
 
 function init() {
