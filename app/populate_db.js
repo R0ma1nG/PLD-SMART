@@ -9,9 +9,9 @@ var releve = require("./models/releve");
 var decheterie = require("./models/decheterie");
 var utilisateur = require("./models/utilisateur");
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/smart_db'); // connect to our database
+// mongoose.connect('mongodb://localhost:27017/smart_db'); // connect to our database
 // in order to populate real database, please uncomment following line:
-//mongoose.connect('mongodb://admin:admin@ds147459.mlab.com:47459/smart_db'); // connect to our database
+mongoose.connect('mongodb://admin:admin@ds147459.mlab.com:47459/smart_db'); // connect to our database
 
 const real_capteur_id = new mongoose.mongo.ObjectId("5add92e9e36c0adec0253805")
 
@@ -30,15 +30,38 @@ function create_dummy_users(assoc_id1, assoc_id2) {
     utilisateur.create({
         _id: user_id1,
         mail: "jeanjeacques@goldman",
-        motDePasse: "$2a$08$VeK9ZE4upDhhW6.ftfQw8usgpUiNapgOg50eZ3XFYZi8DDKaO2CZW",
+        motDePasse: "$2a$08$Yg9S0Zmc09BBCxUz4XStRuAQHpvtCDANfkIHfPraTD1sOfgTJmh1u", // test
         nom: "JJG",
         adresse: "2 rue de la fleur",
         dateNaissance: "1976-10-25 00:00:00.000",
         sexe: 0,
         idAssoc: assoc_id1,
     });
+    var user_id2 = new mongoose.mongo.ObjectId();
+    utilisateur.create({
+        _id: user_id2,
+        mail: "bettancourt@loreal.com",
+        motDePasse: "$2a$08$BJbXlbc8k3/M2FqsQSfQ6Opk6Db26EdNbEVGO/VYgCxXosLzLnmke", // argent
+        nom: "Betty",
+        adresse: "2 place bellecour",
+        dateNaissance: "1971-10-25 00:00:00.000",
+        sexe: 1,
+        idAssoc: assoc_id2,
+    });
+    var user_id3 = new mongoose.mongo.ObjectId();
+    utilisateur.create({
+        _id: user_id3,
+        mail: "webadmin",
+        motDePasse: "$2a$08$/xZaUhauUcgXsZB3nACr6.Ef7ydb2b2iCAORZbDuVV5xW09.Ms9w.", // pwd
+        nom: "Billy",
+        adresse: "69 rue des abricots frais",
+        dateNaissance: "1992-01-13 00:00:00.000",
+        sexe: 0,
+        isAdmin: true;
+    });
 
-    for (var i = 0; i < 1239; i++) {
+
+    /** for (var i = 0; i < 1239; i++) {
         utilisateur.create({
             _id: new mongoose.mongo.ObjectId(),
             mail: "user" + i + "@gmail.com",
@@ -49,7 +72,8 @@ function create_dummy_users(assoc_id1, assoc_id2) {
             sexe: i % 2,
             idAssoc: i % 2 == 0 ? assoc_id1 : assoc_id2,
         });
-    }
+    } */
+
 }
 
 function populate_db() {
@@ -106,30 +130,30 @@ function populate_db() {
     });
 
     // Populate decheteries
-    trash_dataset_download_link = "https://download.data.grandlyon.com/wfs/grandlyon?SERVICE=WFS&VERSION=2.0.0&outputformat=GEOJSON&maxfeatures=30&request=GetFeature&typename=gip_proprete.gipdecheterie&SRSNAME=urn:ogc:def:crs:EPSG::4171"
-    request(trash_dataset_download_link, { json: true }, (err, res, body) => {
-        if (err) { return console.log(err); }
-        else {
-            body.features.forEach(element => {
-                var props = element.properties;
-                var coords = element.geometry.coordinates;
-                decheterie.create({
-                    _id: new mongoose.mongo.ObjectId(),
-                    id_grandlyon: props.identifiant,
-                    code_insee: props.code_insee,
-                    code_postal: props.code_postal,
-                    telephone: props.telephone,
-                    commune: props.commune,
-                    gestionnaire: props.gestionnaire,
-                    numero_voie: props.numerodansvoie,
-                    voie: props.voie,
-                    adresse: props.numerodansvoie + " " + props.voie + "\n" + props.code_postal + " " + props.commune,
-                    longitude: coords[0],
-                    lattitude: coords[1]
-                });
-            });
-        }
-    });
+    // trash_dataset_download_link = "https://download.data.grandlyon.com/wfs/grandlyon?SERVICE=WFS&VERSION=2.0.0&outputformat=GEOJSON&maxfeatures=30&request=GetFeature&typename=gip_proprete.gipdecheterie&SRSNAME=urn:ogc:def:crs:EPSG::4171"
+    // request(trash_dataset_download_link, { json: true }, (err, res, body) => {
+    //     if (err) { return console.log(err); }
+    //     else {
+    //         body.features.forEach(element => {
+    //             var props = element.properties;
+    //             var coords = element.geometry.coordinates;
+    //             decheterie.create({
+    //                 _id: new mongoose.mongo.ObjectId(),
+    //                 id_grandlyon: props.identifiant,
+    //                 code_insee: props.code_insee,
+    //                 code_postal: props.code_postal,
+    //                 telephone: props.telephone,
+    //                 commune: props.commune,
+    //                 gestionnaire: props.gestionnaire,
+    //                 numero_voie: props.numerodansvoie,
+    //                 voie: props.voie,
+    //                 adresse: props.numerodansvoie + " " + props.voie + "\n" + props.code_postal + " " + props.commune,
+    //                 longitude: coords[0],
+    //                 lattitude: coords[1]
+    //             });
+    //         });
+    //     }
+    // });
 
 
 

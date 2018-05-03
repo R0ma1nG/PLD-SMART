@@ -34,7 +34,8 @@ router.post('/', function (req, res) {
     _id: id,
     nom: req.body.nom,
     rib: req.body.rib,
-    description: req.body.description
+    description: req.body.description,
+    logoUrl: req.body.logoUrl
     }, function (err, assoc) {
           if (err) reject(res.status(500).send("There was a problem creating your association in db : "+ err));
           resolve(res.status(200).send(assoc));
