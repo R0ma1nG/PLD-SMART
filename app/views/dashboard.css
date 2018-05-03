@@ -151,6 +151,7 @@ progress[value]::-webkit-progress-value {
 
 .border-top { border-top: 1px solid #e5e5e5; }
 .border-bottom { border-bottom: 1px solid #e5e5e5; }
+.dataTables_filter { display: none; }
 
 .loader {
   border: 6px solid #f3f3f3; /* Light grey */
@@ -169,4 +170,10 @@ progress[value]::-webkit-progress-value {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+.filters {
+  position: fixed;
+  bottom: 0;
+  margin-bottom: 5%;
 }
