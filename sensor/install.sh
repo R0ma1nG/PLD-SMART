@@ -7,7 +7,12 @@ sudo apt-get install python-picamera
 sudo apt-get install python-picamera-docs
 
 cd ./ssh_tunnel_service/
-./ssh_tunnel_service/install.sh
+./install.sh
+
+cd ../sensor_service/
+./install.sh
+
+cd ..
 
 echo -e "\n### Setup Wifi connection (make sur Wifi dongle is connected) ###"
 echo -n "Please enter your Wifi SSID: "

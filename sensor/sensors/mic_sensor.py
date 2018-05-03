@@ -1,6 +1,6 @@
 import os
 import struct
-import pyaudio
+#import pyaudio
 import numpy as np
 from sklearn.externals import joblib
 from sklearn.linear_model import LogisticRegression
@@ -9,7 +9,7 @@ __all__ = ['MicSensor', 'MicSamplesClassifier']
 
 
 class MicSensor:
-    def __init__(self, chunk=1024, audio_format=pyaudio.paInt16, channels=2, rate=44100, timespan=1):
+    def __init__(self, chunk=1024, audio_format=0, channels=2, rate=44100, timespan=1):
         self.chunk = chunk
         self.audio_format = audio_format
         self.channels = channels
@@ -21,11 +21,12 @@ class MicSensor:
         self.init()
         return self
 
-    def __exit__(self):
+    def __exit__(self, exc_type, exc_value, traceback):
         self.close()
 
     def init(self):
-        self._audio = pyaudio.PyAudio()
+        pass
+#        self._audio = pyaudio.PyAudio()
 
     def close(self):
         if self._audio is not None:
