@@ -16,10 +16,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css">
     <link href="https://cdn.datatables.net/1.10.16/css/dataTables.jqueryui.min.css" rel="stylesheet" type="text/css">
     <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
     <link href="dashboard.css" rel="stylesheet" type="text/css">
+    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css">
 
     <!-- JS Scripts -->
 
@@ -201,10 +201,48 @@
             <thead>
                 <tr>
                     <th> </th>
-                    <th>#</th>
-                    <th>Adresse</th>
-                    <th>Etat du remplissage</th>
-                    <th>Gestionnaire</th>
+                    <th><div class="text-div">#</div>
+                     <div class="fleche"><ul>
+                    							<li>
+                    								<span data-feather="chevron-up"></span>
+                    							</li>
+                    							<li>
+                    								<span data-feather="chevron-down"></span>
+                    							</li>
+                    						</ul>
+                    		</div></th>
+                    <th>
+                    <div class="text-div">Adresse</div>
+                     <div class="fleche"><ul>
+                    							<li>
+                    								<span data-feather="chevron-up"></span>
+                    							</li>
+                    							<li>
+                    								<span data-feather="chevron-down"></span>
+                    							</li>
+                    						</ul>
+                    		</div></th>
+                    <th><div class="text-div">Etat du remplissage</div>
+                     <div class="fleche"><ul>
+                    							<li>
+                    								<span data-feather="chevron-up"></span>
+                    							</li>
+                    							<li>
+                    								<span data-feather="chevron-down"></span>
+                    							</li>
+                    						</ul>
+                    		</div>
+                    </th>
+                    <th><div class="text-div">Gestionnaire</div>
+                     <div class="fleche"><ul>
+                    							<li>
+                    								<span data-feather="chevron-up"></span>
+                    							</li>
+                    							<li>
+                    								<span data-feather="chevron-down"></span>
+                    							</li>
+                    						</ul>
+                    		</div></th>
                 </tr>
             </thead>
             <tbody>
