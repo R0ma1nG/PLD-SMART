@@ -19,7 +19,7 @@ function create_dummy_sensor(trash_id) {
     // Add default sensor
     capteur.create({
         _id: new mongoose.mongo.ObjectId(),
-        tokenCapteur: Math.floor(Math.random() * 100000000000),
+        tokenCapteur: Math.floor(Math.random() * 100000000000000000000),
         idPoubelle: trash_id
     });
 }
