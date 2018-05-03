@@ -106,7 +106,7 @@ router.post('/forgotPassword', function (req, res) {
       }
     }))
     .then( (token) => {
-      var link = `http://localhost:8080/api/users/forgotPassword/${token.idUser}/${token.idToken}`;
+      var link = `https://pld-smart.azurewebsites.net/api/users/forgotPassword/${token.idUser}/${token.idToken}`;
         // setup email data with unicode symbols
         let mailOptions = {
           from: '"Recyclyon" <recyclyon.app@gmail.com>', // sender address
@@ -154,7 +154,7 @@ router.post('/forgotPassword/:idUser/:idToken', function (req, res) {
         user.motDePasse = newPassword;
         user.save(function (err, user) {
           if (err) res.status(500).send("Password cant be modifed");
-          res.status(200).send({redirect: `http://localhost:8080/`});
+          res.status(200).send({redirect: `/`});
         })
       }
     });
