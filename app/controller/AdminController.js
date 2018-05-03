@@ -30,31 +30,30 @@ router.get('/releves/:date', async function (req, res, next) {
     const releves = await releve.find({}).lean();
     const mesReleves = [];
     const poubelles = {};
+    var dateDemandee = new Date(req.params.date);
+    var annee = dateDemandee.getUTCFullYear();
+    var mois = dateDemandee.getUTCMonth();
+    var jour = dateDemandee.getUTCDate();
     for (const releve of releves) {
-      if (releve.idPoubelle) poubelles[releve.idPoubelle] = 1;
-      else delete releves.releve;
+      const actualDate = new Date(releve.date);
+      if (releve.idPoubelle && !poubelles[releve.idPoubelle]) poubelles[releve.idPoubelle] = 1;
+      else if (!releve.idPoubelle ||  (actualDate.getUTCDate() != jour || actualDate.getUTCMonth() != mois || actualDate.getUTCFullYear() != annee)) {
+        delete releves.releve;
+      }
     }
     for (const idPoubelle of Object.keys(poubelles)) {
       poubelles[idPoubelle] = await poubelle.findById(idPoubelle, "lattitude longitude");
     }
-    for (const releve of releves) {
-      var dateDemandee = new Date(req.params.date);
-      var annee = dateDemandee.getUTCFullYear();
-      var mois = dateDemandee.getUTCMonth();
-      var jour = dateDemandee.getUTCDate();
-      const actualDate = new Date(releve.date);
-      if (actualDate.getUTCDate() == jour && actualDate.getUTCMonth() == mois && actualDate.getUTCFullYear() == annee) {
-        console.log("GOOD BIN");
+    for (const rel of releves) {
         mesReleves.push({
-          _id: releve._id,
-          date: releve.date,
-          tauxRemplissage: releve.tauxRemplissage,
-          idPoubelle: releve.idPoubelle,
-          latitude: poubelles[releve.idPoubelle].lattitude,
-          longitude: poubelles[releve.idPoubelle].longitude
+          _id: rel._id,
+          date: rel.date,
+          tauxRemplissage: rel.tauxRemplissage,
+          idPoubelle: rel.idPoubelle,
+          lattitude: poubelles[rel.idPoubelle].lattitude,
+          longitude: poubelles[rel.idPoubelle].longitude
         });
       }
-    };
     res.status(200).send(mesReleves);
   }
   catch (e) {
