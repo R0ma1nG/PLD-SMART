@@ -8,6 +8,33 @@
         <item name="colorAccent">@color/primaryDarkColor</item>
     </style>
 
+
+    <!--Horizontal line style -->
+    <style name="LineTheme">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/primaryTextColor</item>
+    </style>
+
+    <!-- Image style-->
+        <style name="ImageTheme">
+            <item name="android:layout_width">50dp</item>
+            <item name="android:layout_height">50dp</item>
+        </style>
+
+    <!--InputText style -->
+    <style name="EditTextTheme">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:imeOptions">actionNext</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:inputType">text</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:backgroundTint">@color/primaryDarkColor</item>
+        <item name="android:textColor">@color/primaryDarkColor</item>
+        <item name="android:textColorHint">@color/secondaryLightColor</item>
+    </style>
+
+
     <!-- Button style -->
     <style name="ButtonTheme" parent="Widget.AppCompat.Button.Colored">
         <item name="android:colorAccent">@color/primaryColor</item>
@@ -16,9 +43,34 @@
     </style>
 
     <style name="TitleFontTheme">
-        <item name="android:textColor">@color/secondaryTextColor</item>
-        <item name="android:textSize">25dp</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:textSize">30sp</item>
         <item name="android:gravity">center</item>
     </style>
+
+    <style name="HorizontalSeparator">
+        <item name="android:layout_marginStart">50dp</item>
+        <item name="android:layout_marginEnd">50dp</item>
+        <item name="android:background">@color/secondaryColor</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">2dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+    </style>
+
+    <style name="HorizontalListSeparator">
+        <item name="android:layout_marginStart">60dp</item>
+        <item name="android:layout_marginEnd">60dp</item>
+        <item name="android:background">#888888</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">2dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+    </style>
+
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 
 </resources>

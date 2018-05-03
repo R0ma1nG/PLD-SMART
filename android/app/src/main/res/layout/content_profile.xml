@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <include layout="@layout/app_bar_drawer" />
+
+    <LinearLayout
+        android:id="@+id/profile_activity_information_layout_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <!--> <LinearLayout
+            android:id="@+id/profile_activity_pwd_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/profile_activity_pwd_img"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/inscription_birthday" />
+
+            <EditText
+                android:id="@+id/profile_activity_pwd_input"
+                style="@style/EditTextTheme"
+                android:hint="ddddddddd"
+                android:inputType="textPassword" />
+
+        </LinearLayout><-->
+
+        <TextView
+            style="@style/TitleFontTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:text="Mes Informations" />
+
+        <LinearLayout
+            android:id="@+id/profile_activity_adress_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/inscription_adress_img"
+                style="@style/ImageTheme"
+                android:layout_gravity="center"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/inscription_adress" />
+
+                <EditText
+                    android:id="@+id/profile_activity_adress_input"
+                    style="@style/EditTextTheme"
+                    android:hint="Adresse"
+                    android:maxLines="4"
+                    android:imeOptions="actionNone"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/profile_activity_name_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/inscription_name_img"
+                style="@style/ImageTheme"
+                android:layout_gravity="center"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/profile_name" />
+
+            <EditText
+                android:id="@+id/profile_activity_name_input"
+                style="@style/EditTextTheme"
+                android:hint="Name" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/profile_activity_date_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/profile_activity_date_img"
+                style="@style/ImageTheme"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/inscription_birthday" />
+
+            <EditText
+                android:id="@+id/profile_activity_date_input"
+                style="@style/EditTextTheme"
+                android:editable="false"
+                android:hint="Date de naissance"
+                android:inputType="date" />
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:id="@+id/profile_activity_gender_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/profile_activity_gender_img"
+                style="@style/ImageTheme"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/inscription_gender" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/profile_activity_gender_input"
+                style="@style/EditTextTheme"
+                android:hint="Sexe"
+                android:inputType="date"
+                android:gravity="center"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+
+
+        <View
+            style="@style/LineTheme"
+            android:paddingTop="30dp" />
+
+        <LinearLayout
+            android:id="@+id/profile_activity_association_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp">
+
+            <TextView
+                android:id="@+id/profile_activity_text_association"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="Association :"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/profile_activity_text_chosen_association"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="18sp" />
+
+            <ImageButton
+                android:id="@+id/profile_activity_btn_change_association"
+                android:background="@android:color/transparent"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:src="@drawable/profile_modification" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/profile_activity_modification_layout"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+            <Button
+                android:id="@+id/profile_activity_cancel_btn"
+                style="@style/ButtonTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="25dp"
+                android:paddingHorizontal="10dp"
+                android:text="@string/profileSuppression"
+                android:backgroundTint="@color/riskyColor"/>
+
+            <Button
+                android:id="@+id/profile_activity_submit_btn"
+                style="@style/ButtonTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="15dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="25dp"
+                android:text="Valider" />
+
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/profile_activity_modification_btn"
+        style="@style/ButtonTheme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="25dp"
+        android:text="@string/changeProfile" />
+
+
+</LinearLayout>

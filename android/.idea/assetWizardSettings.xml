@@ -19,8 +19,68 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="$PROJECT_DIR$/app/src/main/res/drawable/Connection/pwd.png" />
-                                      <entry key="outputName" value="connection_pwd" />
+                                      <entry key="imageAsset" value="C:\Users\Matthieu\Desktop\leaf.png" />
+                                      <entry key="outputName" value="ic_deposite_leaf" />
+                                      <entry key="theme" value="CUSTOM" />
+                                      <entry key="themeColor" value="217f33" />
+                                    </map>
+                                  </option>
+                                </PersistentState>
+                              </value>
+                            </entry>
+                            <entry key="launcher">
+                              <value>
+                                <PersistentState>
+                                  <option name="children">
+                                    <map>
+                                      <entry key="foregroundImage">
+                                        <value>
+                                          <PersistentState>
+                                            <option name="values">
+                                              <map>
+                                                <entry key="scalingPercent" value="113" />
+                                                <entry key="trimmed" value="true" />
+                                              </map>
+                                            </option>
+                                          </PersistentState>
+                                        </value>
+                                      </entry>
+                                    </map>
+                                  </option>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="foregroundImage" value="C:\Users\Matthieu\Downloads\logo.png" />
+                                    </map>
+                                  </option>
+                                </PersistentState>
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </PersistentState>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </PersistentState>
+          </value>
+        </entry>
+        <entry key="vectorWizard">
+          <value>
+            <PersistentState>
+              <option name="children">
+                <map>
+                  <entry key="vectorAssetStep">
+                    <value>
+                      <PersistentState>
+                        <option name="children">
+                          <map>
+                            <entry key="clipartAsset">
+                              <value>
+                                <PersistentState>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_delete_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -30,7 +90,12 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputIconType" value="ACTIONBAR" />
+                            <entry key="assetSourceType" value="FILE" />
+                            <entry key="height" value="512" />
+                            <entry key="outputName" value="ic_nav_deposit" />
+                            <entry key="overrideSize" value="true" />
+                            <entry key="sourceFile" value="C:\Users\Matthieu\Downloads\beer.svg" />
+                            <entry key="width" value="512" />
                           </map>
                         </option>
                       </PersistentState>

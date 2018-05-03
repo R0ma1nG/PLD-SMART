@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Connection.ConnectionActivity"
+    tools:context=".Activities.Connection.ConnectionActivity"
     android:background="@color/tertiaryColor"
     android:orientation="vertical"
     android:paddingBottom="50dp">
@@ -40,8 +40,11 @@
 
             <EditText
                 android:id="@+id/connection_activity_mail_input"
+                android:maxLines="1"
+                android:imeOptions="actionNext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="text"
                 android:hint="Mail"/>
 
         </LinearLayout>

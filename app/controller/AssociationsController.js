@@ -7,7 +7,8 @@ var association = require("../models/association");
 
 // middleware to use for all requests
 router.use(function(req, res, next) {
-  if (!req.isAuthenticated()) res.status(401).send("You're not authenticated !");
+  if (req.method == "GET" && req.url == '/') next();
+  else if (!req.isAuthenticated()) res.status(401).send("You're not authenticated !");
   else {console.log('Authenticated request : ', req.url); // do logging
     next(); // make sure we go to the next routes and don't stop here
   }
@@ -33,7 +34,8 @@ router.post('/', function (req, res) {
     _id: id,
     nom: req.body.nom,
     rib: req.body.rib,
-    description: req.body.description
+    description: req.body.description,
+    logoUrl: req.body.logoUrl
     }, function (err, assoc) {
           if (err) reject(res.status(500).send("There was a problem creating your association in db : "+ err));
           resolve(res.status(200).send(assoc));

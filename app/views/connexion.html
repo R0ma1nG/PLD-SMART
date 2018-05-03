@@ -1,34 +1,89 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-            <title>Recyc'Lyon - Connexion</title>
-            <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-                <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-                <script src="script.js"></script>
-                <script src="js/index.js"></script>
-                <!-- Custom styles for this template -->
-                <link href="signin.css" rel="stylesheet">
-                </head>
-    
-    <body class="text-center">
-        <!-- En tête de page -->
-        
-        <div>
-           
-           <div class="jumbotron text-center" style="margin-bottom:0">
-               <h2>Recyc'Lyon - Interface Grand Lyon</h2>
-           </div>
-        
-        <form class="form-signin">
-            
-                <label for="inputEmail" class="sr-only">Email address</label>
-                <input type="email" id="inputEmail" class="form-control" placeholder="Identifiant" required autofocus>
-                <label for="inputPassword" class="sr-only">Password</label>
-                <input type="password" id="inputPassword" class="form-control" placeholder="Mot de passe" required>
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Se connecter</button>
-                <p class="mt-5 mb-3 text-muted">&copy; Apérit'IF</p>
-        </form>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Recyc'Lyon - Connexion</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            //event handler for submit button
+            $("#btnSubmit").click(function () {
+                //collect userName and password entered by users
+                var password = $("#inputPassword").val();
+                var email = $("#inputMail").val();
+                var url = window.location.pathname;
+                //call the authenticate function
+                authenticate(password, email, url);
+            });
+            $("#fenetre").keyup(function (e) { // On dit l'action à faire lors de l'appui sur une touche
+                                
+                if (e.keyCode == 13) { // Si c'est la touche entrée
+                    //collect userName and password entered by users
+                    var password = $("#inputPassword").val();
+                    var email = $("#inputMail").val();
+                    var url = window.location.pathname;
+                    //call the authenticate function
+                    authenticate(password, email, url);
+                }
+            });
+        });
+
+        //authenticate function to make ajax call
+        function authenticate(password, email, url) {
+            $.ajax
+                ({
+                    type: "POST",
+                    contentType: "application/json",
+                    //the url where you want to sent the userName and password to
+                    url: `${url}`,
+                    dataType: 'json',
+                    //json object to sent to the authentication url
+                    data: '{"motDePasse" : "' + password + '", "mail" : "' + email + '"}',
+                    error: function (err) {
+                        alert('An error occured, wrong credentials ! : ');
+                    }
+                })
+                .done(function (data) {
+                    window.location.href = data.redirect;
+                    //alert('Authentication successful');
+                });
+        };
+    </script>
+    <!-- Custom styles for this template -->
+    <link href="signin.css" rel="stylesheet">
+</head>
+
+<body class="text-center">
+    <!-- En tête de page -->
+
+    <div id="fenetre">
+
+        <div class="jumbotron text-center" style="margin-bottom:0">
+            <h1>Recyc'Lyon</h1>
+			<img class="mb-4" src="leaf.png" alt="" width="90" height="90">
+			<h2>Interface Grand Lyon</h2>
         </div>
-    </body>
+
+            <div class="jumbotron text-center">
+                <label for="inputMail" class="sr-only">Email </label>
+                <input type="text" class="champ form-control" id="inputMail" placeholder="Email" />
+                <label for="inputPassword" class="sr-only"> Password </label>
+                <input type="password" class="champ form-control" id="inputPassword" placeholder="Password" />
+                <br/>
+                <div>
+                    <button id="btnSubmit" type="button" class="btn btn-primary ">Valider</button>
+                </div>
+                <div>
+                    <p class="mt-5 mb-3 text-muted">&copy; Apérit'IF</p>
+                </div>
+            </div>
+
+    </div>
+
+
+</body>
+
 </html>
