@@ -81,7 +81,7 @@ public class DepositInProgressActivity extends AppCompatActivity {
             public void onClick(View v) {
                 JSONObject body = new JSONObject();
                 try {
-                    body.put("montant", 0);
+                    body.put("montant", Integer.parseInt("0"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

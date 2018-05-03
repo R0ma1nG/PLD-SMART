@@ -39,7 +39,7 @@
         function initMap() {
             var lyon = { lat: 45.75, lng: 4.85 };
             map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 14,
+                zoom: 15,
                 center: lyon
             });
 
@@ -48,7 +48,7 @@
                 var zoom = map.getZoom();
                 // iterate over markers and call setVisible
                 for (i = 0; i < markers.length; i++) {
-                    markers[i].setVisible(zoom >= 14);
+                    markers[i].setVisible(zoom >= 15);
                 }
             });
         };

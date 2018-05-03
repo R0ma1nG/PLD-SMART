@@ -47,12 +47,12 @@ public class ForgotPwdActivity extends AppCompatActivity {
                 HttpClient.POST(Routes.Forgot, null, obj.toString(), ForgotPwdActivity.this, new HttpClient.OnResponseCallback() {
                     @Override
                     public void onJSONResponse(int statusCode, JSONObject response) {
-                        if(statusCode == 200){
-                            setResult(RESULT_OK);
-                        } else {
-                            setResult(RESULT_CANCELED);
-                        }
-                        finish();
+                    if(statusCode == 200){
+                        setResult(RESULT_OK);
+                    } else {
+                        setResult(RESULT_CANCELED);
+                    }
+                    finish();
                     }
                 });
             }

@@ -59,7 +59,7 @@ function init() {
                     if (infowindow) {
                         infowindow.close();
                     }
-                    var contentString = '<h1> Silot '+element.id_grandlyon +'</h1>' +
+                    var contentString = '<h1> Silo '+element.id_grandlyon +'</h1>' +
                         '<div>' +
                         'adresse: ' + element.adresse +'</br>' +
                         'gestionnaire: ' + element.gestionnaire +'</br>'+
