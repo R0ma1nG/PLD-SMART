@@ -68,6 +68,9 @@ class IRSensor:
                 return mean > threshold
             return False
 
+    def getBuffer(self):
+        return np.asarray(self._value_buffer)
+
     def _update_buffer(self):
         with self.lock:
             self._timestamp_buffer.append(datetime.datetime.now())

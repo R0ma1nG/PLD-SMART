@@ -37,6 +37,7 @@ def watch_for_events(mic, ir, mic_model_dir, bottle_events_buffer, save_dir=None
             #    continue
             if save_dir is not None and rec_event.is_set():
                 os.makedirs(save_dir, exist_ok=True)
+
             #    with open(os.path.join(save_dir, 'timespan_' + str(record_time).replace(':', '_') + '___' + str(uuid.uuid4()) + '.npz'), mode='wb') as file:
             #        np.save(file, frames)
             is_bottle = True # classifier.predict(np.asarray([frames]))[0]

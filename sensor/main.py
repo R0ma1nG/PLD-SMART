@@ -45,9 +45,6 @@ def main():
         timer = utils.periodic_timer(_flush_events, period=FLUSH_TO_BACKEND_PERIOD, args=[events_buffer_lock, bottle_events, bottle_events_buffer])
         timer.start()
 
-        # TODO: Setup a periodic job updating trash level
-        # level_listener.read_trash_level(cam, bottle_history)
-
         # TODO: ... if we should stop
         # stop_event.set()
         # thread.join()
