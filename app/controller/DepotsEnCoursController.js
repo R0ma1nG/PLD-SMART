@@ -67,12 +67,21 @@ router.post('/demarrerScan', function (req, res) {
 router.put('/ajoutDechet/:idCapteur',function (req, res) {
   // Regarder si un dépot est en cours
   new Promise( (resolve, reject) => {
-    depotEnCours.findOne({idCapteur: req.params.idCapteur}, function (err, depotEC) {
-      if (err) reject(res.status(500).send("Erreur : "+ err));
-      if (depotEC === null ) reject(res.status(200).send("Pas de dépot associé à ce capteur actuellement"));
-      else resolve(depotEC);
+    var token = req.body.token;
+    capteur.findById(req.params.idCapteur, function (err, capteur) {
+      console.log(req.body.token);
+      console.log(capteur.tokenCapteur);
+      if (capteur.tokenCapteur != token) reject(res.status(500).send("Le token ne correspond pas : "+ err));
+      else resolve();
     });
   })
+    .then( () => {
+      return depotEnCours.findOne({idCapteur: req.params.idCapteur}, function (err, depotEC) {
+        if (err) return(res.status(500).send("Erreur : "+ err));
+        if (depotEC === null ) return(res.status(200).send("Pas de dépot associé à ce capteur actuellement"));
+        else return(depotEC);
+      });
+    })
   // Incrémenter le montant du dépot
   .then( (depotEC) => {
     var nouveauMontant = parseInt(depotEC.montant + 1);
