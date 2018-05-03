@@ -61,7 +61,7 @@ function create_dummy_users(assoc_id1, assoc_id2) {
     });
 
 
-    /** for (var i = 0; i < 1239; i++) {
+    /** for (var i = 0; i < 712; i++) {
         utilisateur.create({
             _id: new mongoose.mongo.ObjectId(),
             mail: "user" + i + "@gmail.com",
