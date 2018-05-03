@@ -4,14 +4,14 @@ var poubelles = [];
 function init() {
     document.getElementById("loader").style.visibility = 'visible';
     var table;
-    if($.fn.dataTable.isDataTable("#recap")) {
+    if ($.fn.dataTable.isDataTable("#recap")) {
         table = $("#recap").DataTable();
     } else {
         table = $("#recap").DataTable({
             "orderClasses": false
         });
     }
-    var url = "http://localhost:8080/api/poubelles";
+    var url = "/api/poubelles";
     $.ajax
         ({
             type: "GET",
@@ -24,7 +24,7 @@ function init() {
             }
         })
         .done(function (data) {
-            poubelles=data;
+            poubelles = data;
             document.getElementById("loader").style.visibility = 'hidden';
             var progressBar = document.getElementById("Progress_Bar");
             progressBar.value = 0;
@@ -68,7 +68,7 @@ function init() {
                 }, 30);
             });
         });
-        feather.replace()
+    feather.replace()
 };
 
 function toogleRemplissage(element) {
@@ -76,14 +76,14 @@ function toogleRemplissage(element) {
     table.column(3).search( element.checked ? "plein" : "disponible" ).draw();
     if(element.checked) {
         var i = 0;
-        markers.forEach(function(marker) {
-            if(!poubelles[i].remplissage) {
+        markers.forEach(function (marker) {
+            if (!poubelles[i].remplissage) {
                 marker.setVisible(false);
             }
             i++;
         });
     } else {
-        markers.forEach(function(marker) {
+        markers.forEach(function (marker) {
             marker.setVisible(true);
         });
     }
@@ -91,7 +91,7 @@ function toogleRemplissage(element) {
 
 function changeLocationFilter(element) {
     var table = $("#recap").DataTable();
-    table.column(2).search( element.value ).draw();
+    table.column(2).search(element.value).draw();
     var data = table.rows().data();
     console.log(data);
     console.log(data.count);
@@ -100,4 +100,20 @@ function changeLocationFilter(element) {
             return element. > 10;
         });
     })*/
+}
+
+function submitSearch(element) {
+    var table = $("#recap").DataTable();
+    table.search(element.value).draw();
+    markers.forEach(function (marker) {
+        marker.setVisible(false);
+    });
+    var data = table.rows().data();
+    console.log(data.count());
+    console.log(table.rows( { filter : 'applied'} ).nodes().length);
+    /*data.forEach(function(elem) {
+        markers.forEach(function(marker) {
+            
+        });
+    });*/
 }
