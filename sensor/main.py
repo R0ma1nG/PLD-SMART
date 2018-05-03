@@ -9,12 +9,13 @@ import bottle_listener
 from sensors import optical_sensor
 import utils
 
-ID_CAPTEUR = "5add92e9e36c0adec0253805"
-TOKEN_CAPTEUR = "348534593696437587487920546496919"
+ID_CAPTEUR = "5ae977637fab981edce8192d"
+TOKEN_CAPTEUR = "43447090539"
 MIC_MODEL_DIR = './sensors/models/mic'
-BACKEND_API_URL = "https://pld-smart.azurewebsites.net" # "localhost:3455"
-FLUSH_TO_BACKEND_PERIOD = 0.1 
+BACKEND_API_URL = "https://pld-smart.azurewebsites.net"  # "localhost:3455"
+FLUSH_TO_BACKEND_PERIOD = 0.1
 MIC_DATA_DIR = './sensors/data/mic/raw'
+
 
 def _flush_events(events_buffer_lock, bottle_events, bottle_events_buffer):
     with events_buffer_lock:
@@ -23,13 +24,15 @@ def _flush_events(events_buffer_lock, bottle_events, bottle_events_buffer):
             print('Flush events to backend API')
             url = os.path.join(BACKEND_API_URL, 'api/depotsEnCours/ajoutDechet', ID_CAPTEUR)
             for e in bottle_events_buffer:
-                resp = requests.put(url)
+                resp = requests.put(url, data={'token': TOKEN_CAPTEUR, 'timestamp': e})
                 if resp.status_code == 200:
                     bottle_events.extend(bottle_events_buffer)
-                    #bottle_events_buffer.clear()
+                    # bottle_events_buffer.clear()
                 else:
                     print('ERROR: request to backend API failed: status_code=' + str(resp.status_code))
             bottle_events_buffer.clear()
+
+
 def main():
     bottle_events = []
     bottle_events_buffer = []
