@@ -31,11 +31,12 @@ function init() {
             progressBar.max = data.length;
             data.forEach(function (element) {
                 var pos = new google.maps.LatLng(element.lattitude, element.longitude);
+                var etatPoubelle=element.remplissage ? "plein" : "disponible";
                 var contenu = [
                     '<img id="' + pos + '" src= "ic_zoom.png" height= 20 width= 20 onclick= "getMarker(this)" onmouseover= "" style= "cursor: pointer;" > </img>',
                     element.id_grandlyon,
                     element.adresse,
-                    element.remplissage ? "oui" : "non",
+                    etatPoubelle,
                     element.gestionnaire
                 ];
                 var marker = new google.maps.Marker({
@@ -48,10 +49,11 @@ function init() {
                     if (infowindow) {
                         infowindow.close();
                     }
-                    var contentString = '<h1> Info poubelle </h1>' +
+                    var contentString = '<h1> Silot '+element.id_grandlyon +'</h1>' +
                         '<div>' +
-                        'adresse: ' + element.adresse + '</br>' +
-                        'remplissage: ' + element.remplissage +
+                        'adresse: ' + element.adresse +'</br>' +
+                        'gestionnaire: ' + element.gestionnaire +'</br>'+
+                        'Etat de remplissage: ' + etatPoubelle +
                         '</div>';
                     marker.contentStr = contentString;
                     infowindow = new google.maps.InfoWindow({
@@ -71,7 +73,7 @@ function init() {
 
 function toogleRemplissage(element) {
     var table = $("#recap").DataTable();
-    table.column(3).search( element.checked ? "oui" : "non" ).draw();
+    table.column(3).search( element.checked ? "plein" : "disponible" ).draw();
     if(element.checked) {
         var i = 0;
         markers.forEach(function(marker) {
