@@ -19,7 +19,7 @@ function create_dummy_sensor(trash_id) {
     // Add default sensor
     capteur.create({
         _id: new mongoose.mongo.ObjectId(),
-        tokenCapteur: Math.floor(Math.random() * 100000000000),
+        tokenCapteur: Math.floor(Math.random() * 100000000000000000000),
         idPoubelle: trash_id
     });
 }
@@ -61,7 +61,7 @@ function create_dummy_users(assoc_id1, assoc_id2) {
     });
 
 
-    /** for (var i = 0; i < 1239; i++) {
+    /** for (var i = 0; i < 712; i++) {
         utilisateur.create({
             _id: new mongoose.mongo.ObjectId(),
             mail: "user" + i + "@gmail.com",
