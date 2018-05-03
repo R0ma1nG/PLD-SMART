@@ -42,10 +42,7 @@
                 zoom: 14,
                 center: lyon
             });
-            /*var marker = new google.maps.Marker({
-                position: lyon,
-                map: map
-            });*/
+
 
             google.maps.event.addListener(map, 'zoom_changed', function () {
                 var zoom = map.getZoom();
@@ -90,7 +87,9 @@
     </script>
 
     <script>
+
         $(document).ready(function () { init(); });
+
     </script>
     <script>
         //filtrage remplissage
@@ -105,13 +104,21 @@
 <body>
 
     <!-- En-tête -->
-    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+    <nav class="navbar navbar-dark fixed-top flex-md-nowrap p-0 shadow">
+      <div class="container-fluid">
         <a class="navbar-brand col-sm-3 col-md-11 mr-0" href="#">Recyc'Lyon - Interface Grand Lyon</a>
-        <ul class="navbar-nav px-5">
+      <!--  <ul class="navbar-nav px-5">
             <li class="nav-item text-nowrap text-white">
                 <span data-feather="log-out" onclick="logout();"></span>
             </li>
-        </ul>
+        </ul> -->
+        <ul class="nav navbar-nav navbar-right">
+          <li class="nav-item text-nowrap text-white">
+            <a href="#">
+              <span data-feather="log-out" onclick="logout();"></span>
+            </a>
+          </li>
+        </div>
     </nav>
 
 
@@ -184,7 +191,8 @@
         </div>
         <progress id="Progress_Bar" value="0" max="100">0 %</progress>
         <!-- Map -->
-        <div id="map" overflow-y="auto"></div>
+        <div id="map" ></div>
+
         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmnkXd0ojkMKWNFtGQxkaMZVNVuhXY75w&callback=initMap"></script>
         <br/>
         <table id="recap" class="display" style="width:100%">
@@ -200,6 +208,7 @@
             <tbody>
             </tbody>
         </table>
+
 </body>
 
 </html>
