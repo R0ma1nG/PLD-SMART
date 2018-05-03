@@ -14,18 +14,15 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.vision.barcode.Barcode;
-import com.google.gson.Gson;
+import com.h4413.recyclyon.Activities.HomeActivity;
 import com.h4413.recyclyon.Model.User;
 import com.h4413.recyclyon.R;
 import com.h4413.recyclyon.Services.UserServices;
 import com.h4413.recyclyon.Utilities.HttpClient;
 import com.h4413.recyclyon.Utilities.IntentExtraKeys;
 import com.h4413.recyclyon.Utilities.Routes;
-import com.h4413.recyclyon.Utilities.SharedPreferencesKeys;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -85,10 +82,19 @@ public class DepositInProgressActivity extends AppCompatActivity {
                 JSONObject body = new JSONObject();
                 try {
                     body.put("montant", 0);
-                } catch (JSONException e) {e.printStackTrace();}
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 HttpClient.POST(Routes.FinishDeposit, mQRCode.displayValue, body.toString(), DepositInProgressActivity.this, new HttpClient.OnResponseCallback() {
                     @Override
                     public void onJSONResponse(int statusCode, JSONObject response) {
+                        if(statusCode != 200)
+                        {
+                            Intent intent = new Intent(DepositInProgressActivity.this, HomeActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                            return;
+                        }
                         String idAssoc = "";
                         String montant = "";
                         try {

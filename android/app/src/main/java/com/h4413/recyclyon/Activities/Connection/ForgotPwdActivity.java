@@ -11,7 +11,13 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.h4413.recyclyon.R;
+import com.h4413.recyclyon.Services.UserServices;
+import com.h4413.recyclyon.Utilities.HttpClient;
 import com.h4413.recyclyon.Utilities.NavbarInitializer;
+import com.h4413.recyclyon.Utilities.Routes;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class ForgotPwdActivity extends AppCompatActivity {
 
@@ -32,8 +38,23 @@ public class ForgotPwdActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // TODO server must send the mail and send ok response if ok
-                setResult(RESULT_OK);
-                finish();
+                JSONObject obj = new JSONObject();
+                try {
+                    obj.put("mail", mMailInput.getText().toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                HttpClient.POST(Routes.Forgot, null, obj.toString(), ForgotPwdActivity.this, new HttpClient.OnResponseCallback() {
+                    @Override
+                    public void onJSONResponse(int statusCode, JSONObject response) {
+                        if(statusCode == 200){
+                            setResult(RESULT_OK);
+                        } else {
+                            setResult(RESULT_CANCELED);
+                        }
+                        finish();
+                    }
+                });
             }
         });
 

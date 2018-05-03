@@ -141,7 +141,7 @@ public class DepositQRActivity extends AppCompatActivity {
                                 intent.putExtra("QRCode", barcodes.valueAt(0));
                                 startActivityForResult(intent, REQUEST_CODE_QR);
                             } else {
-                                Toast.makeText(getApplicationContext(), "Ce n'est pas un QRCode valide", Toast.LENGTH_LONG).show();
+                                //Toast.makeText(getApplicationContext(), "Ce n'est pas un QRCode valide", Toast.LENGTH_LONG).show();
                             }
                         }
                     });
