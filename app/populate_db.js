@@ -57,7 +57,7 @@ function create_dummy_users(assoc_id1, assoc_id2) {
         adresse: "69 rue des abricots frais",
         dateNaissance: "1992-01-13 00:00:00.000",
         sexe: 0,
-        isAdmin: true;
+        isAdmin: true,
     });
 
 
