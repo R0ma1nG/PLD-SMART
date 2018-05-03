@@ -13,11 +13,11 @@
     <color name="primaryTextColor">#000000</color>
     <color name="secondaryTextColor">#ffffff</color>
 
-    <color name="tertiaryColor">#503bcc5b</color>
+    <color name="tertiaryColor">#3bcc5b</color>
     <color name="tertiaryLightColor">#77ff8a</color>
     <color name="tertiaryDarkColor">#009a2d</color>
     <color name="tertiaryTextColor">#000000</color>
 
     <color name="riskyColor">#50FC0505</color>
-
+    <color name="titleWhite">#FFFFFF</color>
 </resources>

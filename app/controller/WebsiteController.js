@@ -11,19 +11,27 @@ router.use(function(req, res, next) {
 });
 
 router.get('/', function (req, res) {
-  res.render('index');
+  res.render('index.html');
 });
 
 router.get('/404', function (req, res) {
-  res.render('404');
+  res.render('404.html');
 });
 
 router.get('/accueil', function (req, res) {
-  res.render('accueil');
+  res.render('accueil.html');
 });
 
-router.get('/Dashboard', function (req, res) {
-  res.render('Dashboard');
+router.get('/dashboard', function (req, res) {
+  res.render('Dash-Remplissage.html');
+});
+
+router.get('/Dashboard-Collecte', function (req, res) {
+  res.render('Dash-Collecte.html');
+});
+
+router.get('/Dashboard-Analyse', function (req, res) {
+  res.render('Dash-Analyse.html');
 });
 
 module.exports = router;

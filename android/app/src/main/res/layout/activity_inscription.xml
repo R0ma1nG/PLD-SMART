@@ -75,7 +75,8 @@
                         style="@style/EditTextTheme"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/inscriptionMdpEdit" />
+                        android:hint="@string/inscriptionMdpEdit"
+                        android:inputType="textPassword"/>
 
                     <EditText
                         android:id="@+id/inscription_activity_confirmMdp_input"
@@ -83,7 +84,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/inscriptionConfirmMdpEdit"
-                        android:src="@drawable/profile_mail" />
+                        android:src="@drawable/profile_mail"
+                        android:inputType="textPassword"/>
 
 
                 </LinearLayout>
@@ -160,8 +162,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/inscriptionDateEdit"
+                    android:clickable="true"
+                    android:editable="false"
                     style="@style/EditTextTheme"
-                    android:inputType="date"/>
+                    android:inputType="none"/>
             </LinearLayout>
 
             <LinearLayout

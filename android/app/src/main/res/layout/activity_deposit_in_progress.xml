@@ -24,9 +24,10 @@
             android:textSize="20sp"/>
 
         <ImageView
+            android:id ="@+id/deposit_in_progress_image"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:src="@drawable/recycling"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_deposite_leaf"
             android:layout_marginStart="100dp"
             android:layout_marginEnd="100dp"
             android:layout_weight="2"/>

@@ -1,0 +1,10 @@
+#map {
+    height: 400px;
+    width: 100%;
+}
+
+.datepicker {
+    border-radius: 10px;
+    border: 1px solid #999999;
+    text-align: center;
+}

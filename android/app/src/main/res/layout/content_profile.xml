@@ -36,11 +36,6 @@
 
         </LinearLayout><-->
 
-
-        <View
-            style="@style/LineTheme"
-            android:layout_marginBottom="15dp" />
-
         <TextView
             style="@style/TitleFontTheme"
             android:layout_width="match_parent"
@@ -65,7 +60,30 @@
                 <EditText
                     android:id="@+id/profile_activity_adress_input"
                     style="@style/EditTextTheme"
-                    android:hint="Adresse" />
+                    android:hint="Adresse"
+                    android:maxLines="4"
+                    android:imeOptions="actionNone"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/profile_activity_name_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/inscription_name_img"
+                style="@style/ImageTheme"
+                android:layout_gravity="center"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/profile_name" />
+
+            <EditText
+                android:id="@+id/profile_activity_name_input"
+                style="@style/EditTextTheme"
+                android:hint="Name" />
 
         </LinearLayout>
 
@@ -85,10 +103,13 @@
             <EditText
                 android:id="@+id/profile_activity_date_input"
                 style="@style/EditTextTheme"
+                android:editable="false"
                 android:hint="Date de naissance"
                 android:inputType="date" />
 
         </LinearLayout>
+
+
 
         <LinearLayout
             android:id="@+id/profile_activity_gender_layout"
@@ -125,7 +146,8 @@
             android:id="@+id/profile_activity_association_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp">
 
             <TextView
                 android:id="@+id/profile_activity_text_association"
@@ -141,15 +163,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="right|center_vertical"
-                android:text="La Sopita"
+                android:gravity="center"
+                android:text=""
                 android:textSize="18sp" />
 
             <ImageButton
                 android:id="@+id/profile_activity_btn_change_association"
                 android:background="@android:color/transparent"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_weight="1"
                 android:src="@drawable/profile_modification" />
         </LinearLayout>

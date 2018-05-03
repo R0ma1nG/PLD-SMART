@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Dashboard</title>
+
+    <!-- Custom styles for this template -->
+
+    <script src="js/dashboard.js"></script>
+    <script src="js/dashboard-remplissage.js"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <link href="https://cdn.datatables.net/1.10.16/css/dataTables.jqueryui.min.css" rel="stylesheet" type="text/css">
+    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+    <link href="dashboard.css" rel="stylesheet" type="text/css">
+    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css">
+
+    <!-- JS Scripts -->
+
+    <script>
+        var poubelles;
+        var map;
+        var markers = [];
+        var infowindow;
+        var icons = {
+            0: {
+                icon: '/ic_bin.png'
+            },
+            1: {
+                icon: '/ic_bin_full.png'
+            }
+        };
+        function initMap() {
+            var lyon = { lat: 45.75, lng: 4.85 };
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 14,
+                center: lyon
+            });
+
+
+            google.maps.event.addListener(map, 'zoom_changed', function () {
+                var zoom = map.getZoom();
+                // iterate over markers and call setVisible
+                for (i = 0; i < markers.length; i++) {
+                    markers[i].setVisible(zoom >= 14);
+                }
+            });
+        };
+
+        
+    </script>
+
+    <script>
+        $(document).ready(function () { init(); });
+    </script>
+    <script>
+        //filtrage remplissage
+        $("#checkbox").click(function () {
+            if ($("#checkbox").is(":checked")) {
+                alert("check");
+            }
+        });
+    </script>
+</head>
+
+<body>
+
+    <!-- En-tête -->
+    <nav class="navbar navbar-dark fixed-top flex-md-nowrap p-0 shadow">
+      <div class="container-fluid">
+        <a class="navbar-brand col-sm-3 col-md-11 mr-0" href="#">Recyc'Lyon - Interface Grand Lyon</a>
+      <!--  <ul class="navbar-nav px-5">
+            <li class="nav-item text-nowrap text-white">
+                <span data-feather="log-out" onclick="logout();"></span>
+            </li>
+        </ul> -->
+        <ul class="nav navbar-nav navbar-right">
+          <li class="nav-item text-nowrap text-white">
+            <a href="#">
+              <span data-feather="log-out" onclick="logout();"></span>
+            </a>
+          </li>
+        </div>
+    </nav>
+
+
+    <!-- Menu gauche -->
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="./Dashboard">
+                                <span data-feather="trash-2"></span>Remplissage
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./Dashboard-Collecte">
+                                <span data-feather="trash"></span>
+                                Collecte
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./Dashboard-Analyse">
+                                <span data-feather="activity"></span>
+                                Analyse
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="filters">
+                        <input id="search_box" class="form-control form-control-dark" onchange="submitSearch(this);" type="text" placeholder="Recherche" aria-label="Recherche">
+                        <br/>
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label text-light">
+                                <input id="checkbox" type="checkbox" class="form-check-input " value="" onchange="toogleRemplissage(this);">Bennes pleines uniquement
+                            </label>
+                        </div>
+                        <!--<br/>
+                        <select class="form-control" id="sel1" onchange="changeLocationFilter(this);">
+                            <option> </option>
+                            <option>Lyon 1 69001</option>
+                            <option>Lyon 2 69002</option>
+                            <option>Lyon 3 69003</option>
+                            <option>Lyon 4 69004</option>
+                            <option>Lyon 5 69005</option>
+                            <option>Lyon 6 69006</option>
+                            <option>Lyon 7 69007</option>
+                            <option>Lyon 8 69008</option>
+                            <option>Villeurbanne 69100</option>
+                        </select>-->
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+
+
+
+    <!-- zone centrale -->
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-1">
+                    <div class="loader" id="loader"></div>
+                </div>
+                <div class="col-md-10">
+                    <h1>Remplissage des bennes</h1>
+                </div>
+            </div>
+        </div>
+        <progress id="Progress_Bar" value="0" max="100">0 %</progress>
+        <!-- Map -->
+        <div id="map" ></div>
+
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmnkXd0ojkMKWNFtGQxkaMZVNVuhXY75w&callback=initMap"></script>
+        <br/>
+        <table id="recap" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th> </th>
+                    <th><div class="text-div">#</div>
+                     <div class="fleche"><ul>
+                    							<li>
+                    								<span data-feather="chevron-up"></span>
+                    							</li>
+                    							<li>
+                    								<span data-feather="chevron-down"></span>
+                    							</li>
+                    						</ul>
+                    		</div></th>
+                    <th>
+                    <div class="text-div">Adresse</div>
+                     <div class="fleche"><ul>
+                    							<li>
+                    								<span data-feather="chevron-up"></span>
+                    							</li>
+                    							<li>
+                    								<span data-feather="chevron-down"></span>
+                    							</li>
+                    						</ul>
+                    		</div></th>
+                    <th><div class="text-div">Etat du remplissage</div>
+                     <div class="fleche"><ul>
+                    							<li>
+                    								<span data-feather="chevron-up"></span>
+                    							</li>
+                    							<li>
+                    								<span data-feather="chevron-down"></span>
+                    							</li>
+                    						</ul>
+                    		</div>
+                    </th>
+                    <th><div class="text-div">Gestionnaire</div>
+                     <div class="fleche"><ul>
+                    							<li>
+                    								<span data-feather="chevron-up"></span>
+                    							</li>
+                    							<li>
+                    								<span data-feather="chevron-down"></span>
+                    							</li>
+                    						</ul>
+                    		</div></th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+</body>
+
+</html>

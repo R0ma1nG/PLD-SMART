@@ -1,5 +1,7 @@
 package com.h4413.recyclyon.Activities.Connection;
 
+import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
@@ -10,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -26,9 +29,11 @@ import com.h4413.recyclyon.Utilities.Routes;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 public class InscriptionActivity extends AppCompatActivity {
 
@@ -36,7 +41,7 @@ public class InscriptionActivity extends AppCompatActivity {
     public static final String SP_KEY_USER = "InscriptionUserSave";
 
     private Button mSubmitButton;
-
+    private Calendar myCalendar;
     private EditText mMailInput;
     private EditText mMdpInput;
     private EditText mConfirmMdpInput;
@@ -61,6 +66,24 @@ public class InscriptionActivity extends AppCompatActivity {
         mDateNaissanceInput = (EditText) findViewById(R.id.inscription_activity_date_naissance_input);
         mAdressInput = (EditText) findViewById(R.id.inscription_activity_adress_input);
         mNomInput = (EditText) findViewById(R.id.inscription_activity_name_input);
+
+        myCalendar = Calendar.getInstance();
+        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, month);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel();
+            }
+        };
+
+        mDateNaissanceInput.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(InscriptionActivity.this , date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.inscriptionSexeChoices, android.R.layout.simple_spinner_item);
@@ -102,6 +125,13 @@ public class InscriptionActivity extends AppCompatActivity {
         });
     }
 
+    private void updateLabel(){
+        String myFormat = "dd/MM/yy";
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.FRANCE);
+
+        mDateNaissanceInput.setText(sdf.format(myCalendar.getTime()));
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -113,7 +143,7 @@ public class InscriptionActivity extends AppCompatActivity {
             SharedPreferences sharedPref = getPreferences(MODE_PRIVATE);
             String json = sharedPref.getString(SP_KEY_USER, "");
             mUtilisateur = gson.fromJson(json, User.class);
-            mUtilisateur.idAssoc = association.id;
+            mUtilisateur.idAssoc = association._id;
 
             HttpClient.POST(Routes.Signup, null, mUtilisateur.toString(), InscriptionActivity.this, new HttpClient.OnResponseCallback() {
                 @Override

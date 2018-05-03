@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Dashboard Analyse</title>
+
+    <!-- Custom styles for this template -->
+
+    <script src="js/dash-analyse.js"></script>
+    <script src="js/dashboard.js"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="dashboard.css" rel="stylesheet" type="text/css">
+    <link href="dashboard-collecte.css" rel="stylesheet" type="text/css">
+    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+    <script>
+        $(document).ready(function() { init() });
+    </script>
+</head>
+
+<body>
+
+    <!-- En-tête -->
+    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-sm-3 col-md-11 mr-0" href="#">Recyc'Lyon - Interface Grand Lyon</a>
+        <ul class="navbar-nav px-5">
+            <li class="nav-item text-nowrap text-white">
+                <span data-feather="log-out" onclick="logout();"></span>
+            </li>
+        </ul>
+    </nav>
+
+
+    <!-- Menu gauche -->
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column">
+                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="./Dashboard">
+                                <span data-feather="trash"></span>
+                                Remplissage
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./Dashboard-Collecte">
+                                <span data-feather="trash-2"></span>
+                                Collecte
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="./Dashboard-Analyse">
+                                <span data-feather="activity"></span>Analyse
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    
+
+    <!-- zone centrale -->
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10">
+        <h1>Suggestions de poubelles</h1>
+
+        <!-- Map -->
+        <div id="map" style="height: 600px;"></div>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmnkXd0ojkMKWNFtGQxkaMZVNVuhXY75w&callback=initMap"></script>
+</body>
+
+</html>
