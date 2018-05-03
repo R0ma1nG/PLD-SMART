@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.h4413.recyclyon.Activities.Connection.ConnectionActivity;
 import com.h4413.recyclyon.Activities.HomeActivity;
 import com.h4413.recyclyon.R;
 import com.h4413.recyclyon.Utilities.DownLoadImageTask;
@@ -17,6 +18,7 @@ import com.h4413.recyclyon.Utilities.HttpClient;
 import com.h4413.recyclyon.Utilities.IntentExtraKeys;
 import com.h4413.recyclyon.Utilities.NavbarInitializer;
 import com.h4413.recyclyon.Utilities.Routes;
+import com.h4413.recyclyon.Utilities.SharedPreferencesKeys;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -51,7 +53,7 @@ public class DepositEndActivity extends AppCompatActivity {
                 try {
                     String assocName = response.get("nom").toString();
                     String url = response.get("logoUrl").toString();
-                    mMontant.setText(montant+"€");
+                    mMontant.setText(String.format("%.3f", Float.parseFloat(montant)*SharedPreferencesKeys.montantPerProduct)+"€");
                     mAssociationName.setText(assocName);
                     new DownLoadImageTask(mAssociationLogo).execute(url);
                     mFinishButton.setEnabled(true);
@@ -64,8 +66,9 @@ public class DepositEndActivity extends AppCompatActivity {
         mFinishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            setResult(RESULT_OK);
-            finish();
+                Intent intent = new Intent(DepositEndActivity.this, HomeActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
             }
         });
     }

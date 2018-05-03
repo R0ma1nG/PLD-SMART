@@ -126,6 +126,6 @@ public class HomeActivity extends AppCompatActivity {
         for (Depot d : depots) {
             sum += d.montant;
         }
-        mDonationsText.setText(String.valueOf(sum)+"€");
+        mDonationsText.setText(String.format("%.3f", sum*SharedPreferencesKeys.montantPerProduct)+"€");
     }
 }

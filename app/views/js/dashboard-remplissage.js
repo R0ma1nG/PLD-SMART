@@ -1,5 +1,15 @@
-var markers = [];
+//var markers = [];
 var poubelles = [];
+
+function getMarker(img) {
+    var marker = markers.find(function (element) {
+        return element.position == img.id;
+    });
+    map.setCenter(marker.position);
+    map.setZoom(16);
+    google.maps.event.trigger(marker, 'click');
+    window.scrollTo(0, 0);
+};
 
 function init() {
     document.getElementById("loader").style.visibility = 'visible';
@@ -33,7 +43,7 @@ function init() {
                 var pos = new google.maps.LatLng(element.lattitude, element.longitude);
                 var etatPoubelle=element.remplissage ? "plein" : "disponible";
                 var contenu = [
-                    '<img id="' + pos + '" src= "ic_zoom.png" height= 20 width= 20 onclick= "getMarker(this)" onmouseover= "" style= "cursor: pointer;" > </img>',
+                    '<img id="' + pos + '" src= "ic_zoom.png" height= 20 width= 20 onclick= "getMarker(this);" onmouseover= "" style= "cursor: pointer;" > </img>',
                     element.id_grandlyon,
                     element.adresse,
                     etatPoubelle,

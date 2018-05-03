@@ -10,6 +10,7 @@ import com.h4413.recyclyon.Model.Depot;
 import com.h4413.recyclyon.Model.Historic;
 import com.h4413.recyclyon.Model.HistoricEntry;
 import com.h4413.recyclyon.R;
+import com.h4413.recyclyon.Utilities.SharedPreferencesKeys;
 
 import java.util.List;
 
@@ -50,8 +51,8 @@ public class HistoricRecyclerViewAdapter extends RecyclerView.Adapter<HistoricRe
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         Depot entry = mDataset.get(position);
-        holder.mTitle.setText(String.valueOf(entry.montant)+"€ pour "+entry.nom);
-        holder.mDescription.setText(entry.date.toString());
+        holder.mTitle.setText(String.format("%.3f", entry.montant* SharedPreferencesKeys.montantPerProduct)+"€ pour "+entry.nom);
+        holder.mDescription.setText(android.text.format.DateFormat.format("dd-MM-yyyy hh-mm", entry.date));
     }
 
     @Override
