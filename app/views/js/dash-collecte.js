@@ -53,16 +53,17 @@ function fillTable(url) {
             }
         })
         .done(function (data) {
-            console.log("done");
+            console.log("done, data length : ");
             console.log(data.length);
             document.getElementById("loader").style.visibility = 'hidden';
             var progressBar = document.getElementById("Progress_Bar");
             progressBar.style.visibility = 'visible';
             progressBar.value = 0;
-            progressBar.max = data.length;
             if (data.length == 0) {
                 progressBar.style.visibility = 'hidden';
                 alert("Aucune données pour cette date");
+            } else {
+                progressBar.max = data.length;
             }
             data.forEach(function (element) {
                 var contenu = [

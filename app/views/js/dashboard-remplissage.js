@@ -115,7 +115,7 @@ function changeLocationFilter(element) {
 function submitSearch(element) {
     var table = $("#recap").DataTable();
     table.search(element.value).draw();
-    markers.forEach(function (marker) {
+    /*markers.forEach(function (marker) {
         marker.setVisible(false);
     });
     var data = table.rows().data();

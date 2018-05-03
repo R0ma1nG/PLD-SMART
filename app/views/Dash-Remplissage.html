@@ -83,19 +83,19 @@
 
     <!-- En-tête -->
     <nav class="navbar navbar-dark fixed-top flex-md-nowrap p-0 shadow">
-      <div class="container-fluid">
-        <a class="navbar-brand col-sm-3 col-md-11 mr-0" href="#">Recyc'Lyon - Interface Grand Lyon</a>
-      <!--  <ul class="navbar-nav px-5">
+        <div class="container-fluid">
+            <a class="navbar-brand col-sm-3 col-md-11 mr-0" href="#">Recyc'Lyon - Interface Grand Lyon</a>
+            <!--  <ul class="navbar-nav px-5">
             <li class="nav-item text-nowrap text-white">
                 <span data-feather="log-out" onclick="logout();"></span>
             </li>
         </ul> -->
-        <ul class="nav navbar-nav navbar-right">
-          <li class="nav-item text-nowrap text-white">
-            <a href="#">
-              <span data-feather="log-out" onclick="logout();"></span>
-            </a>
-          </li>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="nav-item text-nowrap text-white">
+                    <a href="#">
+                        <span data-feather="log-out" onclick="logout();"></span>
+                    </a>
+                </li>
         </div>
     </nav>
 
@@ -125,6 +125,16 @@
                             </a>
                         </li>
                     </ul>
+                    <div class="filters">
+                        <input id="search_box" class="form-control form-control-dark" onchange="submitSearch(this);" type="text" placeholder="Recherche"
+                            aria-label="Recherche">
+                        <br/>
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label text-light">
+                                <input id="checkbox" type="checkbox" class="form-check-input " value="" onchange="toogleRemplissage(this);">Bennes pleines uniquement
+                            </label>
+                        </div>
+                    </div>
                 </div>
             </nav>
         </div>
@@ -147,33 +157,9 @@
         </div>
         <progress id="Progress_Bar" value="0" max="100">0 %</progress>
         <!-- Map -->
-        <div id="map" ></div>
+        <div id="map"></div>
 
         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmnkXd0ojkMKWNFtGQxkaMZVNVuhXY75w&callback=initMap"></script>
-
-        <!-- Barre de recherche -->
-        <div class="flex-row-reverse">
-            <nav class="navbar col-md-12 d-flex justify-content-end navbar-dark bg-dark p-0">
-                <div class="form-check form-check-inline">
-                    <label class="form-check-label text-light">
-                        <input id="checkbox" type="checkbox" class="form-check-input " value="" onchange="toogleRemplissage(this);">Bennes pleines uniquement
-                    </label>
-                </div>
-                <select class="form-control w-25 mr-1" id="sel1" onchange="changeLocationFilter(this);">
-                    <option> </option>
-                    <option>Lyon 1 69001</option>
-                    <option>Lyon 2 69002</option>
-                    <option>Lyon 3 69003</option>
-                    <option>Lyon 4 69004</option>
-                    <option>Lyon 5 69005</option>
-                    <option>Lyon 6 69006</option>
-                    <option>Lyon 7 69007</option>
-                    <option>Lyon 8 69008</option>
-                    <option>Villeurbanne 69100</option>
-                </select>
-                <input class="form-control form-control-dark w-25" type="text" placeholder="Recherche" aria-label="Recherche">
-            </nav>
-        </div>
 
         <table id="recap" class="display" style="width:100%">
             <thead>
