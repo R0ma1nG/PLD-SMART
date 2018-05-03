@@ -134,7 +134,7 @@ router.post('/forgotPassword', function (req, res) {
 });
 
 router.get('/forgotPassword/:idUser/:token', function (req, res) {
-  res.render('forgotpwd');
+  res.render('forgotpwd.html');
 });
 
 router.post('/forgotPassword/:idUser/:idToken', function (req, res) {

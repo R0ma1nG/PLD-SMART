@@ -10,4 +10,5 @@ public class Routes {
     public static String FinishDeposit = "/api/depotsEnCours/terminerScan";
     public static String Historic = "/api/depots/historique";
     public static String Barcode = "/api/utils/codeBarre";
+    public static String Forgot = "/api/users/forgotPassword";
 }
